@@ -24,12 +24,16 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Vote, {
         foreignKey: "userid",
       });
+      User.hasMany(models.Follower, {
+        foreignKey: ["followeeid", "followerid"],
+      });
     }
   }
   User.init(
     {
       name: DataTypes.STRING,
       displayname: DataTypes.STRING,
+      photo: DataTypes.STRING,
       username: DataTypes.STRING,
       hash: DataTypes.STRING,
       email: DataTypes.STRING,

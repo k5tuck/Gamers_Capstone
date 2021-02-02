@@ -1,4 +1,5 @@
 require("dotenv").config();
+
 const http = require("http");
 const express = require("express");
 const helmet = require("helmet");
@@ -19,7 +20,7 @@ const upload = multer({ dest: "public" + UPLOAD_URL });
 const Sequelize = require("sequelize");
 
 const { layout } = require("./utils");
-const { homeRouter,userRouter, memberRouter } = require("./routers");
+const { homeRouter, userRouter, memberRouter } = require("./routers");
 
 const logger = morgan("dev");
 const hostname = "0.0.0.0";
@@ -53,15 +54,12 @@ app.engine("html", es6Renderer);
 app.set("views", "templates");
 app.set("view engine", "html");
 
-const {
-  errorController
-}= require('./controllers')
+const { errorController } = require("./controllers");
 
-app.use('/', homeRouter) //Has all home items
-app.use('/user', userRouter) // Has SignUp, LogIn, and logOut
+app.use("/", homeRouter); //Has all home items
+app.use("/user", userRouter); // Has SignUp, LogIn, and logOut
 
-app.use("/members", memberRouter) 
-
+app.use("/members", memberRouter);
 
 //catch all if website doesn't
 app.get("*", (req, res) => {
