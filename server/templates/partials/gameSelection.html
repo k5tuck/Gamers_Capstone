@@ -1,0 +1,11 @@
+<form>
+  <div>
+    <input type="search" name="searchgame" />
+    <select name="games">
+      ${games.map(g=> `
+      <option value="${g.id}">${g.name}</option>
+      `)}
+    </select>
+    <div></div>
+  </div>
+</form>
