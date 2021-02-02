@@ -24,7 +24,7 @@ const { homeRouter, userRouter, memberRouter } = require("./routers");
 
 const logger = morgan("dev");
 const hostname = "0.0.0.0";
-const port = 3500;
+const port = 4000;
 
 //Register Middleware
 app.use(logger);
