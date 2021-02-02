@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-Gamers Capstone
-
-Shoel_version Test
-=======
 # Gamers Capstone
 
 ## Table of Contents
@@ -25,4 +20,3 @@ Shoel_version Test
 
 
 ## Blockers
->>>>>>> main
