@@ -105,8 +105,8 @@ const processLogin = async (req, res) => {
 };
 
 module.exports = {
-  newUser,
+  // newUser,
   processNewUser,
-  login,
+  // login,
   processLogin,
 };

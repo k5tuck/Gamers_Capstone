@@ -22,7 +22,12 @@ const Sequelize = require("sequelize");
 const { layout } = require("./utils");
 
 // Routes
-const { homeRouter, userRouter, memberRouter } = require("./routers");
+const {
+  homeRouter,
+  userRouter,
+  memberRouter,
+  apiRouter,
+} = require("./routers");
 
 // Controllers
 const { errorController } = require("./controllers");
@@ -61,7 +66,7 @@ app.set("view engine", "html");
 
 app.use("/", homeRouter); //Has all home items
 app.use("/user", userRouter); // Has SignUp, LogIn, and logOut
-
+app.use("/api", apiRouter);
 app.use("/members", memberRouter);
 
 //catch all if website doesn't
