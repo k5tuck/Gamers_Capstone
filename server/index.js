@@ -20,7 +20,12 @@ const upload = multer({ dest: "public" + UPLOAD_URL });
 const Sequelize = require("sequelize");
 
 const { layout } = require("./utils");
+
+// Routes
 const { homeRouter, userRouter, memberRouter } = require("./routers");
+
+// Controllers
+const { errorController } = require("./controllers");
 
 const logger = morgan("dev");
 const hostname = "0.0.0.0";
@@ -53,8 +58,6 @@ app.use(
 app.engine("html", es6Renderer);
 app.set("views", "templates");
 app.set("view engine", "html");
-
-const { errorController } = require("./controllers");
 
 app.use("/", homeRouter); //Has all home items
 app.use("/user", userRouter); // Has SignUp, LogIn, and logOut
