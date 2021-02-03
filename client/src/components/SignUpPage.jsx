@@ -6,29 +6,36 @@ import { DropDownList } from '@progress/kendo-react-dropdowns';
 function SignUpPage() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [displayName, setDisplayName] = useState('')
+    const [displayname, setDisplayName] = useState('')
     const [email, setEmail] = useState('')
     const [name, setName] = useState('') 
     const [games, setGames] = useState([])
     const [gameList, setGameList] = useState([])
+    const [photo, setPhoto] = useState('')
 
     const processNewUser = async (e) => {
-        e.preventDefault()
         const newUser = {
             username,
             password,
-            displayName,
+            displayname,
             email,
             name,
-            games
+            // photo
         }
-        const resp = await axios.post('/api/signup', newUser)
+        console.log(newUser)
+        const resp = await axios.post('/api/signup', {
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body : {newUser},
+        })
         console.log(resp)
     }
     useEffect(() => {
         axios.get('/api/games')
         .then(response => {
-            setGameList(response.data);
+            setGameList(response.data.getallgames);
+            console.log(gameList)
         });
     }, []);
    
@@ -49,7 +56,7 @@ function SignUpPage() {
         }} required/>
         
         <label className="" > Display name</label>
-        <input type="text" value={displayName} className="" name="displayname" placeholder="Display Name" onChange={e=>{
+        <input type="text" value={displayname} className="" name="displayname" placeholder="Display Name" onChange={e=>{
             setDisplayName(e.target.value)
         }} required autofocus/>
 
@@ -64,6 +71,14 @@ function SignUpPage() {
         }} required/>
 
         <label className="">5 Favorite Games</label>
+        {/* <DropDownList 
+            data={gameList}
+            value={games}
+            onChange={e=> setGames(...games, e.target.value)}
+            dataItemKey='Game ID'
+            textField='Game Title'
+            defaultItem={{ 'Game Title': 'Select game...', 'Game ID': null }}
+            /> */}
     
         <button  disabled={games.length >= 5 ? true : false} onClick={e=>{
             setGames(...games, games)
