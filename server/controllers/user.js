@@ -13,13 +13,14 @@ const { Op } = require("sequelize");
 // };
 
 const processNewUser = async (req, res) => {
-  const { password, name, email, displayname,games } = req.body;
+  console.log(req.body)
+  const { password, name, email, displayname, } = req.body;
   let { username } = req.body;
   if (username == "" || password == "") {
     // res.redirect("/errorsignup");
     res.json("Username or Password is Blank!");
   } else {
-    const hash = bcrypt.hashSync(password, 10); // auto salt!
+    const hash =  bcrypt.hashSync(password, 10); // auto salt!
     try {
       const dbUsername = username.toLowerCase();
 
@@ -29,14 +30,22 @@ const processNewUser = async (req, res) => {
         name,
         email,
         displayname,
+        // photo
       });
       console.log(newUser);
 
-      let gameids = games.map(g=>g.id)
-
-      const favoriteGames = await Game_Junction.create({
-        gameid: gameids[0]
+      const user = await User.findOne({
+        where: {
+          username: dbUsername
+        }
       })
+      
+      // for (let game of games) {
+      //   let gm = await Game_Junction.create({
+      //     gameid: game.id,
+      //     userid: user.id
+      //   })
+      // }
 
       // res.redirect("/user/login");
       res.json("User Successfully Created");
