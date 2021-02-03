@@ -49,6 +49,13 @@ function ProfilePage() {
           </div>
         </div>;
       })}
+
+      {/* Top Five  */}
+      <div>
+        {games.map((game) => {
+          <p>{game.Game.name}</p>;
+        })}
+      </div>
     </div>
     // Footer Will Be Here
   );

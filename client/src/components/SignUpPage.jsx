@@ -1,34 +1,95 @@
-import React, { Link } from 'react'
+import React, { useState, useEffect } from 'react'
+import { Link,Router } from 'react-router-dom';
+import axios from 'axios';
+import { DropDownList } from '@progress/kendo-react-dropdowns';
 
 function SignUpPage() {
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [displayname, setDisplayName] = useState('')
+    const [email, setEmail] = useState('')
+    const [name, setName] = useState('') 
+    const [games, setGames] = useState([])
+    const [gameList, setGameList] = useState([])
+    const [photo, setPhoto] = useState('')
+
+    const processNewUser = async (e) => {
+        const newUser = {
+            username,
+            password,
+            displayname,
+            email,
+            name,
+            // photo
+        }
+        console.log(newUser)
+        const resp = await axios.post('/api/signup', {
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body : {newUser},
+        })
+        console.log(resp)
+    }
+    useEffect(() => {
+        axios.get('/api/games')
+        .then(response => {
+            setGameList(response.data.getallgames);
+            console.log(gameList)
+        });
+    }, []);
+   
+
     return (
-    <main class="form-signin">
-        <form action="/user/signup" method="POST">
+    <main className="">
+        <form onSubmit={processNewUser}>
     
-        <h1 class="h3 mb-3 fw-normal">Sign Up Here</h1>
-        <label class="visually-hidden" > Username</label>
-        <input type="text" name="username" placeholder="Username"  class="form-control" placeholder="Login Username" required autofocus/>
+        <h1 className="">Sign Up Here</h1>
+        <label className="" > Username</label>
+        <input type="text" value={username} className="" name="username" placeholder="Username" onChange={e=>{
+            setUsername(e.target.value)
+        }} required autofocus/>
         
-        <label class="visually-hidden">Password</label>
-        <input type="password"  class="form-control" name="password" placeholder="Password" required/>
+        <label className="">Password</label>
+        <input type="password"  value={password} className="" name="password" placeholder="Password" onChange={e => {
+            setPassword(e.target.value)
+        }} required/>
         
-        <label class="visually-hidden" > Display name</label>
-        <input type="text" name="displayname" placeholder="Display Name"  class="form-control" placeholder="displayname" required autofocus/>
+        <label className="" > Display name</label>
+        <input type="text" value={displayname} className="" name="displayname" placeholder="Display Name" onChange={e=>{
+            setDisplayName(e.target.value)
+        }} required autofocus/>
 
-        <label class="visually-hidden">Email address</label>
-        <input type="text" name="email"  class="form-control" placeholder="Email address" required/>
+        <label className="">Email address</label>
+        <input type="text" value={email} className="" name="email" placeholder="Email address" onChange={e=>{
+            setEmail(e.target.value)
+        }} required/>
 
-        <label  class="visually-hidden">name</label>
-        <input type="text" name="name" class="form-control" placeholder="Your name" required/>
+        <label  className="">name</label>
+        <input type="text" value={name} className="" name="name" placeholder="Your name" onChange={e=>{
+            setName(e.target.value)
+        }} required/>
 
-        <input class="w-100 btn btn-lg btn-primary" type="submit" value="Signup"/>
+        <label className="">5 Favorite Games</label>
+        {/* <DropDownList 
+            data={gameList}
+            value={games}
+            onChange={e=> setGames(...games, e.target.value)}
+            dataItemKey='Game ID'
+            textField='Game Title'
+            defaultItem={{ 'Game Title': 'Select game...', 'Game ID': null }}
+            /> */}
+    
+        <button  disabled={games.length >= 5 ? true : false} onClick={e=>{
+            setGames(...games, games)
+        }}>Add Game</button>
+
+        <input className="" type="submit" value="Signup"/>
         
         
         </form>
-        <Link to="/login"><button class="w-100 btn btn-lg btn-secondary">Log In </button></Link>
-        <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+        {/* <Link to="/login"><button className="">Log In</button></Link> */}
+        <p class="">&copy; 2021</p>
     </main>
     )
 }
