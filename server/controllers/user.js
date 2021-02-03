@@ -13,7 +13,7 @@ const { Op } = require("sequelize");
 // };
 
 const processNewUser = async (req, res) => {
-  const { password, name, email, displayname } = req.body;
+  const { password, name, email, displayname,games } = req.body;
   let { username } = req.body;
   if (username == "" || password == "") {
     // res.redirect("/errorsignup");
@@ -31,6 +31,12 @@ const processNewUser = async (req, res) => {
         displayname,
       });
       console.log(newUser);
+
+      let gameids = games.map(g=>g.id)
+
+      const favoriteGames = await Game_Junction.create({
+        gameid: gameids[0]
+      })
 
       // res.redirect("/user/login");
       res.json("User Successfully Created");
