@@ -3,7 +3,7 @@ import React from 'react'
 function About() {
     return (
         <>
-        <div class="game-page">
+        <div className="game-page">
             <h1>About Us</h1>
                 <p>We are a group of coders who loves to play games with our friends.
                     <br/>
