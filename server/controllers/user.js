@@ -1,6 +1,6 @@
 const { layout } = require("../utils");
 const bcrypt = require("bcryptjs");
-const { User } = require("../models");
+const { User, Game_Junction } = require("../models");
 const { Op } = require("sequelize");
 
 // Signup Template
@@ -13,16 +13,17 @@ const { Op } = require("sequelize");
 // };
 
 const processNewUser = async (req, res) => {
-  console.log(req.body)
-  const { password, name, email, displayname, } = req.body;
+  console.log(req.body);
+  const { password, name, email, displayname, games } = req.body;
   let { username } = req.body;
   if (username == "" || password == "") {
     // res.redirect("/errorsignup");
     res.json("Username or Password is Blank!");
   } else {
-    const hash =  bcrypt.hashSync(password, 10); // auto salt!
+    const hash = bcrypt.hashSync(password, 10); // auto salt!
     try {
       const dbUsername = username.toLowerCase();
+      console.log("-------------------------");
 
       const newUser = await User.create({
         username: dbUsername,
@@ -32,20 +33,23 @@ const processNewUser = async (req, res) => {
         displayname,
         // photo
       });
-      console.log(newUser);
+      console.log(JSON.stringify(newUser, null, 4));
+      console.log("-------------------------");
 
-      const user = await User.findOne({
-        where: {
-          username: dbUsername
-        }
-      })
-      
       // for (let game of games) {
       //   let gm = await Game_Junction.create({
       //     gameid: game.id,
-      //     userid: user.id
-      //   })
+      //     userid: user.id,
+      //   });
       // }
+
+      let pArr = games.map((g) => {
+        return Game_Junction.create({
+          gameid: g,
+          userid: newUser.id,
+        });
+      });
+      await Promise.all(pArr);
 
       // res.redirect("/user/login");
       res.json("User Successfully Created");
