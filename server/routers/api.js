@@ -3,7 +3,13 @@ const router = express.Router();
 const { apiController } = require("../controllers");
 
 router
-  .get("/api/follow", apiController.getFollowers)
-  .post("/api/follow/:id", apiController.saveFollowers);
+  // Followers/Following
+  .get("/follow", apiController.getFollowers)
+  .post("/follow/:id", apiController.saveFollowers)
+
+  // Games
+  .get("/games", apiController.getAllGames)
+  .get("/topfivegames", apiController.getGames)
+  .post("/savegames/:id", apiController.saveGames);
 
 module.exports = router;
