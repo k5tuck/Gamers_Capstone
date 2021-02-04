@@ -34,8 +34,9 @@ function ProfilePage() {
     <div>
       {/* <Post posts={posts}/> */}
       {posts.map((post) => {
-        <div>
+        <div key={post.userid} >
           <h3>{post.title}</h3>
+          <h4>{post.username}</h4>
           <img src={post.media} alt={post.title} />
           <p>{post.content}</p>
           <button>Edit Button</button>

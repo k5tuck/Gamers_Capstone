@@ -4,6 +4,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SignUpPage from "./components/SignUpPage";
 import Login from "./components/Login";
+import About from "./components/About";
 
 function App() {
   return (
@@ -17,6 +18,10 @@ function App() {
             <Login />
           </Route>
           Gamers Capstone
+          <Route path="/about"> 
+            <About />
+          </Route>
+
         </div>
       </Switch>
     </Router>
