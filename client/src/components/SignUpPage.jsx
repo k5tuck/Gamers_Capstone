@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, Router } from "react-router-dom";
 import axios from "axios";
-import { DropDownList } from "@progress/kendo-react-dropdowns";
+import { DropDownList, MultiSelect } from "@progress/kendo-react-dropdowns";
+import { filterBy } from '@progress/kendo-data-query';
 
 function SignUpPage() {
   const [username, setUsername] = useState("");
@@ -20,7 +21,7 @@ function SignUpPage() {
       displayname,
       email,
       name,
-      // photo
+      games
     };
     console.log(newUser);
     const resp = await axios.post("/api/signup", newUser);
@@ -43,7 +44,7 @@ function SignUpPage() {
     <main className="">
       <form onSubmit={processNewUser}>
         <h1 className="">Sign Up Here</h1>
-        <label className=""> Username</label>
+        <label className=""> Username
         <input
           type="text"
           value={username}
@@ -54,10 +55,11 @@ function SignUpPage() {
             setUsername(e.target.value);
           }}
           required
-          autofocus
+          autoFocus
         />
+        </label>
 
-        <label className="">Password</label>
+        <label className="">Password
         <input
           type="password"
           value={password}
@@ -69,8 +71,9 @@ function SignUpPage() {
           }}
           required
         />
+        </label>
 
-        <label className=""> Display name</label>
+        <label className=""> Display Name
         <input
           type="text"
           value={displayname}
@@ -81,10 +84,10 @@ function SignUpPage() {
             setDisplayName(e.target.value);
           }}
           required
-          autofocus
         />
+        </label>
 
-        <label className="">Email address</label>
+        <label className="">Email Address
         <input
           type="text"
           value={email}
@@ -96,8 +99,9 @@ function SignUpPage() {
           }}
           required
         />
+        </label>
 
-        <label className="">name</label>
+        <label className="">Name
         <input
           type="text"
           value={name}
@@ -109,26 +113,37 @@ function SignUpPage() {
           }}
           required
         />
+        </label>
+        <br/>
+        <br/>
 
-        <label className="">5 Favorite Games</label>
-        {/* <DropDownList 
+        <label className="">5 Favorite Games
+        <MultiSelect 
             data={gameList}
+            onChange={e => {setGames(e.target.value)}}
             value={games}
-            onChange={e=> setGames(...games, e.target.value)}
-            dataItemKey='Game ID'
-            textField='Game Title'
-            defaultItem={{ 'Game Title': 'Select game...', 'Game ID': null }}
-            /> */}
+            dataItemKey='id'
+            textField='title'
+            filterable={true}
+            // onFilterChange={e => {
+            //   let results = filterBy(gameList.slice(), e.filter)
+            //   setGameList(results)
+            // }}
+            defaultItem={{ 'title': 'Select game...', 'id': null }}
+            />
 
-        <button
-          disabled={games.length >= 5 ? true : false}
+        {/* <button
+          disabled={games.length > 5 ? true : false}
+          value={games}
           onClick={(e) => {
-            setGames(...games, games);
+            setGames(games)
+            console.log(games)
           }}
         >
           Add Game
-        </button>
-
+        </button> */}
+        </label>
+       
         <input className="" type="submit" value="Signup" />
       </form>
       {/* <Link to="/login"><button className="">Log In</button></Link> */}
