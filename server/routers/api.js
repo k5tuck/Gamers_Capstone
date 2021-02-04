@@ -6,7 +6,7 @@ router
   // Followers/Following
   .get("/follow", apiController.getFollowers)
   .post("/follow/:id", apiController.saveFollowers)
-  
+  .post("/login", userController.processLogin)
   .post("/signup", userController.processNewUser)
 
   // Games
