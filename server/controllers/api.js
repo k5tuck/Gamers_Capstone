@@ -1,6 +1,9 @@
+const multer = require("multer");
+// const upload = multer({ dest: "public" + UPLOAD_URL });
 const { layout } = require("../utils");
 const bcrypt = require("bcryptjs");
 const Sequelize = require("sequelize");
+const UPLOAD_URL = "/uploads/media/";
 const { Op } = require("sequelize");
 const {
   User,
@@ -13,12 +16,12 @@ const {
   Tag_To_Post,
   Vote,
 } = require("../models");
-const UPLOAD_URL = "/uploads/media/";
 
 const processNewUser = async (req, res) => {
   console.log(req.body);
   const { password, name, email, displayname, games } = req.body;
   let { username } = req.body;
+
   if (username == "" || password == "") {
     // res.redirect("/errorsignup");
     res.json("Username or Password is Blank!");
@@ -34,17 +37,9 @@ const processNewUser = async (req, res) => {
         name,
         email,
         displayname,
-        // photo
       });
       console.log(JSON.stringify(newUser, null, 4));
       console.log("-------------------------");
-
-      // for (let game of games) {
-      //   let gm = await Game_Junction.create({
-      //     gameid: game.id,
-      //     userid: user.id,
-      //   });
-      // }
 
       let pArr = games.map((g) => {
         return Game_Junction.create({
@@ -54,19 +49,32 @@ const processNewUser = async (req, res) => {
       });
       await Promise.all(pArr);
 
-      // res.redirect("/user/login");
-      res.json("User Successfully Created");
+      res.json({ message: "User Successfully Created", id: newUser.id });
     } catch (e) {
       console.log(e);
       if (e == "SequelizeUniqueConstraintError") {
         console.log("Username is Taken. Try Again!");
-        // res.redirect("/takensignup");
         res.json("Username is Taken. Try Again!");
       }
       // Previously -  Redirected User to Signup Page stating Username was taken
       // res.redirect("/takensignup");
     }
   }
+};
+
+const addImageToNewUser = async (req, res) => {
+  const { id } = req.params;
+  const { file } = req;
+  console.log(file);
+  let mediaPic = file ? UPLOAD_URL + file.filename : "";
+  const user = await User.findOne({
+    where: {
+      id,
+    },
+  });
+  user.photo = mediaPic;
+  await user.save();
+  res.json("Image Successfully Saved");
 };
 
 const processLogin = async (req, res) => {
@@ -242,6 +250,7 @@ const personalTopFive = async (req, res) => {
 
 module.exports = {
   processNewUser,
+  addImageToNewUser,
   processLogin,
   processLogout,
   pullMainContent,

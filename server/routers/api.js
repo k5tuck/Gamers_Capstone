@@ -1,10 +1,15 @@
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
+const UPLOAD_URL = "/uploads/media/";
+
+const upload = multer({ dest: "public" + UPLOAD_URL });
 const { apiController, userController } = require("../controllers");
 
 router
   // SignUp
   .post("/signup", apiController.processNewUser)
+  .put("/signup/:id", upload.single("file"), apiController.addImageToNewUser)
 
   // Login
   .post("/login", apiController.processLogin)
