@@ -26,6 +26,7 @@ function SignUpPage(props) {
       displayname,
       email,
       name,
+      photo,
       games
     };
     const resp = await axios.post("/api/signup", newUser);
@@ -113,7 +114,13 @@ function SignUpPage(props) {
           required
         />
         </label>
-        <br/>
+        <br />
+        <label className=""> Your profile Pic
+        <input type="file" name='photo' value={photo} onChange={(e) => {
+          setPhoto(e.target.files[0])
+          }}/>
+            
+        </label>
         <br/>
 
         <label className="">5 Favorite Games
