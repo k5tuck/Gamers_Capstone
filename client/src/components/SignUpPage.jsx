@@ -29,7 +29,6 @@ function SignUpPage(props) {
       games
     };
     const resp = await axios.post("/api/signup", newUser);
-    console.log(resp);
     history.push('/login')
     
   };

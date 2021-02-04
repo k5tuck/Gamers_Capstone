@@ -16,7 +16,7 @@ function Login(props) {
       password
     }
     const resp = await axios.post('/api/login', user)
-    console.log(resp)
+    
     if(resp.status === 200){
     history.push('/member/home')
     }
