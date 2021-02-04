@@ -48,7 +48,7 @@ const processNewUser = async (req, res) => {
 
       let pArr = games.map((g) => {
         return Game_Junction.create({
-          gameid: g,
+          gameid: g.id,
           userid: newUser.id,
         });
       });
