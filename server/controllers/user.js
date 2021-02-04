@@ -36,16 +36,11 @@ const processNewUser = async (req, res) => {
       console.log(JSON.stringify(newUser, null, 4));
       console.log("-------------------------");
 
-      // for (let game of games) {
-      //   let gm = await Game_Junction.create({
-      //     gameid: game.id,
-      //     userid: user.id,
-      //   });
-      // }
+    
 
       let pArr = games.map((g) => {
         return Game_Junction.create({
-          gameid: g,
+          gameid: g.id,
           userid: newUser.id,
         });
       });
