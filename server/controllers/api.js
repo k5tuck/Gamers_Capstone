@@ -132,6 +132,13 @@ const processLogout = (req, res) => {
   });
 };
 
+const getMainPhoto = async (req, res) => {
+  const { id, displayname } = req.session.user;
+  const user = User.findByPk(id);
+  const photo = user.photo;
+  res.json(photo, displayname);
+};
+
 const pullMainContent = async (req, res) => {
   const { displayname, username, id } = req.session.user;
 
@@ -251,6 +258,7 @@ const personalTopFive = async (req, res) => {
 module.exports = {
   processNewUser,
   addImageToNewUser,
+  getMainPhoto,
   processLogin,
   processLogout,
   pullMainContent,
