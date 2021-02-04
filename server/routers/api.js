@@ -18,6 +18,7 @@ router
   .post("/logout", apiController.processLogout)
 
   // Main Page
+  .get("/photo", apiController.getMainPhoto)
   .get("/getmain", apiController.pullMainContent)
 
   // Comments
@@ -29,8 +30,8 @@ router
   // .get("/posts", apiController) // All The Post
 
   // .get("/post", apiController) // Single Post
-  // .post("/post", apiController)
-  // .put("/post", apiController)
+  // .post("/post", upload.single("file"), apiController)
+  // .put("/post", upload.single("file"), apiController)
   // .delete("/post", apiController)
 
   // Followers/Following
