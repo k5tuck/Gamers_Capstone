@@ -4,18 +4,22 @@ import { useState } from 'react'
 import axios from "axios";
 
 function Login(props) {
-  
+  let history = useHistory();
   
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   const processLogin = async (e) => {
+    e.preventDefault();
     let user = {
       username,
       password
     }
     const resp = await axios.post('/api/login', user)
-
+    console.log(resp)
+    if(resp.status === 200){
+    history.push('/member/home')
+    }
   }
 
 
