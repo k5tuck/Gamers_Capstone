@@ -30,6 +30,7 @@ router
 
   // Followers/Following
   .get("/follow", apiController.getFollowers)
+
   .post("/follow", apiController.saveFollowers)
 
   // Likes
@@ -39,6 +40,9 @@ router
   // // Tags
   // .get("/tags", apiController)
   // .post("/tags", apiController)
+
+ 
+
 
   // Games
   .get("/games", apiController.getAllGames)

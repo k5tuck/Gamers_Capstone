@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, Router } from "react-router-dom";
+import { Link, Router, useHistory} from "react-router-dom";
 import axios from "axios";
 import { DropDownList, MultiSelect } from "@progress/kendo-react-dropdowns";
 import { filterBy } from '@progress/kendo-data-query';
 
-function SignUpPage() {
+function SignUpPage(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [displayname, setDisplayName] = useState("");
@@ -14,7 +14,12 @@ function SignUpPage() {
   const [gameList, setGameList] = useState([]);
   const [photo, setPhoto] = useState("");
 
+  let history = useHistory();
+  
+
+
   const processNewUser = async (e) => {
+    e.preventDefault();
     const newUser = {
       username,
       password,
@@ -23,15 +28,10 @@ function SignUpPage() {
       name,
       games
     };
-    console.log(newUser);
     const resp = await axios.post("/api/signup", newUser);
-    // const resp = await axios.post('/api/signup', {
-    //     headers: {
-    //         'Content-type': 'application/json'
-    //     },
-    //     body : {newUser},
-    // })
     console.log(resp);
+    history.push('/login')
+    
   };
   useEffect(() => {
     axios.get("/api/games").then((response) => {
@@ -119,7 +119,7 @@ function SignUpPage() {
 
         <label className="">5 Favorite Games
         <MultiSelect 
-            data={gameList}
+            data={gameList.slice()}
             onChange={e => {setGames(e.target.value)}}
             value={games}
             dataItemKey='id'
