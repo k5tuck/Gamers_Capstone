@@ -146,7 +146,7 @@ function SignUpPage() {
        
         <input className="" type="submit" value="Signup" />
       </form>
-      {/* <Link to="/login"><button className="">Log In</button></Link> */}
+      <Link to="/login"><button className="">Log In</button></Link>
       <p class="">&copy; 2021</p>
     </main>
   );
