@@ -30,6 +30,7 @@ router
 
   // Followers/Following
   .get("/follow", apiController.getFollowers)
+
   .post("/follow", apiController.saveFollowers)
 
   // Likes
