@@ -1,13 +1,29 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-function ProfilePic(props) {
-    const { displayname } = props
+
+function ProfilePic() {
+
+    const [displayName, setDisplayName] = useState('')
+    const [Photo, setPhoto] = useState('')
+
+    const getData = async (e) =>{
+        const resp = axios.get('/api/photo')
+        const { displayname, photo } = resp.data;
+        setDisplayName(displayname);
+        setPhoto(photo)
+    }
+
+    useEffect(()=>{
+        getData()
+    }, [])
+
 
     return (
         <div>
-            <h3> Welcome {displayname }</h3>
+        <h3> Welcome {displayName}!</h3>
 
-        <img src="{}" alt=""/>
+        <img src={Photo} alt="prof pic"/>
         </div>
 
     )
