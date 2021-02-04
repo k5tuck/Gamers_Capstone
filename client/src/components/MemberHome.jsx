@@ -1,9 +1,13 @@
 import React from "react";
+import ProfilePic from "./subcomponents/ProfilePic";
 
 function MemberHome() {
     return (
-        <>
-            <div className="members-heading">
+        <div className="gridContainer">
+            <div className="">
+
+            <ProfilePic/>
+
                 <h1>Welcome ${'{'}displayname{'}'}</h1>
                 <a href="/members/create"><button>ADD POST</button></a>
                 <a href="/members/profile/${id}"><button>VIEW PROFILE</button></a>
@@ -51,7 +55,7 @@ function MemberHome() {
                 </li>
     ` {'}'}).join(''){'}'}
             </ul>
-        </>
+        </div>
     )
 };
 
