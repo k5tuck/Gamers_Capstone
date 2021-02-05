@@ -21,12 +21,12 @@ const processPost = async (req, res) => {
   const { id, username } = req.session.user;
   const { file } = req;
   const { title, content, gameid } = req.body;
-  let mediaPic = file ? UPLOAD_URL + file.filename : "";
+  // let mediaPic = file ? UPLOAD_URL + file.filename : "";
   const post = await Post.create({
     userid: id,
     username,
     title,
-    media: mediaPic,
+    // media: mediaPic, 
     content,
     gameid,
   });
@@ -35,6 +35,21 @@ const processPost = async (req, res) => {
 
   // res.redirect("/members");
 };
+
+const processPostImage = async (req, res) => {
+  const {id} = req.params
+  const { file } = req;
+  console.log(file);
+  let mediaPic = file ? UPLOAD_URL + file.filename : "";
+  const post = await Post.findOne({
+    where: {
+      id,
+    },
+  });
+  post.media = mediaPic;
+  await post.save();
+  res.json("Image Successfully Saved");
+}
 
 const editPost = async (req, res) => {
   const { id } = req.params;
@@ -124,6 +139,7 @@ const processNewUser = async (req, res) => {
     }
   }
 };
+
 
 const addImageToNewUser = async (req, res) => {
   const { id } = req.params;
@@ -337,4 +353,5 @@ module.exports = {
   processPost,
   editPost,
   processEditPost,
+  processPostImage,
 };

@@ -1,7 +1,9 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import {useHistory} from 'react-router-dom'
 
 function AddPost(props) {
+    const history = useHistory()
     const [title, setTitle] = useState('')
     const [gameTitle, setGameTitle] = useState('')
     const [media, setMedia] = useState('')
@@ -17,15 +19,21 @@ function AddPost(props) {
             gameTitle,
             content,
         } 
-        const resp = await axios.post("/api/post", {newPost, data }, 
-            {headers: {
-                "Content-Type": "multipart/form-data",
-            }})
+        const resp = await axios.post("/api/post", newPost)
+        const postid = resp.data.id
+
+        const uploadImage = await axios.put(`/api/postimage/${postid}`, data, {
+            headers: {
+                "Content-Type" : "multipart/form-data"
+             }
+        })
         history.push("/member/home");
     };
-    useEffect(async ()=> {
-        const resp = await axios.get('/api/games')
-        setGames(resp.data.getallgames)
+    const getGames = async() => {
+    const resp = await axios.get('/api/games')
+    setGames(resp.data.getallgames)}
+    useEffect(() => {
+        getGames()
     }, [] )
 
     return (

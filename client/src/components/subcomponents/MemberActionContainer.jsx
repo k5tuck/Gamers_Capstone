@@ -29,7 +29,7 @@ const MemberActionContainer = () => {
                 <Link to={followersPath}>Followers</Link>:{followers.length}
                 <Link to={followingPath}>Following</Link>: {following.length}
             <br/>
-            <Link to="/member/add-post">Add Post</Link>
+            <Link to="/member/addPost">Add Post</Link>
             <br/>
             <Link to={"/member/profile/" + id}>View Profile</Link>
             <br/>

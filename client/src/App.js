@@ -9,6 +9,7 @@ import About from "./components/About";
 import MemberHome from './components/MemberHome';
 import ProfilePage from './components/ProfilePage'
 import HomeInitial from './components/HomeInitial'
+import AddPost from './components/AddPost'
 
 
 function App() {
@@ -36,6 +37,10 @@ function App() {
           <Route path="/member/home"> 
             <MemberHome />
           </Route>
+          <Route path='/member/addPost'>
+            <AddPost/>
+</Route>
+
           {/* <Route path="/member/profile/:id">
             <ProfilePage />
           </Route> */}

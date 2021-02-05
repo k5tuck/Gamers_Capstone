@@ -1,16 +1,28 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import ProfilePic from "./subcomponents/ProfilePic";
 import MemberActionContainer from "./subcomponents/MemberActionContainer";
 import PostContainer from "./subcomponents/PostContainer";
+import axios from "axios"
 
 function MemberHome() {
+const [posts, setPosts] = useState([]);
+
+  async function grabPosts() {
+    const respPosts = await axios.get("/api/posts");
+    console.log(respPosts);
+      setPosts(...posts, respPosts.data.posts);}
+
+  useEffect( () => {
+    grabPosts()
+  }, []) 
+
     return (
         <div className="gridContainer">
             {/* <div className=""> */}
 
             <ProfilePic/>
             <MemberActionContainer />
-            <PostContainer/>
+            <PostContainer posts={posts}/>
 
                 {/* <h1>Welcome ${'{'}displayname{'}'}</h1>
                 <a href="/members/create"><button>ADD POST</button></a>
