@@ -15,6 +15,7 @@ const {
   Tag,
   Tag_To_Post,
   Vote,
+  sequelize,
 } = require("../models");
 
 const processPost = async (req, res) => {
@@ -26,18 +27,18 @@ const processPost = async (req, res) => {
     userid: id,
     username,
     title,
-    // media: mediaPic, 
+    // media: mediaPic,
     content,
     gameid,
   });
 
-  res.json( post );
+  res.json(post);
 
   // res.redirect("/members");
 };
 
 const processPostImage = async (req, res) => {
-  const {id} = req.params
+  const { id } = req.params;
   const { file } = req;
   console.log("=========================================================");
   console.log(file);
@@ -51,7 +52,7 @@ const processPostImage = async (req, res) => {
   post.media = mediaPic;
   await post.save();
   res.json(post);
-}
+};
 
 const editPost = async (req, res) => {
   const { id } = req.params;
@@ -142,7 +143,6 @@ const processNewUser = async (req, res) => {
   }
 };
 
-
 const addImageToNewUser = async (req, res) => {
   const { id } = req.params;
   const { file } = req;
@@ -216,10 +216,10 @@ const processLogout = (req, res) => {
 const getMainPhoto = async (req, res) => {
   const { id, displayname } = req.session.user;
   const user = await User.findByPk(id);
-  console.log(user)
+  console.log(user);
   const photo = user.photo;
-  console.log(photo)
-  res.json({photo, displayname});
+  console.log(photo);
+  res.json({ photo, displayname });
 };
 
 const pullMainContent = async (req, res) => {
@@ -301,17 +301,40 @@ const getAllGames = async (req, res) => {
   res.json({ message: "All Games", getallgames });
 };
 
-// const grabMainTopFive = async (req, res) => {
-//   const { id } = req.body;
-//   const sessionid = req.session.user.id;
+const grabMainTopFive = async (req, res) => {
+  const grabMainTopFive = await Game_Junction.findAll({
+    // where: {
+    //   gameid,
+    // },
+    // attributes: ['User.username', [sequelize.fn('COUNT', sequelize.col('Project.id')), 'ProjectCount']],
+    attributes: [
+      "gameid",
+      [sequelize.fn("COUNT", sequelize.col("Game_Junction.gameid")), "GameId"],
+    ],
+    include: [
+      {
+        model: Game,
+      },
+    ],
+    // col: "gameid",
+    // limit: 3,
+    // include: [
+    //   {
+    //     col: "gameid",
+    //     order: [["createdAt", "desc"]],
+    //     include: [
+    //       {
+    //         model: Game,
+    //         attributes: ["title", "id"],
+    //       },
+    //     ],
+    //   },
+    // ],
+  });
 
-//   const saveTopFive = await Game_Junction.create({
-//     gameid: id,
-//     userid: sessionid,
-//   });
+  res.json(grabMainTopFive);
+};
 
-//   res.json("Created Game Entry");
-// };
 const saveTopFive = async (req, res) => {
   const { id } = req.body;
   const sessionid = req.session.user.id;
@@ -323,6 +346,7 @@ const saveTopFive = async (req, res) => {
 
   res.json("Created Game Entry");
 };
+
 const personalTopFive = async (req, res) => {
   const { id } = req.session.user;
   const topFive = await Game_Junction.findAll({
@@ -336,7 +360,7 @@ const personalTopFive = async (req, res) => {
     // ]
   });
 
-  res.json({ message: "Sending Top Five", topFive });
+  res.json({ message: "Sending Personal Top Five", topFive });
 };
 
 module.exports = {
@@ -349,7 +373,7 @@ module.exports = {
   getFollowers,
   saveFollowers,
   getAllGames,
-  // grabMainTopFive,
+  grabMainTopFive,
   saveTopFive,
   personalTopFive,
   processPost,
