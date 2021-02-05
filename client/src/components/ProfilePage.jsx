@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+
+import FollowButton from "./subcomponents/FollowButton";
+
 import {useParams} from 'react-router-dom'
+
 
 function ProfilePage() {
   const [followers, setFollowers] = useState([]);
@@ -21,8 +25,12 @@ function ProfilePage() {
     setPosts(respPosts);
   }
   async function grabTopFive() {
-    const respGames = await axios.get("/api/topfivegames");
+    const respGames = await axios.get("/api/perfivegames");
     setGames(respGames);
+  }
+  async function createFollow(followeeid) {
+    const resp = await axios.post("/api/follow", followeeid);
+    setGames(resp);
   }
 
   useEffect(() => {
@@ -33,9 +41,10 @@ function ProfilePage() {
   return (
     // Header (Nav) Will Be Here
     <div>
+      <FollowButton createFollow={createFollow} />
       {/* <Post posts={posts}/> */}
       {posts.map((post) => {
-        <div key={post.userid} >
+        <div key={post.userid}>
           <h3>{post.title}</h3>
           <h4>{post.username}</h4>
           <img src={post.media} alt={post.title} />
