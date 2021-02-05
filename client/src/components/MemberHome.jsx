@@ -1,5 +1,7 @@
 import React from "react";
 import ProfilePic from "./subcomponents/ProfilePic";
+import MemberActionContainer from "./subcomponents/MemberActionContainer";
+import Post from "./subcomponents/Post";
 
 function MemberHome() {
     return (
@@ -7,6 +9,8 @@ function MemberHome() {
             {/* <div className=""> */}
 
             <ProfilePic/>
+            <MemberActionContainer />
+            <Post/>
 
                 {/* <h1>Welcome ${'{'}displayname{'}'}</h1>
                 <a href="/members/create"><button>ADD POST</button></a>
