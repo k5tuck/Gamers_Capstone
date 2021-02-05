@@ -25,10 +25,13 @@ function AddPost(props) {
         const uploadImage = await axios.put(`/api/postimage/${postid}`, data, {
             headers: {
                 "Content-Type" : "multipart/form-data"
-             }
+            }
         })
+        console.log(uploadImage);
         history.push("/member/home");
     };
+
+
     const getGames = async() => {
     const resp = await axios.get('/api/games')
     setGames(resp.data.getallgames)}
@@ -64,9 +67,8 @@ function AddPost(props) {
                 <label > Media
                     <input 
                         type="file" 
-                        value={media} 
                         onChange={(e)=> {
-                            setMedia(e.target.value)
+                            setMedia(e.target.files[0])
                         }}
                         />
                 </label>
