@@ -19,7 +19,7 @@ const MemberActionContainer = () => {
     getFollowers()
     let followersPath = '/members/followers/' +  id
     let followingPath = '/members/following/' +  id
-
+    let profilePath = "/member/profile/" + id
     // let followers = 35;
     // let followees = 77;
 
@@ -31,7 +31,7 @@ const MemberActionContainer = () => {
             <br/>
             <Link to="/member/add-post">Add Post</Link>
             <br/>
-            <Link to="/member/profile/{userid}">View Profile</Link>
+            <Link to={"/member/profile/" + id}>View Profile</Link>
             <br/>
             <Link to="/member/search">Search</Link>
          </div>

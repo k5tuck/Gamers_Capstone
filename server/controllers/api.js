@@ -17,6 +17,69 @@ const {
   Vote,
 } = require("../models");
 
+const processPost = async (req, res) => {
+  const { id, username } = req.session.user;
+  const { file } = req;
+  const { title, content, gameid } = req.body;
+  let mediaPic = file ? UPLOAD_URL + file.filename : "";
+  const post = await Post.create({
+    userid: id,
+    username,
+    title,
+    media: mediaPic,
+    content,
+    gameid,
+  });
+
+  res.json( post );
+
+  // res.redirect("/members");
+};
+
+const editPost = async (req, res) => {
+  const { id } = req.params;
+  const post = await Post.findByPk(id);
+  const games = await Game.findAll();
+
+  res.json(id, post, games);
+
+  //   res.render("createFormEdit", {
+  //     locals: {
+  //       post,
+  //       games,
+  //     },
+  //     ...layout,
+  //   });
+};
+
+const processEditPost = async (req, res) => {
+  const { id } = req.params;
+  const { file } = req;
+  console.log(id);
+  const { title, content } = req.body;
+  console.log(title);
+  console.log(content);
+
+  let data = {
+    title,
+    content,
+  };
+  // let mediaPic = file ? UPLOAD_URL + file.filename : "";
+
+  if (file) {
+    data["media"] = UPLOAD_URL + file.filename;
+  }
+  const updatedPost = await Post.update(data, {
+    where: {
+      id,
+      userid: req.session.user.id,
+    },
+  });
+
+  res.json("Edited Post succesfully");
+  // res.redirect("/members");
+};
+
 const processNewUser = async (req, res) => {
   console.log(req.body);
   const { password, name, email, displayname, games } = req.body;
@@ -271,4 +334,7 @@ module.exports = {
   // grabMainTopFive,
   saveTopFive,
   personalTopFive,
+  processPost,
+  editPost,
+  processEditPost,
 };

@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import About from "./components/About";
 import MemberHome from './components/MemberHome';
 import ProfilePage from './components/ProfilePage'
+import HomeInitial from './components/HomeInitial'
 
 
 function App() {
@@ -19,7 +20,9 @@ function App() {
     <Router>
       <Switch>
         
-        
+          <Route  path='/' exact>
+            <HomeInitial /> 
+          </Route>
           <Route path="/signup">
             <SignUpPage />
           </Route>

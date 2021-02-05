@@ -1,17 +1,36 @@
-import React, { useState } from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 
-function CreatePostForm(props) {
+function AddPost(props) {
     const [title, setTitle] = useState('')
     const [gameTitle, setGameTitle] = useState('')
     const [media, setMedia] = useState('')
     const [content, setContent] = useState('')
+    const [games, setGames] = useState([])
 
-
-
+    const createPost = async (e) => {
+        e.preventDefault();
+        const data = new FormData();
+        data.append("file", media);
+        const newPost = {
+            title,
+            gameTitle,
+            content,
+        } 
+        const resp = await axios.post("/api/post", {newPost, data }, 
+            {headers: {
+                "Content-Type": "multipart/form-data",
+            }})
+        history.push("/member/home");
+    };
+    useEffect(async ()=> {
+        const resp = await axios.get('/api/games')
+        setGames(resp.data.getallgames)
+    }, [] )
 
     return (
         <div>
-            <form onSubmit={props.createPost} enctype="multipart/form-data">
+            <form onSubmit={createPost} enctype="multipart/form-data">
                 <label > Title
                     <input 
                         type="text" 
@@ -62,4 +81,4 @@ function CreatePostForm(props) {
     )
 }
 
-export default CreatePostForm;
+export default AddPost;
