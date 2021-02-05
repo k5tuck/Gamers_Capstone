@@ -26,7 +26,7 @@ function ProfilePage() {
   }
   async function createFollow(followeeid) {
     const resp = await axios.post("/api/follow", followeeid);
-    setGames(resp);
+    console.log(resp);
   }
 
   useEffect(() => {
