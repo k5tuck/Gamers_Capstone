@@ -8,8 +8,9 @@ function ProfilePic() {
     const [Photo, setPhoto] = useState('')
 
     const getData = async (e) =>{
-        const resp = axios.get('/api/photo')
-        const { displayname, photo } = resp.data;
+        const resp = await axios.get('/api/photo')
+        console.log(resp)
+        const { photo, displayname } = resp.data;
         setDisplayName(displayname);
         setPhoto(photo)
     }

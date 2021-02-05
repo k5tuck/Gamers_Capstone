@@ -134,9 +134,11 @@ const processLogout = (req, res) => {
 
 const getMainPhoto = async (req, res) => {
   const { id, displayname } = req.session.user;
-  const user = User.findByPk(id);
+  const user = await User.findByPk(id);
+  console.log(user)
   const photo = user.photo;
-  res.json(photo, displayname);
+  console.log(photo)
+  res.json({photo, displayname});
 };
 
 const pullMainContent = async (req, res) => {
