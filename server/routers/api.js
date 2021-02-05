@@ -29,6 +29,8 @@ router
   // Posts
   .get("/posts", apiController.pullMainContent) // All The Post
 
+  // .get("/profileposts", apiController) // Pull Profile Posts
+
   .get("/post", apiController.editPost) // Single Post
   .post("/post", apiController.processPost)
   .put("/postimage/:id", upload.single("file"), apiController.processPostImage)
@@ -51,7 +53,7 @@ router
   // Games
   .get("/games", apiController.getAllGames)
   // .get("/game", apiController) // Get Specific Game
-  // .get("/maintopfive", apiController.grabMainTopFive)
+  .get("/maintopfive", apiController.grabMainTopFive)
   .post("/savetopfive", apiController.saveTopFive)
   .get("/pertopfive", apiController.personalTopFive);
 
