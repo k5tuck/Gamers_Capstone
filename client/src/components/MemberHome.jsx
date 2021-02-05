@@ -4,16 +4,16 @@ import ProfilePic from "./subcomponents/ProfilePic";
 function MemberHome() {
     return (
         <div className="gridContainer">
-            <div className="">
+            {/* <div className=""> */}
 
             <ProfilePic/>
 
-                <h1>Welcome ${'{'}displayname{'}'}</h1>
+                {/* <h1>Welcome ${'{'}displayname{'}'}</h1>
                 <a href="/members/create"><button>ADD POST</button></a>
                 <a href="/members/profile/${id}"><button>VIEW PROFILE</button></a>
                 <a href="/members/search"><button>SEARCH</button></a>
             </div>
-            {/*  delete this */}
+            /*  delete this
             <br />
             <br />
             <ul className="grid-container">
@@ -54,8 +54,8 @@ function MemberHome() {
                     </div>
                 </li>
     ` {'}'}).join(''){'}'}
-            </ul>
-        </div>
+            </ul> */}
+        </div> 
     )
 };
 
