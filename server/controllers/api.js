@@ -39,7 +39,9 @@ const processPost = async (req, res) => {
 const processPostImage = async (req, res) => {
   const {id} = req.params
   const { file } = req;
+  console.log("=========================================================");
   console.log(file);
+  console.log("=========================================================");
   let mediaPic = file ? UPLOAD_URL + file.filename : "";
   const post = await Post.findOne({
     where: {
@@ -48,7 +50,7 @@ const processPostImage = async (req, res) => {
   });
   post.media = mediaPic;
   await post.save();
-  res.json("Image Successfully Saved");
+  res.json(post);
 }
 
 const editPost = async (req, res) => {
