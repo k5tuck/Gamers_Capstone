@@ -2,11 +2,12 @@ import '@progress/kendo-theme-default/dist/all.css';
 import "./App.css";
 import axios from "axios";
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, useHistory } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, useHistory , useParams } from "react-router-dom";
 import SignUpPage from "./components/SignUpPage";
 import Login from "./components/Login";
 import About from "./components/About";
 import MemberHome from './components/MemberHome';
+import ProfilePage from './components/ProfilePage'
 
 
 function App() {
@@ -32,7 +33,9 @@ function App() {
           <Route path="/member/home"> 
             <MemberHome />
           </Route>
-
+          {/* <Route path="/member/profile/:id">
+            <ProfilePage />
+          </Route> */}
         
       </Switch>
     </Router>

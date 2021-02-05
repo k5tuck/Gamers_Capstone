@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+
 import FollowButton from "./subcomponents/FollowButton";
+
+import {useParams} from 'react-router-dom'
+
 
 function ProfilePage() {
   const [followers, setFollowers] = useState([]);

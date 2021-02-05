@@ -183,20 +183,21 @@ const getFollowers = async (req, res) => {
     where: {
       followeeid: id,
     },
-    include: User,
+    // include: User,
   });
 
   const following = await Follower.findAll({
     where: {
       followerid: id,
     },
-    include: User,
+    // include: User,
   });
 
   res.json({
     message: "Sending Followers",
     followers,
     following,
+    id,
   });
 };
 
