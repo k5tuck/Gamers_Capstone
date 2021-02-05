@@ -30,7 +30,8 @@ router
   .get("/posts", apiController.pullMainContent) // All The Post
 
   .get("/post", apiController.editPost) // Single Post
-  .post("/post", upload.single("file"), apiController.processPost)
+  .post("/post", apiController.processPost)
+  .put("/postimage/:id", upload.single("file"), apiController.processPostImage)
   .put("/post", upload.single("file"), apiController.processEditPost)
   // .delete("/post", apiController)
 
