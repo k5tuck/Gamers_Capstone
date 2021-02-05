@@ -302,37 +302,39 @@ const getAllGames = async (req, res) => {
 };
 
 const grabMainTopFive = async (req, res) => {
+  // const grabMainTopFive = await Game.findAll({
+  //   attributes: [
+  //     "id",
+  //     [
+  //       sequelize.fn("count", sequelize.col("Game_Junctions.gameid")),
+  //       "gamecount",
+  //     ],
+  //   ],
+  //   include: [{ attributes: [], model: Game_Junction }],
+  //   group: ["Game.id"],
+  // });
   const grabMainTopFive = await Game_Junction.findAll({
-    // where: {
-    //   gameid,
-    // },
-    // attributes: ['User.username', [sequelize.fn('COUNT', sequelize.col('Project.id')), 'ProjectCount']],
     attributes: [
       "gameid",
-      [sequelize.fn("COUNT", sequelize.col("Game_Junction.gameid")), "GameId"],
+      [sequelize.fn("count", sequelize.col("Game.id")), "gamecount"],
     ],
-    include: [
-      {
-        model: Game,
-      },
-    ],
-    // col: "gameid",
-    // limit: 3,
-    // include: [
-    //   {
-    //     col: "gameid",
-    //     order: [["createdAt", "desc"]],
-    //     include: [
-    //       {
-    //         model: Game,
-    //         attributes: ["title", "id"],
-    //       },
-    //     ],
-    //   },
-    // ],
+    include: [{ attributes: [], model: Game }],
+    group: ["Game_Junction.gameid"],
   });
 
-  res.json(grabMainTopFive);
+  let sorted = await grabMainTopFive.slice(0).reverse();
+
+  let pArr = sorted.map((g) => {
+    return Game.findOne({
+      where: {
+        id: g.gameid,
+      },
+    });
+  });
+  await Promise.all(pArr);
+
+  console.log(sorted);
+  res.json(sorted);
 };
 
 const saveTopFive = async (req, res) => {
