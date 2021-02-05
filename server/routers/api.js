@@ -27,11 +27,11 @@ router
   // .delete("/comments", apiController)
 
   // Posts
-  // .get("/posts", apiController) // All The Post
+  .get("/posts", apiController.pullMainContent) // All The Post
 
-  // .get("/post", apiController) // Single Post
-  // .post("/post", upload.single("file"), apiController)
-  // .put("/post", upload.single("file"), apiController)
+  .get("/post", apiController.editPost) // Single Post
+  .post("/post", upload.single("file"), apiController.processPost)
+  .put("/post", upload.single("file"), apiController.processEditPost)
   // .delete("/post", apiController)
 
   // Followers/Following

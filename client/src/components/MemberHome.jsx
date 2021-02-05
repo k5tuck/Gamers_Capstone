@@ -1,7 +1,7 @@
 import React from "react";
 import ProfilePic from "./subcomponents/ProfilePic";
 import MemberActionContainer from "./subcomponents/MemberActionContainer";
-import Post from "./subcomponents/Post";
+import PostContainer from "./subcomponents/PostContainer";
 
 function MemberHome() {
     return (
@@ -10,7 +10,7 @@ function MemberHome() {
 
             <ProfilePic/>
             <MemberActionContainer />
-            <Post/>
+            <PostContainer/>
 
                 {/* <h1>Welcome ${'{'}displayname{'}'}</h1>
                 <a href="/members/create"><button>ADD POST</button></a>

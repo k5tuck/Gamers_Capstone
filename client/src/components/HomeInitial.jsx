@@ -17,7 +17,12 @@ function HomeInitial() {
                 
             </body>
             <footer>
+                <Link to="/signup">SignUp</Link>
+                <br/>
+                <Link to="/login">Login</Link>
+                <br/>
                 <Link to="/about"> About Us</Link>
+                <br/>
                 <Link to="/Contact"> Contact Us </Link>
             </footer>
 
