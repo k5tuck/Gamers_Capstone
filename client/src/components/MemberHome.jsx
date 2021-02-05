@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import ProfilePic from "./subcomponents/ProfilePic";
 import MemberActionContainer from "./subcomponents/MemberActionContainer";
 import PostContainer from "./subcomponents/PostContainer";
+import TopGamesContainer from "./subcomponents/TopGamesContainer"
 import axios from "axios"
 
 function MemberHome() {
@@ -23,6 +24,7 @@ const [posts, setPosts] = useState([]);
             <ProfilePic/>
             <MemberActionContainer />
             <PostContainer posts={posts}/>
+            {/* <TopGamesContainer /> */}
 
                 {/* <h1>Welcome ${'{'}displayname{'}'}</h1>
                 <a href="/members/create"><button>ADD POST</button></a>
