@@ -369,28 +369,8 @@ const grabMainTopFive = async (req, res) => {
   //   include: [{ attributes: [], model: Game_Junction }],
   //   group: ["Game.id"],
   // });
-  const grabMainTopFive = await Game_Junction.findAll({
-    attributes: [
-      "gameid",
-      [sequelize.fn("count", sequelize.col("Game.id")), "gamecount"],
-    ],
-    include: [{ attributes: [], model: Game }],
-    group: ["Game_Junction.gameid", "Game.id"],
-  });
-
-  // let sorted = await grabMainTopFive.slice(0).reverse();
-  // console.log(sorted);
-
-  console.log(grabMainTopFive);
-  let testArray = [];
-  grabMainTopFive.forEach((g) =>
-    testArray.push({
-      gameid: g.dataValues.gameid,
-      gamecount: g.dataValues.gamecount,
-    })
-  );
-  console.log(testArray);
-  res.json(testArray);
+  const [grabMainTopFive] = await Game_Junction.top(5)
+  res.json(grabMainTopFive);
 };
 
 const saveTopFive = async (req, res) => {

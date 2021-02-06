@@ -7,6 +7,15 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+    static top (howMany = 5) {
+      return  sequelize.query (`
+      SELECT title, gameid, COUNT(gameid) as freq FROM "Game_Junctions" as GJ 
+        Join "Games" as G on G.id = GJ.gameid 
+        group by gameid, title
+        order by freq desc
+        limit ${howMany}
+      `)
+    }
     static associate(models) {
       // define association here
       Game_Junction.belongsTo(models.Game, {
