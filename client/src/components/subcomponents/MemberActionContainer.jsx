@@ -11,9 +11,15 @@ const MemberActionContainer = () => {
   const getFollowers = async () => {
     const resp = await axios.get("/api/follow");
     console.log(resp.data);
+    setFollower(resp.data.followers);
+    setFollowing(resp.data.following);
     setid(resp.data.id);
   };
-  getFollowers();
+
+  useEffect(() => {
+    getFollowers();
+  }, []);
+
   let followersPath = "/members/followers/" + id;
   let followingPath = "/members/following/" + id;
   let profilePath = "/member/profile/" + id;
