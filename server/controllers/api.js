@@ -277,7 +277,7 @@ const getProfilePosts = async (req, res) => {
     p.User = await User.findByPk(p.userid);
     p.Game = await Game.findByPk(p.gameid);
   }
-
+  console.log(posts);
   res.json(posts);
 };
 

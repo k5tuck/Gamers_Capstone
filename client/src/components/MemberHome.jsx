@@ -33,7 +33,7 @@ const [posts, setPosts] = useState([]);
                     <PostContainer posts={posts}/>
                 </div>
             </div>
-            {/* <TopGamesContainer /> */}
+            <TopGamesContainer />
 
                 {/* <h1>Welcome ${'{'}displayname{'}'}</h1>
                 <a href="/members/create"><button>ADD POST</button></a>

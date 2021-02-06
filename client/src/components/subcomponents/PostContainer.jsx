@@ -11,7 +11,7 @@ const PostContainer = (props) => {
         return (
           <div key={post.userid} className="post">
             <h3>{post.title}</h3>
-            <Link to={`/profile/${post.id}`}>
+            <Link to={`/profile/${post.userid}`}>
               <h4>{post.username}</h4>
             </Link>
             <div className="postimgcontainer">

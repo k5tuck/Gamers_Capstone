@@ -23,7 +23,7 @@ function ProfilePage({ editPost, deletePost, createFollow }) {
     // setFollowing(respFollowing.data.following);
     const respPosts = await axios.get(`/api/posts/${id}`);
     setPosts(...posts, respPosts.data);
-    console.log(respPosts.data);
+    console.log(respPosts);
     const respGames = await axios.get(`/api/pertopfive/${id}`);
     setGames(...games, respGames.data.topFive);
     console.log(respGames.data.topFive);
@@ -73,7 +73,7 @@ function ProfilePage({ editPost, deletePost, createFollow }) {
       {/* <Post posts={posts}/> */}
 
       {posts.map((post) => {
-        <div key={post.id}>
+        return <div key={post.id}>
           <h3>{post.title}</h3>
           <Link to={`/profile/${post.id}`}>
             <h4>{post.username}</h4>
