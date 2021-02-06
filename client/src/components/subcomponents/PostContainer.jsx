@@ -11,10 +11,12 @@ const PostContainer = (props) => {
     return (
         <div>
         {posts.map((post) => {
-        return <div key={post.userid}>
+        return <div key={post.userid} className="post">
           <h3>{post.title}</h3>
           <Link to={'member/profile/' + post.userid}><h4>{post.username}</h4></Link>
-          <img src={post.media} alt={post.title} />
+          <div className="postimgcontainer">
+            <img className="postimg" src={post.media} alt={post.title} />
+          </div>
           <p>{post.content}</p>
           <button onClick= {editPost}>Edit Button</button>
           <button onClick= {deletePost}>Delete Button</button>
