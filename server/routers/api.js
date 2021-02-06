@@ -29,7 +29,7 @@ router
   // Posts
   .get("/posts", apiController.pullMainContent) // All The Post
 
-  // .get("/profileposts", apiController) // Pull Profile Posts
+  .get("/posts/:id", apiController.getProfilePosts) // Pull Profile Posts
 
   .get("/post", apiController.editPost) // Single Post
   .post("/post", apiController.processPost)
@@ -39,8 +39,9 @@ router
 
   // Followers/Following
   .get("/follow", apiController.getFollowers)
+  .post("/follower/:id", apiController.saveFollowers)
 
-  .post("/follow", apiController.saveFollowers)
+  .get("/follows/:id", apiController.getProfileFollows)
 
   // Likes
   // .post("/likes", apiController)
@@ -55,7 +56,7 @@ router
   // .get("/game", apiController) // Get Specific Game
   .get("/maintopfive", apiController.grabMainTopFive)
   .post("/savetopfive", apiController.saveTopFive)
-  .get("/pertopfive", apiController.personalTopFive)
+  .get("/pertopfive/:id", apiController.personalTopFive)
   //Game Page
-  .get("/game/:id", apiController.game)
+  .get("/game/:id", apiController.game);
 module.exports = router;
