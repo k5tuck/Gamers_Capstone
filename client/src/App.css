@@ -52,19 +52,30 @@
   justify-content: center;
 }
 
-.profilepiccomponent {
+.profilepiccircle {
   display:flex;
-  margin-bottom:5rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border:solid #000000 0.1rem;
+  border-radius: 60%;
+  height:15rem;
+  width:15rem;
+  margin-bottom: 4rem;
+  padding-top: 2rem;
+  
 }
 
 .profilepiccontainer {
   width: 10rem;
   height: 10rem;
+  overflow:hidden;
+  margin-bottom:2rem;
 }
 
 .profilepicimage {
   width: 100%;
-  height: auto
+  height: auto;
 }
 .profilepicheader {
   float:left;
@@ -72,6 +83,10 @@
 .post {
   display:flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: solid black 0.1rem;
+  margin: 1rem;
 }
 .postimgcontainer {
   width: 16rem;
@@ -80,4 +95,46 @@
 .postimg {
   width: 100%;
   height: auto
+}
+.gamepagecontainer {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0rem 20rem;
+}
+.gameimgcontainer {
+  width: 20rem;
+  height: 20rem;
+  display:flex;
+  justify-content: center;
+  float:center;
+}
+.gameimg {
+  width: 100%;
+  height: auto
+}
+.memberactions {
+  border: black solid 0.1rem;
+  padding: 1rem;
+}
+.memberactionscontainer {
+  display:flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.memberactionfollowers {
+  display:flex;
+  justify-content: space-evenly;
+  text-decoration: none;
+}
+.addpostlink {
+  text-decoration: none;
+}
+.viewprofilelink {
+  text-decoration: none;
+}
+.searchlink {
+  text-decoration: none;
 }
