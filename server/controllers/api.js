@@ -319,22 +319,22 @@ const grabMainTopFive = async (req, res) => {
       [sequelize.fn("count", sequelize.col("Game.id")), "gamecount"],
     ],
     include: [{ attributes: [], model: Game }],
-    group: ["Game_Junction.gameid"],
+    group: ["Game_Junction.gameid", "Game.id"],
   });
 
-  let sorted = await grabMainTopFive.slice(0).reverse();
+  // let sorted = await grabMainTopFive.slice(0).reverse();
+  // console.log(sorted);
 
-  let pArr = sorted.map((g) => {
-    return Game.findOne({
-      where: {
-        id: g.gameid,
-      },
-    });
-  });
-  await Promise.all(pArr);
-
-  console.log(sorted);
-  res.json(grabMainTopFive);
+  console.log(grabMainTopFive);
+  let testArray = [];
+  grabMainTopFive.forEach((g) =>
+    testArray.push({
+      gameid: g.dataValues.gameid,
+      gamecount: g.dataValues.gamecount,
+    })
+  );
+  console.log(testArray);
+  res.json(testArray);
 };
 
 const saveTopFive = async (req, res) => {
