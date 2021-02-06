@@ -36,3 +36,48 @@
     transform: rotate(360deg);
   }
 }
+
+.newsfeedcontainer {
+  display: flex;
+}
+
+.leftpanel {
+  display: flex;
+  flex-direction: column;
+  margin-right: 5rem;
+  
+}
+.middle{
+  display:flex;
+  justify-content: center;
+}
+
+.profilepiccomponent {
+  display:flex;
+  margin-bottom:5rem;
+}
+
+.profilepiccontainer {
+  width: 10rem;
+  height: 10rem;
+}
+
+.profilepicimage {
+  width: 100%;
+  height: auto
+}
+.profilepicheader {
+  float:left;
+}
+.post {
+  display:flex;
+  flex-direction: column;
+}
+.postimgcontainer {
+  width: 16rem;
+  height: 16rem;
+}
+.postimg {
+  width: 100%;
+  height: auto
+}

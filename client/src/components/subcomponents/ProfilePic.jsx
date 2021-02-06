@@ -22,9 +22,10 @@ function ProfilePic() {
 
     return (
         <div>
-        <h3> Welcome {displayName}!</h3>
-
-        <img src={Photo} alt="prof pic"/>
+        <h3 className="profilepicheader"> Welcome {displayName}!</h3>
+        <div className="profilepiccontainer">
+            <img className="profilepicimage" src={Photo} alt="prof pic"/>
+        </div>
         </div>
 
     )

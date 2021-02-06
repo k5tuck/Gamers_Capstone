@@ -18,12 +18,21 @@ const [posts, setPosts] = useState([]);
   }, []) 
 
     return (
-        <div className="gridContainer">
+        <div className="newsfeedcontainer">
+            <div className="leftpanel">
             {/* <div className=""> */}
-
-            <ProfilePic/>
-            <MemberActionContainer />
-            <PostContainer posts={posts}/>
+                <div className="profilepiccomponent">
+                    <ProfilePic/>
+                </div>
+                <div className="memberactions">
+                    <MemberActionContainer />
+                </div>
+            </div>
+            <div className="middle">
+                <div className="postcontainer">
+                    <PostContainer posts={posts}/>
+                </div>
+            </div>
             {/* <TopGamesContainer /> */}
 
                 {/* <h1>Welcome ${'{'}displayname{'}'}</h1>
