@@ -11,9 +11,15 @@ const MemberActionContainer = () => {
   const getFollowers = async () => {
     const resp = await axios.get("/api/follow");
     console.log(resp.data);
+    setFollower(resp.data.followers);
+    setFollowing(resp.data.following);
     setid(resp.data.id);
   };
-  getFollowers();
+
+  useEffect(() => {
+    getFollowers();
+  }, []);
+
   let followersPath = "/members/followers/" + id;
   let followingPath = "/members/following/" + id;
   let profilePath = "/member/profile/" + id;
@@ -21,24 +27,33 @@ const MemberActionContainer = () => {
   // let followees = 77;
 
   return (
-
     <div className="memberactionscontainer">
       <div className="memberactionsfollowers">
-        <Link style={{ textDecoration: "none" }} to={followersPath}><button>Followers</button></Link>
+        <Link style={{ textDecoration: "none" }} to={followersPath}>
+          <button>Followers</button>
+        </Link>
         <p>{followers.length}</p>
-        <Link style={{ textDecoration: "none" }} to={followingPath}><button>Following</button></Link>
+        <Link style={{ textDecoration: "none" }} to={followingPath}>
+          <button>Following</button>
+        </Link>
         <p>{following.length}</p>
       </div>
       <div className="addpostlink">
-        <Link style={{ textDecoration: "none" }} to="/addPost"><button>Add Post</button></Link>
+        <Link style={{ textDecoration: "none" }} to="/addPost">
+          <button>Add Post</button>
+        </Link>
       </div>
-      <br/>
+      <br />
       <div className="viewprofilelink">
-        <Link style={{ textDecoration: "none" }} to={`/profile/${id}><button>View Profile</button></Link>
+        <Link style={{ textDecoration: "none" }} to={`/profile/${id}`}>
+          <button>View Profile</button>
+        </Link>
       </div>
-      <br/>
+      <br />
       <div className="searchlink">
-        <Link style={{ textDecoration: "none" }} to="/member/search"><button>Search</button></Link>
+        <Link style={{ textDecoration: "none" }} to="/member/search">
+          <button>Search</button>
+        </Link>
       </div>
     </div>
   );

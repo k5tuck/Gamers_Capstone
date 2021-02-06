@@ -333,17 +333,21 @@ const getProfileFollows = async (req, res) => {
 
 const saveFollowers = async (req, res) => {
   const { id } = req.params;
-  // const sessionid = req.session.user.id;
-  const sessionid = 4;
+  const convertedInt = Number(id);
+  const sessionid = req.session.user.id;
 
-  const createFollower = await Follower.create({
-    followeeid: id,
-    followerid: sessionid,
-  });
+  if (convertedInt === sessionid) {
+    res.json({ Error: "You are Trying to Follow Yourself. You can't do that" });
+  } else {
+    const createFollower = await Follower.create({
+      followeeid: convertedInt,
+      followerid: sessionid,
+    });
 
-  const savedFollower = await User.findByPk(createFollower.followeeid);
+    const savedFollower = await User.findByPk(createFollower.followeeid);
 
-  res.json({ "Now Following:": savedFollower.displayname });
+    res.json({ "Now Following": savedFollower.displayname });
+  }
 };
 
 const getAllGames = async (req, res) => {
