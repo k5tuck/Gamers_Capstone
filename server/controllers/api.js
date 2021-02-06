@@ -334,7 +334,7 @@ const grabMainTopFive = async (req, res) => {
   await Promise.all(pArr);
 
   console.log(sorted);
-  res.json(sorted);
+  res.json(grabMainTopFive);
 };
 
 const saveTopFive = async (req, res) => {
