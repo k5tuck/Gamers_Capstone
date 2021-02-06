@@ -55,6 +55,7 @@ router
   // .get("/game", apiController) // Get Specific Game
   .get("/maintopfive", apiController.grabMainTopFive)
   .post("/savetopfive", apiController.saveTopFive)
-  .get("/pertopfive", apiController.personalTopFive);
-
+  .get("/pertopfive", apiController.personalTopFive)
+  //Game Page
+  .get("/game/:id", apiController.game)
 module.exports = router;

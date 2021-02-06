@@ -10,7 +10,7 @@ import MemberHome from './components/MemberHome';
 import ProfilePage from './components/ProfilePage'
 import HomeInitial from './components/HomeInitial'
 import AddPost from './components/AddPost'
-
+import GamePage from './components/GamePage'
 
 function App() {
   // let history = useHistory();
@@ -39,7 +39,10 @@ function App() {
           </Route>
           <Route path='/member/addPost'>
             <AddPost/>
-</Route>
+          </Route>
+          <Route path='/member/GamePage'>
+            <GamePage />
+          </Route>
 
           {/* <Route path="/member/profile/:id">
             <ProfilePage />
