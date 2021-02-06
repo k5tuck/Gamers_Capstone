@@ -15,7 +15,6 @@ function ProfilePage({ editPost, deletePost, createFollow }) {
   const [posts, setPosts] = useState([]);
   const [games, setGames] = useState([]);
 
-  // Too Many Requests
   async function grabContent() {
     // const resp = await axios.get(`/api/follows/${id}`);
     // const respFollowers = resp.data.followers;
@@ -31,6 +30,10 @@ function ProfilePage({ editPost, deletePost, createFollow }) {
   }
   console.log(posts);
   console.log(games);
+  
+  
+  // Too Many Requests
+  
   // async function grabAllFollowers() {
   //   const resp = await axios.get(`/api/follow/${id}`);
   //   const respFollowers = resp.data.followers;
@@ -55,8 +58,8 @@ function ProfilePage({ editPost, deletePost, createFollow }) {
   // }
 
   useEffect(() => {
-    // setUserId(id);
     grabContent();
+    // setUserId(id);
     // createFollow();
     // grabAllFollowers();
     // grabPosts();
@@ -64,7 +67,6 @@ function ProfilePage({ editPost, deletePost, createFollow }) {
   }, []);
 
   return (
-    // Header (Nav) Will Be Here
     <div>
       <FollowButton createFollow={createFollow} />
 
@@ -100,7 +102,6 @@ function ProfilePage({ editPost, deletePost, createFollow }) {
         })}
       </div>
     </div>
-    // Footer Will Be Here
   );
 }
 
