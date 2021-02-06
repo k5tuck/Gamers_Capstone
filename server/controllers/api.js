@@ -369,7 +369,7 @@ const grabMainTopFive = async (req, res) => {
   //   include: [{ attributes: [], model: Game_Junction }],
   //   group: ["Game.id"],
   // });
-  const [grabMainTopFive] = await Game_Junction.top(5)
+  const [grabMainTopFive] = await Game_Junction.top(5);
   res.json(grabMainTopFive);
 };
 
@@ -387,19 +387,23 @@ const saveTopFive = async (req, res) => {
 
 const personalTopFive = async (req, res) => {
   const { id } = req.params;
-  const topFive = await Game_Junction.findAll({
-    where: {
-      userid: id,
-    },
-    include: Game,
-    //     attributes: [
+  const cInt = Number(id);
+  // const topFive = await Game_Junction.findAll({
+  //   where: {
+  //     userid: id,
+  //   },
+  //   include: Game,
+  //     attributes: [
 
-    //     include: Game,
-    //     order: ,
-    // ]
-  });
+  //     include: Game,
+  //     order: ,
+  // ]
+  // });
 
-  res.json({ message: "Sending Personal Top Five", topFive });
+  const [grabPersonalTopFive] = await Game_Junction.personaltop(cInt, 5);
+  // res.json(grabPersonalTopFive);
+
+  res.json({ message: "Sending Personal Top Five", grabPersonalTopFive });
 };
 
 const game = async (req, res) => {
