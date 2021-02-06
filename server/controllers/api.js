@@ -365,6 +365,20 @@ const personalTopFive = async (req, res) => {
   res.json({ message: "Sending Personal Top Five", topFive });
 };
 
+const game = async (req, res) => {
+  const { id } = req.params;
+  const game = await Game.findByPk(id);
+  console.log(game);
+
+  res.json(game);
+  // res.render("game-page", {
+  //   locals: {
+  //     game,
+  //   },
+  //   ...layout,
+  // });
+};
+
 module.exports = {
   processNewUser,
   addImageToNewUser,
@@ -382,4 +396,5 @@ module.exports = {
   editPost,
   processEditPost,
   processPostImage,
+  game
 };
