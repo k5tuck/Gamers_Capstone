@@ -46,7 +46,7 @@ function App() {
             <Route path="/addPost">
               <AddPost />
             </Route>
-            <Route path="/member/GamePage">
+            <Route path="/member/game/:id">
               <GamePage />
             </Route>
             <Route path="/profile/:id">

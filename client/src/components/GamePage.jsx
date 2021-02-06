@@ -1,16 +1,16 @@
 import React, { useState, useEffect} from "react";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from "axios";
 
 
 function GamePage() {
 
   const [game, setGame] = useState({})
-
+  const { id } = useParams();
 
 
   const getGame = async () => {
-      const resp = await axios.get('/api/game/66')
+      const resp = await axios.get(`/api/game/${id}`)
       console.log(resp.data)
       setGame(resp.data)
   }

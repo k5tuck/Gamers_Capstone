@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 
 function TopGamesContainer() {
     const [games, setGames] = useState([])
     async function getGame(){
         const resp = await axios.get('/api/maintopfive')
-        setGames(...games, resp.data)
+        console.log(resp.data);
+        setGames(resp.data)
 
     }
     useEffect(() => {
@@ -15,10 +17,10 @@ function TopGamesContainer() {
     return (
         <div>
             <ul>
-                This is the Top 5 game spot
-                {/* {games.map(g => {
-                    return <Link to={"/member/game/" + g.id}><li>{g.title}</li></Link>
-                })} */}
+                <h2>Current Top 5 Games </h2>
+                {games.map(g => {
+                    return <Link style={{ textDecoration: "none" }} to={"/member/game/" + g.gameid}><li style={{listStyleType: "none" }}>{g.title}</li><br/></Link> 
+                })}
             </ul>
         </div>
         
