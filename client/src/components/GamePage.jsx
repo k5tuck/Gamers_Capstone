@@ -18,11 +18,11 @@ useEffect(()=>{
     getGame()
 }, [])
   return (
-    <div className="">
+    <div className="gamepagecontainer">
       <div className="">
         <h1>{game.title}</h1>
-        <div className="">
-          <img src={game.image} alt={game.title}/>
+        <div className="gameimgcontainer">
+          <img className="gameimg" src={game.image} alt={game.title}/>
         </div>
         <p>Genre: ${game.genre}</p>
         <p>Platforms: ${game.platform}</p>

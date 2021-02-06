@@ -60,7 +60,7 @@ function AddPost(props) {
                             setGameTitle(e.target.value)
                         }}
                     >
-                    ${games.map(game=> `<option value="${game.id}">${game.title}</option>`)}
+                    ${games.map(game =>  <option value={game.id}>{game.title}</option>)}
                     </select>
                 </label>
                     <br/>
