@@ -21,6 +21,7 @@ const MemberActionContainer = () => {
   // let followees = 77;
 
   return (
+
     <div className="memberactionscontainer">
       <div className="memberactionsfollowers">
         <Link style={{ textDecoration: "none" }} to={followersPath}><button>Followers</button></Link>
@@ -29,11 +30,11 @@ const MemberActionContainer = () => {
         <p>{following.length}</p>
       </div>
       <div className="addpostlink">
-        <Link style={{ textDecoration: "none" }} to="/member/addPost"><button>Add Post</button></Link>
+        <Link style={{ textDecoration: "none" }} to="/addPost"><button>Add Post</button></Link>
       </div>
       <br/>
       <div className="viewprofilelink">
-        <Link style={{ textDecoration: "none" }} to={"/member/profile/" + id}><button>View Profile</button></Link>
+        <Link style={{ textDecoration: "none" }} to={`/profile/${id}><button>View Profile</button></Link>
       </div>
       <br/>
       <div className="searchlink">

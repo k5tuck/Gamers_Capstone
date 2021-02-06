@@ -257,6 +257,30 @@ const pullMainContent = async (req, res) => {
   });
 };
 
+const getProfilePosts = async (req, res) => {
+  const { id } = req.params;
+  const posts = await Post.findAll({
+    where: {
+      userid: id,
+    },
+    order: [["createdAt", "desc"]],
+    include: [
+      {
+        model: Comment,
+        attributes: ["content", "createdAt", "id"],
+        include: User,
+      },
+    ],
+  });
+
+  for (let p of posts) {
+    p.User = await User.findByPk(p.userid);
+    p.Game = await Game.findByPk(p.gameid);
+  }
+
+  res.json(posts);
+};
+
 const getFollowers = async (req, res) => {
   const { id } = req.session.user;
 
@@ -282,16 +306,44 @@ const getFollowers = async (req, res) => {
   });
 };
 
-const saveFollowers = async (req, res) => {
-  const { id } = req.body;
-  const sessionid = req.session.user.id;
+const getProfileFollows = async (req, res) => {
+  const { id } = req.params;
 
-  const savedFollower = await Follower.create({
+  const followers = await Follower.findAll({
+    where: {
+      followeeid: id,
+    },
+    // include: User, // Error: [SequelizeEagerLoadingError]: User is not associated to Follower!
+  });
+
+  const following = await Follower.findAll({
+    where: {
+      followerid: id,
+    },
+    // include: User, // Error: [SequelizeEagerLoadingError]: User is not associated to Follower!
+  });
+
+  res.json({
+    message: "Sending Profile Followers",
+    followers,
+    following,
+    id,
+  });
+};
+
+const saveFollowers = async (req, res) => {
+  const { id } = req.params;
+  // const sessionid = req.session.user.id;
+  const sessionid = 4;
+
+  const createFollower = await Follower.create({
     followeeid: id,
     followerid: sessionid,
   });
 
-  res.json("Follow Saved");
+  const savedFollower = await User.findByPk(createFollower.followeeid);
+
+  res.json({ "Now Following:": savedFollower.displayname });
 };
 
 const getAllGames = async (req, res) => {
@@ -350,11 +402,12 @@ const saveTopFive = async (req, res) => {
 };
 
 const personalTopFive = async (req, res) => {
-  const { id } = req.session.user;
+  const { id } = req.params;
   const topFive = await Game_Junction.findAll({
     where: {
       userid: id,
     },
+    include: Game,
     //     attributes: [
 
     //     include: Game,
@@ -387,14 +440,16 @@ module.exports = {
   processLogout,
   pullMainContent,
   getFollowers,
+  getProfileFollows,
   saveFollowers,
   getAllGames,
   grabMainTopFive,
   saveTopFive,
   personalTopFive,
+  getProfilePosts,
   processPost,
   editPost,
   processEditPost,
   processPostImage,
-  game
+  game,
 };
