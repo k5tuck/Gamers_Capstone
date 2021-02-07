@@ -78,16 +78,17 @@ function ProfilePage({ editPost, deletePost, createFollow, removeFollow }) {
       {/* <FollowButton createFollow={createFollow} /> */}
 
       {/* <Post posts={posts}/> */}
-
+      <div className="profilepostcontainer">
       {posts.map((post) => {
+
         return (
-          <div key={post.id}>
+          <div key={post.id} className="post">
             <h3>{post.title}</h3>
-            {/* <Link to={`/profile/${post.id}`}> */}
+            {/* <Link to={`/profile/${post.userid}`}> */}
             <h4>{post.username}</h4>
             {/* </Link> */}
-            <div>
-              <img src={post.media} alt={post.title} />
+            <div className="postimgcontainer">
+              <img className="postimg" src={post.media} alt={post.title} />
             </div>
             <p>{post.content}</p>
             <button onClick={editPost}>Edit Button</button>
@@ -100,12 +101,22 @@ function ProfilePage({ editPost, deletePost, createFollow, removeFollow }) {
                 </div>;
               })}
             </div>
+
           </div>
         );
       })}
+      </div>
 
       {/* Top Five  */}
+
+      {/* <div>
+        {games.map((game) => {
+          return <p>{game.Game.title}</p>;
+        })}
+      </div> */}
+
       <PersonalTopGamesContainer />
+
     </div>
   );
 }
