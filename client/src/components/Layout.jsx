@@ -11,6 +11,7 @@ async function removeFollow(id) {
   const resp = await axios.post(`/api/removefollower/${id}`);
   console.log(resp.data);
 }
+
 export default function Layout({ children }) {
   return (
     <div>

@@ -6,8 +6,10 @@ import FollowButton from "./subcomponents/FollowButton";
 import { Link, useParams } from "react-router-dom";
 import PersonalTopGamesContainer from "./subcomponents/PersonalTopGameContainer";
 import UnfollowButton from "./subcomponents/UnfollowButton";
+import PostContainer from "./subcomponents/PostContainer";
 
-function ProfilePage({ editPost, deletePost, createFollow, removeFollow }) {
+function ProfilePage({ createFollow, removeFollow }) {
+  // function ProfilePage({ editPost, deletePost, createFollow, removeFollow }) {
   const { id } = useParams();
   console.log(id);
 
@@ -29,24 +31,21 @@ function ProfilePage({ editPost, deletePost, createFollow, removeFollow }) {
   }
 
   const checkFollowing = () => {
-    let value = false
+    let value = false;
     for (let follower of followers) {
       if (follower.followerid === sessionid) {
-          value = true 
-          break
+        value = true;
+        break;
       }
-    } 
-    return value
+    }
+    return value;
   };
-  // console.log(checkFollowing());
 
   useEffect(() => {
     grabContent();
     checkFollowing();
   }, []);
 
-  // console.log(following);
-  console.log(removeFollow);
   return (
     <div>
       <div className="memberactionscontainer">
@@ -58,13 +57,6 @@ function ProfilePage({ editPost, deletePost, createFollow, removeFollow }) {
             <button>Followers</button>
           </Link>
           <p>{followers.length}</p>
-          <Link
-            style={{ textDecoration: "none" }}
-            to={`/members/following/${id}`}
-          >
-            <button>Following</button>
-          </Link>
-          <p>{following.length}</p>
         </div>
       </div>
 
@@ -73,38 +65,7 @@ function ProfilePage({ editPost, deletePost, createFollow, removeFollow }) {
       ) : (
         <FollowButton createFollow={createFollow} />
       )}
-      
-
-      {/* <FollowButton createFollow={createFollow} /> */}
-
-      {/* <Post posts={posts}/> */}
-
-      {posts.map((post) => {
-        return (
-          <div key={post.id}>
-            <h3>{post.title}</h3>
-            {/* <Link to={`/profile/${post.id}`}> */}
-            <h4>{post.username}</h4>
-            {/* </Link> */}
-            <div>
-              <img src={post.media} alt={post.title} />
-            </div>
-            <p>{post.content}</p>
-            <button onClick={editPost}>Edit Button</button>
-            <button onClick={deletePost}>Delete Button</button>
-            <div>
-              {post.Comments.map((comment) => {
-                <div>
-                  <h4>Username: {post.User.username}</h4>
-                  <p>{comment.content}</p>
-                </div>;
-              })}
-            </div>
-          </div>
-        );
-      })}
-
-      {/* Top Five  */}
+      <PostContainer posts={posts} sessionid={sessionid} />
       <PersonalTopGamesContainer />
     </div>
   );
