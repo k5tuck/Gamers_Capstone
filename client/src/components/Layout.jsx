@@ -7,6 +7,10 @@ async function createFollow(id) {
   const resp = await axios.post(`/api/follower/${id}`);
   console.log(resp);
 }
+async function removeFollow(id) {
+  const resp = await axios.post(`/api/removefollower/${id}`);
+  console.log(resp.data);
+}
 export default function Layout({ children }) {
   return (
     <div>
@@ -17,4 +21,4 @@ export default function Layout({ children }) {
   );
 }
 
-export { createFollow };
+export { createFollow, removeFollow };

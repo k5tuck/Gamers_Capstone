@@ -308,6 +308,7 @@ const getFollowers = async (req, res) => {
 
 const getProfileFollows = async (req, res) => {
   const { id } = req.params;
+  const sessionid = req.session.user.id;
 
   const followers = await Follower.findAll({
     where: {
@@ -327,11 +328,12 @@ const getProfileFollows = async (req, res) => {
     message: "Sending Profile Followers",
     followers,
     following,
+    sessionid,
     id,
   });
 };
 
-const saveFollowers = async (req, res) => {
+const saveFollower = async (req, res) => {
   const { id } = req.params;
   const convertedInt = Number(id);
   const sessionid = req.session.user.id;
@@ -348,6 +350,22 @@ const saveFollowers = async (req, res) => {
 
     res.json({ "Now Following": savedFollower.displayname });
   }
+};
+
+const removeFollower = async (req, res) => {
+  const { id } = req.params;
+  const convertedInt = Number(id);
+  const sessionid = req.session.user.id;
+
+  const removeFollower = await Follower.destroy({
+    where: {
+      followeeid: convertedInt,
+      followerid: sessionid,
+    },
+  });
+  const removedFollower = await User.findByPk(convertedInt);
+
+  res.json({ Unfollowed: removedFollower.displayname });
 };
 
 const getAllGames = async (req, res) => {
@@ -369,7 +387,7 @@ const grabMainTopFive = async (req, res) => {
   //   include: [{ attributes: [], model: Game_Junction }],
   //   group: ["Game.id"],
   // });
-  const [grabMainTopFive] = await Game_Junction.top(5)
+  const [grabMainTopFive] = await Game_Junction.top(5);
   res.json(grabMainTopFive);
 };
 
@@ -387,19 +405,23 @@ const saveTopFive = async (req, res) => {
 
 const personalTopFive = async (req, res) => {
   const { id } = req.params;
-  const topFive = await Game_Junction.findAll({
-    where: {
-      userid: id,
-    },
-    include: Game,
-    //     attributes: [
+  const cInt = Number(id);
+  // const topFive = await Game_Junction.findAll({
+  //   where: {
+  //     userid: id,
+  //   },
+  //   include: Game,
+  //     attributes: [
 
-    //     include: Game,
-    //     order: ,
-    // ]
-  });
+  //     include: Game,
+  //     order: ,
+  // ]
+  // });
 
-  res.json({ message: "Sending Personal Top Five", topFive });
+  const [grabPersonalTopFive] = await Game_Junction.personaltop(cInt, 5);
+  // res.json(grabPersonalTopFive);
+
+  res.json({ message: "Sending Personal Top Five", grabPersonalTopFive });
 };
 
 const game = async (req, res) => {
@@ -425,7 +447,8 @@ module.exports = {
   pullMainContent,
   getFollowers,
   getProfileFollows,
-  saveFollowers,
+  saveFollower,
+  removeFollower,
   getAllGames,
   grabMainTopFive,
   saveTopFive,

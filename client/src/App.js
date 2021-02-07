@@ -17,7 +17,7 @@ import ProfilePage from "./components/ProfilePage";
 import HomeInitial from "./components/HomeInitial";
 import AddPost from "./components/AddPost";
 import GamePage from "./components/GamePage";
-import Layout, { createFollow } from "./components/Layout";
+import Layout, { createFollow, removeFollow } from "./components/Layout";
 
 function App() {
   // let history = useHistory();
@@ -50,7 +50,10 @@ function App() {
               <GamePage />
             </Route>
             <Route path="/profile/:id">
-              <ProfilePage createFollow={createFollow} />
+              <ProfilePage
+                createFollow={createFollow}
+                removeFollow={removeFollow}
+              />
             </Route>
           </Layout>
         </Switch>

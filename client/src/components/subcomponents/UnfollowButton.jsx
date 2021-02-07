@@ -1,18 +1,18 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
-export default function FollowButton({ createFollow }) {
+export default function UnfollowButton({ removeFollow }) {
   const { id } = useParams();
 
   return (
     <div>
       <button
         onClick={(e) => {
-          createFollow(id);
+          removeFollow(id);
           window.location.reload();
         }}
       >
-        Follow
+        Unfollow
       </button>
     </div>
   );
