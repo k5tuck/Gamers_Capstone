@@ -80,23 +80,15 @@ function ProfilePage({ editPost, deletePost, createFollow, removeFollow }) {
       {/* <Post posts={posts}/> */}
       <div className="profilepostcontainer">
       {posts.map((post) => {
-<<<<<<< HEAD
-        return <div key={post.id} className="post">
-          <h3>{post.title}</h3>
-          <Link to={`/profile/${post.id}`}>
-            <h4>{post.username}</h4>
-          </Link>
-          <div className="postimgcontainer">
-            <img className="postimg" src={post.media} alt={post.title} />
-=======
+
         return (
-          <div key={post.id}>
+          <div key={post.id} className="post">
             <h3>{post.title}</h3>
-            {/* <Link to={`/profile/${post.id}`}> */}
+            {/* <Link to={`/profile/${post.userid}`}> */}
             <h4>{post.username}</h4>
             {/* </Link> */}
-            <div>
-              <img src={post.media} alt={post.title} />
+            <div className="postimgcontainer">
+              <img className="postimg" src={post.media} alt={post.title} />
             </div>
             <p>{post.content}</p>
             <button onClick={editPost}>Edit Button</button>
@@ -109,22 +101,22 @@ function ProfilePage({ editPost, deletePost, createFollow, removeFollow }) {
                 </div>;
               })}
             </div>
->>>>>>> b2071998970b747d0ee5efc34a56dd36df236cdf
+
           </div>
         );
       })}
       </div>
 
       {/* Top Five  */}
-<<<<<<< HEAD
-      <div>
+
+      {/* <div>
         {games.map((game) => {
           return <p>{game.Game.title}</p>;
         })}
-      </div>
-=======
+      </div> */}
+
       <PersonalTopGamesContainer />
->>>>>>> b2071998970b747d0ee5efc34a56dd36df236cdf
+
     </div>
   );
 }
