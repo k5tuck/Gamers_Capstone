@@ -308,6 +308,8 @@ const getFollowers = async (req, res) => {
 
 const getProfileFollows = async (req, res) => {
   const { id } = req.params;
+  // const sessionid = req.session.user.id;
+  const sessionid = 4;
 
   const followers = await Follower.findAll({
     where: {
@@ -327,11 +329,12 @@ const getProfileFollows = async (req, res) => {
     message: "Sending Profile Followers",
     followers,
     following,
+    sessionid,
     id,
   });
 };
 
-const saveFollowers = async (req, res) => {
+const saveFollower = async (req, res) => {
   const { id } = req.params;
   const convertedInt = Number(id);
   const sessionid = req.session.user.id;
@@ -348,6 +351,22 @@ const saveFollowers = async (req, res) => {
 
     res.json({ "Now Following": savedFollower.displayname });
   }
+};
+
+const removeFollower = async (req, res) => {
+  const { id } = req.params;
+  const convertedInt = Number(id);
+  const sessionid = req.session.user.id;
+
+  const removeFollower = await Follower.destroy({
+    where: {
+      followeeid: convertedInt,
+      followerid: sessionid,
+    },
+  });
+  const removedFollower = await User.findByPk(removeFollower.followeeid);
+
+  res.json({ Unfollowed: removedFollower.displayname });
 };
 
 const getAllGames = async (req, res) => {
@@ -429,7 +448,8 @@ module.exports = {
   pullMainContent,
   getFollowers,
   getProfileFollows,
-  saveFollowers,
+  saveFollower,
+  removeFollower,
   getAllGames,
   grabMainTopFive,
   saveTopFive,

@@ -5,29 +5,45 @@ import FollowButton from "./subcomponents/FollowButton";
 
 import { Link, useParams } from "react-router-dom";
 import PersonalTopGamesContainer from "./subcomponents/PersonalTopGameContainer";
+import UnfollowButton from "./subcomponents/UnfollowButton";
 
-function ProfilePage({ editPost, deletePost, createFollow }) {
+function ProfilePage({ editPost, deletePost, createFollow, removeFollow }) {
   const { id } = useParams();
   console.log(id);
 
+  const [sessionid, setSessionId] = useState(null);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
   const [posts, setPosts] = useState([]);
 
   async function grabContent() {
     const resp = await axios.get(`/api/follows/${id}`);
+    console.log(resp.data);
+    setSessionId(resp.data.sessionid);
     const respFollowers = resp.data.followers;
     setFollowers(respFollowers);
     const respFollowing = resp.data.following;
     setFollowing(respFollowing);
     const respPosts = await axios.get(`/api/posts/${id}`);
     setPosts(...posts, respPosts.data);
-    console.log(respPosts);
   }
+
+  const checkFollowing = (followersarr) => {
+    for (let follower of followersarr) {
+      if (follower.followerid === sessionid) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
 
   useEffect(() => {
     grabContent();
+    checkFollowing(followers);
   }, []);
+
+  console.log(following);
 
   return (
     <div>
@@ -49,7 +65,14 @@ function ProfilePage({ editPost, deletePost, createFollow }) {
           <p>{following.length}</p>
         </div>
       </div>
-      <FollowButton createFollow={createFollow} />
+
+      {checkFollowing ? (
+        <UnfollowButton removeFollow={removeFollow} />
+      ) : (
+        <FollowButton createFollow={createFollow} />
+      )}
+
+      {/* <FollowButton createFollow={createFollow} /> */}
 
       {/* <Post posts={posts}/> */}
 
