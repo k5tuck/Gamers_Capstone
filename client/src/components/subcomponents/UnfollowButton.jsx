@@ -9,6 +9,7 @@ export default function UnfollowButton({ removeFollow }) {
       <button
         onClick={(e) => {
           removeFollow(id);
+          window.location.reload();
         }}
       >
         Unfollow

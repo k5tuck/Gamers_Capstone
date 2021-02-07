@@ -9,6 +9,7 @@ export default function FollowButton({ createFollow }) {
       <button
         onClick={(e) => {
           createFollow(id);
+          window.location.reload();
         }}
       >
         Follow

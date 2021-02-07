@@ -308,8 +308,7 @@ const getFollowers = async (req, res) => {
 
 const getProfileFollows = async (req, res) => {
   const { id } = req.params;
-  // const sessionid = req.session.user.id;
-  const sessionid = 4;
+  const sessionid = req.session.user.id;
 
   const followers = await Follower.findAll({
     where: {
@@ -364,7 +363,7 @@ const removeFollower = async (req, res) => {
       followerid: sessionid,
     },
   });
-  const removedFollower = await User.findByPk(removeFollower.followeeid);
+  const removedFollower = await User.findByPk(convertedInt);
 
   res.json({ Unfollowed: removedFollower.displayname });
 };
