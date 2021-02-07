@@ -1,5 +1,3 @@
-const multer = require("multer");
-// const upload = multer({ dest: "public" + UPLOAD_URL });
 const { layout } = require("../utils");
 const bcrypt = require("bcryptjs");
 const Sequelize = require("sequelize");
@@ -20,21 +18,16 @@ const {
 
 const processPost = async (req, res) => {
   const { id, username } = req.session.user;
-  const { file } = req;
   const { title, content, gameid } = req.body;
-  // let mediaPic = file ? UPLOAD_URL + file.filename : "";
   const post = await Post.create({
     userid: id,
     username,
     title,
-    // media: mediaPic,
     content,
     gameid,
   });
 
   res.json(post);
-
-  // res.redirect("/members");
 };
 
 const processPostImage = async (req, res) => {
@@ -57,36 +50,21 @@ const processPostImage = async (req, res) => {
 const editPost = async (req, res) => {
   const { id } = req.params;
   const post = await Post.findByPk(id);
-  const games = await Game.findAll();
+  const game = await Game.findByPk(post.gameid);
 
-  res.json(id, post, games);
-
-  //   res.render("createFormEdit", {
-  //     locals: {
-  //       post,
-  //       games,
-  //     },
-  //     ...layout,
-  //   });
+  res.json({ post, game });
 };
 
 const processEditPost = async (req, res) => {
   const { id } = req.params;
-  const { file } = req;
-  console.log(id);
-  const { title, content } = req.body;
-  console.log(title);
-  console.log(content);
+  const { title, content, gameid } = req.body;
 
   let data = {
     title,
+    gameid,
     content,
   };
-  // let mediaPic = file ? UPLOAD_URL + file.filename : "";
 
-  if (file) {
-    data["media"] = UPLOAD_URL + file.filename;
-  }
   const updatedPost = await Post.update(data, {
     where: {
       id,
@@ -95,7 +73,6 @@ const processEditPost = async (req, res) => {
   });
 
   res.json("Edited Post succesfully");
-  // res.redirect("/members");
 };
 
 const processNewUser = async (req, res) => {
@@ -104,7 +81,6 @@ const processNewUser = async (req, res) => {
   let { username } = req.body;
 
   if (username == "" || password == "") {
-    // res.redirect("/errorsignup");
     res.json("Username or Password is Blank!");
   } else {
     const hash = bcrypt.hashSync(password, 10); // auto salt!
@@ -137,8 +113,6 @@ const processNewUser = async (req, res) => {
         console.log("Username is Taken. Try Again!");
         res.json("Username is Taken. Try Again!");
       }
-      // Previously -  Redirected User to Signup Page stating Username was taken
-      // res.redirect("/takensignup");
     }
   }
 };
@@ -181,8 +155,6 @@ const processLogin = async (req, res) => {
     },
   });
   if (user) {
-    // Is that their password?
-    //res.send('we have a user!');
     const isValid = bcrypt.compareSync(password, user.hash);
     if (isValid) {
       req.session.user = {
@@ -191,7 +163,6 @@ const processLogin = async (req, res) => {
         displayname: user.displayname,
       };
       req.session.save(() => {
-        // res.redirect("/members");
         res.json("Session Saved");
       });
     } else {
@@ -200,10 +171,6 @@ const processLogin = async (req, res) => {
   } else {
     res.json("User Does Not Exist");
   }
-  //   res.render("loginPage", {
-  //     locals: {},
-  //   });
-  // res.redirect('/members')
 };
 
 const processLogout = (req, res) => {
@@ -251,10 +218,34 @@ const pullMainContent = async (req, res) => {
   }
 
   res.json({
-    displayname,
-    id,
+    sessionid: id,
     posts,
   });
+};
+
+const getGamePosts = async (req, res) => {
+  const { id } = req.params;
+  const sessionid = req.session.user.id;
+  const posts = await Post.findAll({
+    where: {
+      gameid: id,
+    },
+    order: [["createdAt", "desc"]],
+    include: [
+      {
+        model: Comment,
+        attributes: ["content", "createdAt", "id"],
+        include: User,
+      },
+    ],
+  });
+
+  for (let p of posts) {
+    p.User = await User.findByPk(p.userid);
+    p.Game = await Game.findByPk(p.gameid);
+  }
+  console.log(posts);
+  res.json({ posts, sessionid });
 };
 
 const getProfilePosts = async (req, res) => {
@@ -281,6 +272,17 @@ const getProfilePosts = async (req, res) => {
   res.json(posts);
 };
 
+const processDeletePost = async (req, res) => {
+  const { id } = req.params;
+
+  const dpost = await Post.destroy({
+    where: {
+      id,
+    },
+  });
+  res.json("Post Deleted");
+};
+
 const getFollowers = async (req, res) => {
   const { id } = req.session.user;
 
@@ -288,14 +290,12 @@ const getFollowers = async (req, res) => {
     where: {
       followeeid: id,
     },
-    // include: User,
   });
 
   const following = await Follower.findAll({
     where: {
       followerid: id,
     },
-    // include: User,
   });
 
   res.json({
@@ -376,17 +376,6 @@ const getAllGames = async (req, res) => {
 };
 
 const grabMainTopFive = async (req, res) => {
-  // const grabMainTopFive = await Game.findAll({
-  //   attributes: [
-  //     "id",
-  //     [
-  //       sequelize.fn("count", sequelize.col("Game_Junctions.gameid")),
-  //       "gamecount",
-  //     ],
-  //   ],
-  //   include: [{ attributes: [], model: Game_Junction }],
-  //   group: ["Game.id"],
-  // });
   const [grabMainTopFive] = await Game_Junction.top(5);
   res.json(grabMainTopFive);
 };
@@ -406,22 +395,15 @@ const saveTopFive = async (req, res) => {
 const personalTopFive = async (req, res) => {
   const { id } = req.params;
   const cInt = Number(id);
-  // const topFive = await Game_Junction.findAll({
-  //   where: {
-  //     userid: id,
-  //   },
-  //   include: Game,
-  //     attributes: [
-
-  //     include: Game,
-  //     order: ,
-  // ]
-  // });
 
   const [grabPersonalTopFive] = await Game_Junction.personaltop(cInt, 5);
-  // res.json(grabPersonalTopFive);
+  const user = await User.findByPk(id);
 
-  res.json({ message: "Sending Personal Top Five", grabPersonalTopFive });
+  res.json({
+    message: "Sending Personal Top Five",
+    grabPersonalTopFive,
+    displayname: user.displayname,
+  });
 };
 
 const game = async (req, res) => {
@@ -430,12 +412,6 @@ const game = async (req, res) => {
   console.log(game);
 
   res.json(game);
-  // res.render("game-page", {
-  //   locals: {
-  //     game,
-  //   },
-  //   ...layout,
-  // });
 };
 
 module.exports = {
@@ -453,10 +429,12 @@ module.exports = {
   grabMainTopFive,
   saveTopFive,
   personalTopFive,
+  getGamePosts,
   getProfilePosts,
   processPost,
   editPost,
   processEditPost,
+  processDeletePost,
   processPostImage,
   game,
 };

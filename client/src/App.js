@@ -1,14 +1,7 @@
 import "@progress/kendo-theme-default/dist/all.css";
 import "./App.css";
-import axios from "axios";
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useHistory,
-  useParams,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SignUpPage from "./components/SignUpPage";
 import Login from "./components/Login";
 import About from "./components/About";
@@ -17,7 +10,13 @@ import ProfilePage from "./components/ProfilePage";
 import HomeInitial from "./components/HomeInitial";
 import AddPost from "./components/AddPost";
 import GamePage from "./components/GamePage";
-import Layout, { createFollow, removeFollow } from "./components/Layout";
+import Layout, {
+  createFollow,
+  removeFollow,
+  editPost,
+  deletePost,
+} from "./components/Layout";
+import EditPost from "./components/EditPost";
 
 function App() {
   // let history = useHistory();
@@ -45,6 +44,9 @@ function App() {
             </Route>
             <Route path="/addPost">
               <AddPost />
+            </Route>
+            <Route path="/editpost">
+              <EditPost />
             </Route>
             <Route path="/member/game/:id">
               <GamePage />

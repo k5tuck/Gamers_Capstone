@@ -27,15 +27,17 @@ router
   // .delete("/comments", apiController)
 
   // Posts
-  .get("/posts", apiController.pullMainContent) // All The Post
+  .post("/post", apiController.processPost) // Add a Post
 
+  .get("/posts", apiController.pullMainContent) // All The Post
+  .get("/gameposts/:id", apiController.getGamePosts) // Pull Game Posts
   .get("/posts/:id", apiController.getProfilePosts) // Pull Profile Posts
 
-  .get("/post", apiController.editPost) // Single Post
-  .post("/post", apiController.processPost)
+  .get("/repost/:id", apiController.editPost) // Single Post
+
   .put("/postimage/:id", upload.single("file"), apiController.processPostImage)
-  .put("/post", upload.single("file"), apiController.processEditPost)
-  // .delete("/post", apiController)
+  .put("/editpost/:id", upload.single("file"), apiController.processEditPost)
+  .delete("/delpost/:id", apiController.processDeletePost)
 
   // Followers/Following
   .get("/follow", apiController.getFollowers)
@@ -45,7 +47,6 @@ router
 
   // Likes
   // .post("/likes", apiController)
-  // .put("/likes", apiController)
 
   // // Tags
   // .get("/tags", apiController)

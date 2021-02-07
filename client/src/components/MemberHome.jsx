@@ -1,41 +1,45 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import ProfilePic from "./subcomponents/ProfilePic";
 import MemberActionContainer from "./subcomponents/MemberActionContainer";
 import PostContainer from "./subcomponents/PostContainer";
-import TopGamesContainer from "./subcomponents/TopGamesContainer"
-import axios from "axios"
+import TopGamesContainer from "./subcomponents/TopGamesContainer";
+import axios from "axios";
 
 function MemberHome() {
-const [posts, setPosts] = useState([]);
+  // function MemberHome({ editPost, deletePost }) {
+  const [posts, setPosts] = useState([]);
+  const [sessionid, setSessionId] = useState(null);
 
   async function grabPosts() {
     const respPosts = await axios.get("/api/posts");
     console.log(respPosts);
-      setPosts(...posts, respPosts.data.posts);}
+    setPosts(...posts, respPosts.data.posts);
+    setSessionId(respPosts.data.sessionid);
+  }
 
-  useEffect( () => {
-    grabPosts()
-  }, []) 
+  useEffect(() => {
+    grabPosts();
+  }, []);
 
-    return (
-        <div className="newsfeedcontainer">
-            <div className="leftpanel">
-            {/* <div className=""> */}
-                <div className="profilepiccomponent">
-                    <ProfilePic/>
-                </div>
-                <div className="memberactions">
-                    <MemberActionContainer />
-                </div>
-            </div>
-            <div className="middle">
-                <div className="postcontainer">
-                    <PostContainer posts={posts}/>
-                </div>
-            </div>
-            <TopGamesContainer />
+  return (
+    <div className="newsfeedcontainer">
+      <div className="leftpanel">
+        {/* <div className=""> */}
+        <div className="profilepiccomponent">
+          <ProfilePic />
+        </div>
+        <div className="memberactions">
+          <MemberActionContainer />
+        </div>
+      </div>
+      <div className="middle">
+        <div className="postcontainer">
+          <PostContainer posts={posts} sessionid={sessionid} />
+        </div>
+      </div>
+      <TopGamesContainer />
 
-                {/* <h1>Welcome ${'{'}displayname{'}'}</h1>
+      {/* <h1>Welcome ${'{'}displayname{'}'}</h1>
                 <a href="/members/create"><button>ADD POST</button></a>
                 <a href="/members/profile/${id}"><button>VIEW PROFILE</button></a>
                 <a href="/members/search"><button>SEARCH</button></a>
@@ -82,8 +86,8 @@ const [posts, setPosts] = useState([]);
                 </li>
     ` {'}'}).join(''){'}'}
             </ul> */}
-        </div> 
-    )
-};
+    </div>
+  );
+}
 
 export default MemberHome;
