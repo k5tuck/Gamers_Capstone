@@ -39,8 +39,8 @@ router
 
   // Followers/Following
   .get("/follow", apiController.getFollowers)
-  .post("/follower/:id", apiController.saveFollowers)
-
+  .post("/follower/:id", apiController.saveFollower) //Add Follower Button
+  .post("/removefollower/:id", apiController.removeFollower) // Remove Follower Button
   .get("/follows/:id", apiController.getProfileFollows)
 
   // Likes
