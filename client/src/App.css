@@ -80,6 +80,9 @@
 .profilepicheader {
   float:left;
 }
+.profilepostcontainer {
+  margin: 0 10rem;
+}
 .post {
   display:flex;
   flex-direction: column;
