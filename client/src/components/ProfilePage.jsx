@@ -28,23 +28,25 @@ function ProfilePage({ editPost, deletePost, createFollow, removeFollow }) {
     setPosts(...posts, respPosts.data);
   }
 
-  const checkFollowing = (followersarr) => {
-    for (let follower of followersarr) {
+  const checkFollowing = () => {
+    let value = false
+    for (let follower of followers) {
       if (follower.followerid === sessionid) {
-        return true;
-      } else {
-        return false;
+          value = true 
+          break
       }
-    }
+    } 
+    return value
   };
+  // console.log(checkFollowing());
 
   useEffect(() => {
     grabContent();
-    checkFollowing(followers);
+    checkFollowing();
   }, []);
 
-  console.log(following);
-
+  // console.log(following);
+  console.log(removeFollow);
   return (
     <div>
       <div className="memberactionscontainer">
@@ -66,11 +68,12 @@ function ProfilePage({ editPost, deletePost, createFollow, removeFollow }) {
         </div>
       </div>
 
-      {checkFollowing ? (
+      {checkFollowing() ? (
         <UnfollowButton removeFollow={removeFollow} />
       ) : (
         <FollowButton createFollow={createFollow} />
       )}
+      
 
       {/* <FollowButton createFollow={createFollow} /> */}
 
