@@ -22,6 +22,8 @@ router
   .get("/getmain", apiController.pullMainContent)
 
   // Comments
+
+  .get("/comments/:id", apiController.getComment)
   .post("/comments/:id", apiController.addComment)
   .put("/comments/:id", apiController.editComment)
   .delete("/comments/:id", apiController.deleteComment)
