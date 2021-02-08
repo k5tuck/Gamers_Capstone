@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
-function EditPost({ post, game }) {
+function EditPost({ post, closeModal }) {
   const history = useHistory();
   const [title, setTitle] = useState(post.title);
   const [gameid, setGameId] = useState(post.gameid);
@@ -19,14 +19,16 @@ function EditPost({ post, game }) {
       gameid,
       content,
     };
-    const resp = await axios.post(`/api/editpost/${post.id}`, editedPostInfo);
+    const resp = await axios.put(`/api/editpost/${post.id}`, editedPostInfo);
     const uploadImage = await axios.put(`/api/postimage/${post.id}`, data, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
     console.log(uploadImage);
-    history.push("/member/home");
+    closeModal();
+    window.location.reload();
+    // history.push("/member/home");
   };
 
   const getGames = async () => {
@@ -94,7 +96,7 @@ function EditPost({ post, game }) {
           ></textarea>
         </label>
         <br />
-        <input type="submit" value="POST" />
+        <input type="submit" value="Edit Post" />
       </form>
     </div>
   );
