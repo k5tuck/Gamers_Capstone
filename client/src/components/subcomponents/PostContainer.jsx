@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
+import Modal from "react-modal";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import EditPost from "../EditPost";
 
+Modal.setAppElement("#root");
 const PostContainer = (props) => {
   const { posts, sessionid } = props;
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [editPostData, setEditPostData] = useState({});
 
   function checkUser() {
@@ -18,12 +21,17 @@ const PostContainer = (props) => {
     return value;
   }
 
+  function closeModal() {
+    setModalIsOpen(false);
+  }
+
   async function editPost(postid) {
     const resp = await axios.get(`/api/repost/${postid}`);
     console.log(resp.data.post);
-    // Display React Modal Here
-    // ie. <Modal><EditPost /></Modal>
+    console.log(modalIsOpen);
     setEditPostData(resp.data.post);
+    setModalIsOpen(true);
+    // Display React Modal Here
   }
 
   async function deletePost(postid) {
@@ -67,6 +75,16 @@ const PostContainer = (props) => {
                 >
                   Edit Button
                 </button>
+                <Modal
+                  isOpen={modalIsOpen}
+                  // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
+                  onRequestClose={() => {
+                    setModalIsOpen(false);
+                  }}
+                >
+                  <EditPost post={editPostData} closeModal={closeModal} />
+                </Modal>
+                ;
                 <button
                   onClick={(e) => {
                     deletePost(post.id);
