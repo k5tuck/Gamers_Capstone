@@ -283,6 +283,47 @@ const processDeletePost = async (req, res) => {
   res.json("Post Deleted");
 };
 
+const addComment = async (req, res) => {
+  const { id, content } = req.params;
+  const sessionid = req.session.user.id;
+
+  const addedComment = await Comment.create({
+    postid: id,
+    content,
+    userid: sessionid,
+  });
+
+  res.json("Comment Created");
+};
+
+const editComment = async (req, res) => {
+  const { id, content } = req.params;
+  const sessionid = req.session.user.id;
+
+  const editedComment = await Comment.update(content, {
+    where: {
+      postid: id,
+      userid: sessionid,
+    },
+  });
+
+  res.json("Comment Edited");
+};
+
+const deleteComment = async (req, res) => {
+  const { id } = req.params;
+  const sessionid = req.session.user.id;
+
+  const deletedComment = await Comment.destroy({
+    where: {
+      postid: id,
+      userid: sessionid,
+    },
+  });
+
+  res.json("Comment Deleted");
+};
+
 const getFollowers = async (req, res) => {
   const { id } = req.session.user;
 
@@ -435,6 +476,9 @@ module.exports = {
   editPost,
   processEditPost,
   processDeletePost,
+  addComment,
+  editComment,
+  deleteComment,
   processPostImage,
   game,
 };
