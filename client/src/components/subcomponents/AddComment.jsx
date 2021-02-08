@@ -19,8 +19,8 @@ function AddComment(props) {
   return (
     <div className="">
       <h1>Comment on: {post.title}</h1>
-      <div className="">
-        {post.media ? <img src={post.media} alt={post.title} /> : ""}
+      <div className="postimgcontainer">
+        {post.media ? <img className="postimg" src={post.media} alt={post.title} /> : ""}
       </div>
       <p>{post.content}</p>
 
