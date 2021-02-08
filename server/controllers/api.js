@@ -283,6 +283,14 @@ const processDeletePost = async (req, res) => {
   res.json("Post Deleted");
 };
 
+const getComment = async (req, res) => {
+  const { id } = req.params;
+  // const sessionid = req.session.user.id;
+
+  const getComment = await Comment.findByPk(id);
+
+  res.json(getComment);
+};
 const addComment = async (req, res) => {
   const { id } = req.params;
   const { content } = req.body;
@@ -299,17 +307,19 @@ const addComment = async (req, res) => {
 
 const editComment = async (req, res) => {
   const { id } = req.params;
-  const { content } = req.body;
+  const { newcontent } = req.body;
   const sessionid = req.session.user.id;
 
-  const editedComment = await Comment.update(content, {
-    where: {
-      postid: id,
-      userid: sessionid,
-    },
-  });
+  const editedComment = await Comment.update(
+    { content: newcontent },
+    {
+      where: {
+        id,
+      },
+    }
+  );
 
-  res.json("Comment Edited");
+  res.json({ message: "Comment Edited", editedComment });
 };
 
 const deleteComment = async (req, res) => {
@@ -478,6 +488,7 @@ module.exports = {
   editPost,
   processEditPost,
   processDeletePost,
+  getComment,
   addComment,
   editComment,
   deleteComment,

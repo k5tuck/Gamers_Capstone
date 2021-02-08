@@ -4,14 +4,18 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import EditPost from "../EditPost";
 import AddComment from "./AddComment";
+import EditComment from "../EditComment";
 
 Modal.setAppElement("#root");
 const PostContainer = (props) => {
   const { posts, sessionid } = props;
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsOpenComment, setModalIsOpenComment] = useState(false);
+  const [modalIsOpenEditComment, setModalIsOpenEditComment] = useState(false);
   const [editPostData, setEditPostData] = useState({});
-  
+  const [editCommentContent, setEditCommentContent] = useState("");
+  const [editCommentID, setEditCommentID] = useState(null);
+
   function checkUser() {
     let value = false;
     for (let post of posts) {
@@ -29,6 +33,9 @@ const PostContainer = (props) => {
   function closeCommentModal() {
     setModalIsOpenComment(false);
   }
+  function closeCommentEditModal() {
+    setModalIsOpenEditComment(false);
+  }
 
   async function editPost(postid) {
     const resp = await axios.get(`/api/repost/${postid}`);
@@ -40,6 +47,13 @@ const PostContainer = (props) => {
     // setModalIsOpen(true);
     // Display React Modal Here
   }
+
+  const editComment = async (commentid) => {
+    const resp = await axios.get(`/api/comments/${commentid}`);
+    console.log(modalIsOpenComment);
+    setEditCommentContent(resp.data.content);
+    setEditCommentID(resp.data.id);
+  };
 
   async function deletePost(postid) {
     const resp = await axios.delete(`/api/delpost/${postid}`);
@@ -65,10 +79,11 @@ const PostContainer = (props) => {
             <p>{post.content}</p>
             <p>Likes: 7</p>
             {/* <p>Likes: {post.Vote.like}</p> Setup Boolean */}
-            {(sessionid === post.userid) ? (
+            {sessionid === post.userid ? (
               <div>
                 <button
                   onClick={(e) => {
+                    e.preventDefault();
                     editPost(post.id);
                     setModalIsOpen(true);
                     // Need to push 'editPostData' to EditPost.jsx
@@ -93,37 +108,66 @@ const PostContainer = (props) => {
                 </Modal>
                 <button
                   onClick={(e) => {
+                    e.preventDefault();
                     deletePost(post.id);
                   }}
                 >
                   Delete Button
                 </button>
-                
               </div>
             ) : (
               ""
             )}
-            <button onClick={(e) => {
-              editPost(post.id)
-              setModalIsOpenComment(true)
-                }} >
-                  Add Comment
-                </button>
-                  <Modal
-                  isOpen={modalIsOpenComment}
-                  // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
-                  onRequestClose={() => {
-                    setModalIsOpenComment(false);
-                  }}
-                >
-                  <AddComment post={editPostData} closeModal={closeCommentModal} />
-                </Modal>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                editPost(post.id);
+                setModalIsOpenComment(true);
+              }}
+            >
+              Add Comment
+            </button>
+            <Modal
+              isOpen={modalIsOpenComment}
+              // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
+              onRequestClose={() => {
+                setModalIsOpenComment(false);
+              }}
+            >
+              <AddComment post={editPostData} closeModal={closeCommentModal} />
+            </Modal>
             <div>
               {post.Comments.map((comment) => {
-                return <div>
-                  <h4>{comment.User.displayname}</h4>
-                  <p>{comment.content}</p>
-                </div>;
+                return (
+                  <div>
+                    <h4>{comment.User.displayname}</h4>
+                    <p>{comment.content}</p>
+
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        editComment(comment.id);
+                        setModalIsOpenEditComment(true);
+                      }}
+                    >
+                      Edit Comment
+                    </button>
+                    <Modal
+                      isOpen={modalIsOpenEditComment}
+                      // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
+                      onRequestClose={() => {
+                        setModalIsOpenEditComment(false);
+                      }}
+                    >
+                      <EditComment
+                        id={editCommentID}
+                        content={editCommentContent}
+                        // callComment={editComment}
+                        closeModal={closeCommentEditModal}
+                      />
+                    </Modal>
+                  </div>
+                );
               })}
             </div>
           </div>
