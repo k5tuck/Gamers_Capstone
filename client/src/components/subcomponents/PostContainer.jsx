@@ -3,13 +3,15 @@ import Modal from "react-modal";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import EditPost from "../EditPost";
+import AddComment from "./AddComment";
 
 Modal.setAppElement("#root");
 const PostContainer = (props) => {
   const { posts, sessionid } = props;
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsOpenComment, setModalIsOpenComment] = useState(false);
   const [editPostData, setEditPostData] = useState({});
-
+  
   function checkUser() {
     let value = false;
     for (let post of posts) {
@@ -23,6 +25,9 @@ const PostContainer = (props) => {
 
   function closeModal() {
     setModalIsOpen(false);
+  }
+  function closeCommentModal() {
+    setModalIsOpenComment(false);
   }
 
   async function editPost(postid) {
@@ -92,6 +97,20 @@ const PostContainer = (props) => {
                 >
                   Delete Button
                 </button>
+                <button onClick={(e) => {
+                  setModalIsOpenComment(true)
+                }} >
+                  Add Comment
+                </button>
+                  <Modal
+                  isOpen={modalIsOpenComment}
+                  // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
+                  onRequestClose={() => {
+                    setModalIsOpenComment(false);
+                  }}
+                >
+                  <AddComment post={editPostData} closeModal={closeCommentModal} />
+                </Modal>
               </div>
             ) : (
               ""
