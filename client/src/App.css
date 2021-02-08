@@ -141,3 +141,7 @@
 .searchlink {
   text-decoration: none;
 }
+.post {
+ background-color: #61dafbe7;
+ border-radius: 15px;
+}
