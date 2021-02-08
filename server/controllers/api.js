@@ -196,15 +196,26 @@ const pullMainContent = async (req, res) => {
 
   const posts = await Post.findAll({
     order: [["createdAt", "desc"]],
+
     include: [
+      {
+        model: Vote,
+      },
+      // {
+      //   model: Tag_To_Post,
+      //   attributes: ["tagid"],
+      //   // include: Tag,
+      // },
+      {
+        model: Game,
+        attributes: ["title"],
+      },
       {
         model: Comment,
         attributes: ["content", "createdAt", "id"],
         include: User,
       },
-      {
-        model: Game
-      }
+
       // {
       //   model: Tag_To_Post,
       //   include: Tag,
@@ -236,6 +247,18 @@ const getGamePosts = async (req, res) => {
     order: [["createdAt", "desc"]],
     include: [
       {
+        model: Vote,
+      },
+      // {
+      //   model: Tag_To_Post,
+      //   attributes: ["tagid"],
+      //   // include: Tag,
+      // },
+      {
+        model: Game,
+        attributes: ["title"],
+      },
+      {
         model: Comment,
         attributes: ["content", "createdAt", "id"],
         include: User,
@@ -243,10 +266,10 @@ const getGamePosts = async (req, res) => {
     ],
   });
 
-  for (let p of posts) {
-    p.User = await User.findByPk(p.userid);
-    p.Game = await Game.findByPk(p.gameid);
-  }
+  // for (let p of posts) {
+  //   p.User = await User.findByPk(p.userid);
+  //   p.Game = await Game.findByPk(p.gameid);
+  // }
   console.log(posts);
   res.json({ posts, sessionid });
 };
@@ -260,6 +283,18 @@ const getProfilePosts = async (req, res) => {
     order: [["createdAt", "desc"]],
     include: [
       {
+        model: Vote,
+      },
+      // {
+      //   model: Tag_To_Post,
+      //   attributes: ["tagid"],
+      //   // include: Tag,
+      // },
+      {
+        model: Game,
+        attributes: ["title"],
+      },
+      {
         model: Comment,
         attributes: ["content", "createdAt", "id"],
         include: User,
@@ -267,10 +302,10 @@ const getProfilePosts = async (req, res) => {
     ],
   });
 
-  for (let p of posts) {
-    p.User = await User.findByPk(p.userid);
-    p.Game = await Game.findByPk(p.gameid);
-  }
+  // for (let p of posts) {
+  //   p.User = await User.findByPk(p.userid);
+  //   p.Game = await Game.findByPk(p.gameid);
+  // }
   console.log(posts);
   res.json(posts);
 };
