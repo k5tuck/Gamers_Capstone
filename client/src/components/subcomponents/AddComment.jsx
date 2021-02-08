@@ -3,10 +3,18 @@ import React, { useState } from 'react'
 
 function AddComment(props) {
     const {post, closeModal} = props
+    console.log(post);
     const [content, setContent] = useState('')
     async function processComment(postid) {
-        let response = await axios.post("/api/comments/" + postid)
-
+        const comment = { 
+            content,
+            id: postid
+        }
+        console.log(postid);
+        let response = await axios.post("/api/comments/" + postid, comment)
+        
+        closeModal()
+            window.location.reload();
     }
     
 
@@ -14,14 +22,16 @@ function AddComment(props) {
         <div className="">
             <h1>Comment on: {post.title}</h1>
             <div className="">
-            {post.media.includes("/uploads/media/") ? <img
+            {post.media ? <img
                 src={post.media}
                 alt={post.title}
             />:'' }
             </div>
             <p>{post.content}</p>
 
-            <form onSubmit={processComment(post.id)} >
+            <form onSubmit={(e)=> {
+                e.preventDefault()
+                processComment(post.id)}} >
             <label>
                 Comment:
                 <textarea name="content" value={content} onChange={e => {

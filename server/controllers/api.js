@@ -284,7 +284,8 @@ const processDeletePost = async (req, res) => {
 };
 
 const addComment = async (req, res) => {
-  const { id, content } = req.params;
+  const { id } = req.params;
+  const { content } = req.body;
   const sessionid = req.session.user.id;
 
   const addedComment = await Comment.create({
@@ -297,7 +298,8 @@ const addComment = async (req, res) => {
 };
 
 const editComment = async (req, res) => {
-  const { id, content } = req.params;
+  const { id } = req.params;
+  const { content } = req.body;
   const sessionid = req.session.user.id;
 
   const editedComment = await Comment.update(content, {
