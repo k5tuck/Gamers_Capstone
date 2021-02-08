@@ -22,9 +22,9 @@ router
   .get("/getmain", apiController.pullMainContent)
 
   // Comments
-  // .post("/comments", apiController)
-  // .put("/comments", apiController)
-  // .delete("/comments", apiController)
+  .post("/comments/:id", apiController.addComment)
+  .put("/comments/:id", apiController.editComment)
+  .delete("/comments/:id", apiController.deleteComment)
 
   // Posts
   .post("/post", apiController.processPost) // Add a Post
