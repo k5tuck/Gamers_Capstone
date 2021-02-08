@@ -32,10 +32,12 @@ const PostContainer = (props) => {
 
   async function editPost(postid) {
     const resp = await axios.get(`/api/repost/${postid}`);
+    console.log("======================");
     console.log(resp.data.post);
+    console.log("======================");
     console.log(modalIsOpen);
     setEditPostData(resp.data.post);
-    setModalIsOpen(true);
+    // setModalIsOpen(true);
     // Display React Modal Here
   }
 
@@ -63,12 +65,12 @@ const PostContainer = (props) => {
             <p>{post.content}</p>
             <p>Likes: 7</p>
             {/* <p>Likes: {post.Vote.like}</p> Setup Boolean */}
-            {checkUser() ? (
+            {(sessionid === post.userid) ? (
               <div>
                 <button
                   onClick={(e) => {
                     editPost(post.id);
-
+                    setModalIsOpen(true);
                     // Need to push 'editPostData' to EditPost.jsx
                     // Display EditPost.jsx
 
@@ -89,7 +91,6 @@ const PostContainer = (props) => {
                 >
                   <EditPost post={editPostData} closeModal={closeModal} />
                 </Modal>
-                ;
                 <button
                   onClick={(e) => {
                     deletePost(post.id);
@@ -97,8 +98,14 @@ const PostContainer = (props) => {
                 >
                   Delete Button
                 </button>
-                <button onClick={(e) => {
-                  setModalIsOpenComment(true)
+                
+              </div>
+            ) : (
+              ""
+            )}
+            <button onClick={(e) => {
+              editPost(post.id)
+              setModalIsOpenComment(true)
                 }} >
                   Add Comment
                 </button>
@@ -111,14 +118,10 @@ const PostContainer = (props) => {
                 >
                   <AddComment post={editPostData} closeModal={closeCommentModal} />
                 </Modal>
-              </div>
-            ) : (
-              ""
-            )}
             <div>
               {post.Comments.map((comment) => {
-                <div>
-                  <h4>Username</h4>
+                return <div>
+                  <h4>{comment.User.displayname}</h4>
                   <p>{comment.content}</p>
                 </div>;
               })}
