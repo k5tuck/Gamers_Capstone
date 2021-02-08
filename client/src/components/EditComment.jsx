@@ -1,23 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-function EditComment({ content, closeModal, id }) {
-  const [newcontent, setNewContent] = useState(content);
-  //   console.log(comment.id);
-  //   console.log(comment.postid);
-  //   console.log(comment.content);
-  //   console.log(comment.createdAt);
-  console.log(content);
-  console.log(newcontent);
-
-  //   useEffect(() => {
-  //     setNewContent(content);
-  //   }, []);
+function EditComment({ content, closeModal, id, setEditCommentContent }) {
 
   async function processComment(commentid) {
     console.log(commentid);
+    console.log(content)
     let response = await axios.put(`/api/comments/${commentid}`, {
-      newcontent,
+      content,
     });
     closeModal();
     window.location.reload();
@@ -34,10 +24,10 @@ function EditComment({ content, closeModal, id }) {
           Edit Comment:
           <textarea
             name="content"
-            value={newcontent}
+            value={content}
             // placeholder={content}
             onChange={(e) => {
-              setNewContent(e.target.value);
+              setEditCommentContent(e.target.value);
             }}
           ></textarea>
         </label>

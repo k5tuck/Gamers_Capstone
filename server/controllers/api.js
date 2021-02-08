@@ -202,6 +202,9 @@ const pullMainContent = async (req, res) => {
         attributes: ["content", "createdAt", "id"],
         include: User,
       },
+      {
+        model: Game
+      }
       // {
       //   model: Tag_To_Post,
       //   include: Tag,
@@ -212,10 +215,10 @@ const pullMainContent = async (req, res) => {
     ],
   });
 
-  for (let p of posts) {
-    p.User = await User.findByPk(p.userid);
-    p.Game = await Game.findByPk(p.gameid);
-  }
+  // for (let p of posts) {
+  //   p.User = await User.findByPk(p.userid);
+  //   p.Game = await Game.findByPk(p.gameid);
+  // }
 
   res.json({
     sessionid: id,
@@ -307,11 +310,11 @@ const addComment = async (req, res) => {
 
 const editComment = async (req, res) => {
   const { id } = req.params;
-  const { newcontent } = req.body;
+  const { content } = req.body;
   const sessionid = req.session.user.id;
 
   const editedComment = await Comment.update(
-    { content: newcontent },
+    { content: content },
     {
       where: {
         id,
@@ -328,7 +331,7 @@ const deleteComment = async (req, res) => {
 
   const deletedComment = await Comment.destroy({
     where: {
-      postid: id,
+      id,
       userid: sessionid,
     },
   });

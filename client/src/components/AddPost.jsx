@@ -57,13 +57,14 @@ function AddPost() {
         <br />
         <label>
           {" "}
-          Game Title
+          Game Title 
           <select
             value={gameid}
+          
             onChange={(e) => {
               setGameId(e.target.value);
             }}
-          >
+          ><option selected>Please Select a Game</option>
             $
             {games.map((game) => (
               <option value={game.id}>{game.title}</option>

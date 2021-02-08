@@ -16,6 +16,13 @@ const PostContainer = (props) => {
   const [editCommentContent, setEditCommentContent] = useState("");
   const [editCommentID, setEditCommentID] = useState(null);
 
+  //edit post state variables
+  const [title, setTitle] = useState("");
+  const [gameid, setGameId] = useState("");
+  const [media, setMedia] = useState("");
+  const [content, setContent] = useState("");
+
+
   function checkUser() {
     let value = false;
     for (let post of posts) {
@@ -44,6 +51,10 @@ const PostContainer = (props) => {
     console.log("======================");
     console.log(modalIsOpen);
     setEditPostData(resp.data.post);
+    setTitle(resp.data.post.title)
+    setMedia(resp.data.post.media)
+    setGameId(resp.data.post.gameid)
+    setContent(resp.data.post.content)
     // setModalIsOpen(true);
     // Display React Modal Here
   }
@@ -60,31 +71,42 @@ const PostContainer = (props) => {
     console.log(resp.data);
   }
 
+  async function deleteComment(commentid) {
+    const resp = await axios.delete(`/api/comments/${commentid}`);
+    console.log(resp.data);
+  }
+
   useEffect(() => {
     checkUser();
   }, []);
 
   return (
     <div>
-      {posts.map((post) => {
+      {posts.map((p) => {
         return (
-          <div key={post.userid} className="post">
-            <h3>{post.title}</h3>
-            <Link to={`/profile/${post.userid}`}>
-              <h4>{post.username}</h4>
+          <div key={p.userid} className="post">
+            <h3>{p.title}</h3>
+            {p.Game == null ? "" :
+            <Link to={`/member/game/${p.gameid}`}>
+              <p>{p.Game.title}</p>
             </Link>
-            <div className="postimgcontainer">
-              <img className="postimg" src={post.media} alt={post.title} />
+            }
+            <Link to={`/profile/${p.userid}`}>
+              <h4>{p.username}</h4>
+            </Link>
+            {  p.media.includes('/uploads/media/') ? <div className="postimgcontainer">
+               <img className="postimg" src={p.media} alt={p.title} /> 
             </div>
-            <p>{post.content}</p>
+            : ""}
+            <p>{p.content}</p>
             <p>Likes: 7</p>
             {/* <p>Likes: {post.Vote.like}</p> Setup Boolean */}
-            {sessionid === post.userid ? (
+            {sessionid === p.userid ? (
               <div>
                 <button
                   onClick={(e) => {
                     e.preventDefault();
-                    editPost(post.id);
+                    editPost(p.id);
                     setModalIsOpen(true);
                     // Need to push 'editPostData' to EditPost.jsx
                     // Display EditPost.jsx
@@ -95,7 +117,7 @@ const PostContainer = (props) => {
                     // </Link>;
                   }}
                 >
-                  Edit Button
+                  Edit Post
                 </button>
                 <Modal
                   isOpen={modalIsOpen}
@@ -104,15 +126,16 @@ const PostContainer = (props) => {
                     setModalIsOpen(false);
                   }}
                 >
-                  <EditPost post={editPostData} closeModal={closeModal} />
+                  <EditPost title={title} post={editPostData} setTitle={setTitle} content={content} setContent={setContent} media={media} setMedia={setMedia} gameid={gameid} setGameId={setGameId} closeModal={closeModal} />
                 </Modal>
                 <button
                   onClick={(e) => {
                     e.preventDefault();
-                    deletePost(post.id);
+                    deletePost(p.id);
+                    window.location.reload()
                   }}
                 >
-                  Delete Button
+                  Delete Post
                 </button>
               </div>
             ) : (
@@ -121,7 +144,7 @@ const PostContainer = (props) => {
             <button
               onClick={(e) => {
                 e.preventDefault();
-                editPost(post.id);
+                editPost(p.id);
                 setModalIsOpenComment(true);
               }}
             >
@@ -137,12 +160,14 @@ const PostContainer = (props) => {
               <AddComment post={editPostData} closeModal={closeCommentModal} />
             </Modal>
             <div>
-              {post.Comments.map((comment) => {
+              {p.Comments.map((comment) => {
                 return (
                   <div>
                     <h4>{comment.User.displayname}</h4>
                     <p>{comment.content}</p>
-
+                   
+                  {sessionid === comment.User.id ? (
+                    <div>
                     <button
                       onClick={(e) => {
                         e.preventDefault();
@@ -152,6 +177,18 @@ const PostContainer = (props) => {
                     >
                       Edit Comment
                     </button>
+                    <br/>
+                    <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      deleteComment(comment.id);
+                      window.location.reload()
+                    }}
+                  >
+                    Delete Comment
+                  </button>
+                  </div>
+                   ) : ""}
                     <Modal
                       isOpen={modalIsOpenEditComment}
                       // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
@@ -160,12 +197,14 @@ const PostContainer = (props) => {
                       }}
                     >
                       <EditComment
+
                         id={editCommentID}
                         content={editCommentContent}
+                        setEditCommentContent={setEditCommentContent}
                         // callComment={editComment}
                         closeModal={closeCommentEditModal}
                       />
-                    </Modal>
+                    </Modal> 
                   </div>
                 );
               })}
