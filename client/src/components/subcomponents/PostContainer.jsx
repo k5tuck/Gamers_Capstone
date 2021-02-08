@@ -22,7 +22,6 @@ const PostContainer = (props) => {
   const [media, setMedia] = useState("");
   const [content, setContent] = useState("");
 
-
   function checkUser() {
     let value = false;
     for (let post of posts) {
@@ -51,10 +50,10 @@ const PostContainer = (props) => {
     console.log("======================");
     console.log(modalIsOpen);
     setEditPostData(resp.data.post);
-    setTitle(resp.data.post.title)
-    setMedia(resp.data.post.media)
-    setGameId(resp.data.post.gameid)
-    setContent(resp.data.post.content)
+    setTitle(resp.data.post.title);
+    setMedia(resp.data.post.media);
+    setGameId(resp.data.post.gameid);
+    setContent(resp.data.post.content);
     // setModalIsOpen(true);
     // Display React Modal Here
   }
@@ -86,21 +85,26 @@ const PostContainer = (props) => {
         return (
           <div key={p.userid} className="post">
             <h3>{p.title}</h3>
-            {p.Game == null ? "" :
-            <Link to={`/member/game/${p.gameid}`}>
-              <p>{p.Game.title}</p>
-            </Link>
-            }
+            {p.Game == null ? (
+              ""
+            ) : (
+              <Link to={`/member/game/${p.gameid}`}>
+                <p>{p.Game.title}</p>
+              </Link>
+            )}
             <Link to={`/profile/${p.userid}`}>
               <h4>{p.username}</h4>
             </Link>
-            {  p.media.includes('/uploads/media/') ? <div className="postimgcontainer">
-               <img className="postimg" src={p.media} alt={p.title} /> 
-            </div>
-            : ""}
+            {p.media.includes("/uploads/media/") ? (
+              <div className="postimgcontainer">
+                <img className="postimg" src={p.media} alt={p.title} />
+              </div>
+            ) : (
+              ""
+            )}
             <p>{p.content}</p>
-            <p>Likes: 7</p>
-            {/* <p>Likes: {post.Vote.like}</p> Setup Boolean */}
+            {/* <p>Likes: </p>
+            {sessionid === p.User.id ? "" : ""} */}
             {sessionid === p.userid ? (
               <div>
                 <button
@@ -126,13 +130,24 @@ const PostContainer = (props) => {
                     setModalIsOpen(false);
                   }}
                 >
-                  <EditPost title={title} post={editPostData} setTitle={setTitle} content={content} setContent={setContent} media={media} setMedia={setMedia} gameid={gameid} setGameId={setGameId} closeModal={closeModal} />
+                  <EditPost
+                    title={title}
+                    post={editPostData}
+                    setTitle={setTitle}
+                    content={content}
+                    setContent={setContent}
+                    media={media}
+                    setMedia={setMedia}
+                    gameid={gameid}
+                    setGameId={setGameId}
+                    closeModal={closeModal}
+                  />
                 </Modal>
                 <button
                   onClick={(e) => {
                     e.preventDefault();
                     deletePost(p.id);
-                    window.location.reload()
+                    window.location.reload();
                   }}
                 >
                   Delete Post
@@ -165,30 +180,32 @@ const PostContainer = (props) => {
                   <div>
                     <h4>{comment.User.displayname}</h4>
                     <p>{comment.content}</p>
-                   
-                  {sessionid === comment.User.id ? (
-                    <div>
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        editComment(comment.id);
-                        setModalIsOpenEditComment(true);
-                      }}
-                    >
-                      Edit Comment
-                    </button>
-                    <br/>
-                    <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      deleteComment(comment.id);
-                      window.location.reload()
-                    }}
-                  >
-                    Delete Comment
-                  </button>
-                  </div>
-                   ) : ""}
+
+                    {sessionid === comment.User.id ? (
+                      <div>
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            editComment(comment.id);
+                            setModalIsOpenEditComment(true);
+                          }}
+                        >
+                          Edit Comment
+                        </button>
+                        <br />
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            deleteComment(comment.id);
+                            window.location.reload();
+                          }}
+                        >
+                          Delete Comment
+                        </button>
+                      </div>
+                    ) : (
+                      ""
+                    )}
                     <Modal
                       isOpen={modalIsOpenEditComment}
                       // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
@@ -197,14 +214,13 @@ const PostContainer = (props) => {
                       }}
                     >
                       <EditComment
-
                         id={editCommentID}
                         content={editCommentContent}
                         setEditCommentContent={setEditCommentContent}
                         // callComment={editComment}
                         closeModal={closeCommentEditModal}
                       />
-                    </Modal> 
+                    </Modal>
                   </div>
                 );
               })}
