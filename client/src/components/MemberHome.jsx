@@ -10,6 +10,48 @@ function MemberHome() {
   const [posts, setPosts] = useState([]);
   const [sessionid, setSessionId] = useState(null);
 
+  async function addLike(pid) {
+    const resp = await axios.put(`/api/like/${pid}`, { like: true });
+    console.log(resp.data);
+    const newPosts = posts.map((p) => {
+      if (p.id === pid) {
+        console.log(p.id);
+        return {
+          ...p,
+          Likes: [...p.Likes, resp.data],
+        };
+      } else {
+        return p;
+      }
+    });
+    setPosts(newPosts);
+  }
+
+  async function deleteLike(pid) {
+    const resp = await axios.delete(`/api/like/${pid}`);
+    console.log(resp.data);
+    const newPosts = posts.map((p) => {
+      if (p.id === pid) {
+        console.log(p.id);
+        return {
+          ...p,
+          // Little Off
+          // Likes: p.Likes.filter(
+          //   (l) => l.userid !== sessionid && l.postid !== pid
+          // ),
+          Likes: p.Likes.filter((l) => {
+            if (l.userid === sessionid && l.postid === pid) {
+              return false;
+            } else return true;
+          }),
+        };
+      } else {
+        return p;
+      }
+    });
+    setPosts(newPosts);
+  }
+
   async function grabPosts() {
     const respPosts = await axios.get("/api/posts");
     console.log(respPosts);
@@ -34,7 +76,12 @@ function MemberHome() {
       </div>
       <div className="middle">
         <div className="postcontainer">
-          <PostContainer posts={posts} sessionid={sessionid} />
+          <PostContainer
+            addLike={addLike}
+            deleteLike={deleteLike}
+            posts={posts}
+            sessionid={sessionid}
+          />
         </div>
       </div>
       <div className="rightside">
