@@ -48,11 +48,11 @@ router
   .get("/follows/:id", apiController.getProfileFollows)
 
   // Likes
-  // .post("/likes", apiController)
+  .put("/like/:id", apiController.makeLike)
 
   // // Tags
-  // .get("/tags", apiController)
-  // .post("/tags", apiController)
+  .get("/tags", apiController.getTag)
+  .post("/tags/:id", apiController.makeTag)
 
   // Games
   .get("/games", apiController.getAllGames)

@@ -1,17 +1,17 @@
 "use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("Votes", {
+    await queryInterface.createTable("TagToPosts", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      userid: {
+      tagid: {
         type: Sequelize.INTEGER,
         references: {
-          model: "Users",
+          model: "Tags",
           key: "id",
         },
       },
@@ -21,12 +21,6 @@ module.exports = {
           model: "Posts",
           key: "id",
         },
-      },
-      upvote: {
-        type: Sequelize.INTEGER,
-      },
-      downvote: {
-        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
@@ -39,6 +33,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("Votes");
+    await queryInterface.dropTable("TagToPosts");
   },
 };
