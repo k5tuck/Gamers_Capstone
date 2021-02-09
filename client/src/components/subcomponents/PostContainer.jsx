@@ -9,7 +9,9 @@ import EditComment from "../EditComment";
 Modal.setAppElement("#root");
 const PostContainer = (props) => {
   const { posts, sessionid } = props;
-  const [like, setLike] = useState(false);
+  console.log("Here are the posts",  posts);
+ 
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsOpenComment, setModalIsOpenComment] = useState(false);
   const [modalIsOpenEditComment, setModalIsOpenEditComment] = useState(false);
@@ -110,20 +112,26 @@ const PostContainer = (props) => {
               ""
             )}
             <p>{post.content}</p>
+           
             <button
-              // className={
-              //   like === true
-              //     ? "Like True Txt to Green"
-              //     : "Like False Txt to Normal"
-              // }
+              className={ post.Like ? post.Like.map((like)=>{
+                if(like.userid == sessionid){
+                  if( like.like == true){
+                    return "Like-True"
+                  } else {
+                    return "Like-False"
+                  }
+                }
+              }): ""}
               onClick={(e) => {
                 e.preventDefault();
-                setLike(!like);
+                setLike()
                 processLike(post.id);
               }}
             >
               Like
             </button>
+            
             {/* {sessionid === post.User.id ? "" : ""} */}
             {sessionid === post.userid ? (
               <div>

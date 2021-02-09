@@ -253,9 +253,7 @@ const pullMainContent = async (req, res) => {
     include: [
       {
         model: Like,
-        where: {
-          like: true,
-        },
+        
       },
       {
         model: TagToPost,
@@ -291,9 +289,7 @@ const getGamePosts = async (req, res) => {
     include: [
       {
         model: Like,
-        where: {
-          like: true,
-        },
+        
       },
       {
         model: TagToPost,
@@ -329,9 +325,7 @@ const getProfilePosts = async (req, res) => {
     include: [
       {
         model: Like,
-        where: {
-          like: true,
-        },
+        
       },
       {
         model: TagToPost,
