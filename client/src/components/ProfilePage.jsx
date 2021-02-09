@@ -7,7 +7,7 @@ import { Link, useParams } from "react-router-dom";
 import PersonalTopGamesContainer from "./subcomponents/PersonalTopGameContainer";
 import UnfollowButton from "./subcomponents/UnfollowButton";
 import PostContainer from "./subcomponents/PostContainer";
-
+import ProfilePagePic from './subcomponents/ProfilePagePic';
 function ProfilePage({ createFollow, removeFollow }) {
   // function ProfilePage({ editPost, deletePost, createFollow, removeFollow }) {
   const { id } = useParams();
@@ -47,26 +47,33 @@ function ProfilePage({ createFollow, removeFollow }) {
   }, []);
 
   return (
-    <div>
-      <div className="memberactionscontainer">
-        <div className="memberactionsfollowers">
-          <Link
-            style={{ textDecoration: "none" }}
-            to={`/members/followers/${id}`}
-          >
-            <button>Followers</button>
-          </Link>
-          <p>{followers.length}</p>
+    <div className="profilecontainer">
+      <div className="profileleftpanel">
+        <ProfilePagePic />
+        <div className="memberactionscontainer">
+          <div className="memberactionsfollowers">
+            <Link
+              style={{ textDecoration: "none" }}
+              to={`/members/followers/${id}`}
+            >
+              <button>Followers</button>
+            </Link>
+            <p>{followers.length}</p>
+          </div>
+
+          {checkFollowing() ? (
+            <UnfollowButton removeFollow={removeFollow} />
+          ) : (
+            <FollowButton createFollow={createFollow} />
+          )}
         </div>
       </div>
-
-      {checkFollowing() ? (
-        <UnfollowButton removeFollow={removeFollow} />
-      ) : (
-        <FollowButton createFollow={createFollow} />
-      )}
-      <PostContainer posts={posts} sessionid={sessionid} />
-      <PersonalTopGamesContainer />
+      <div className="profilemiddle">
+        <PostContainer posts={posts} sessionid={sessionid} />
+      </div>
+      <div className="rightside">
+        <PersonalTopGamesContainer />
+      </div>
     </div>
   );
 }

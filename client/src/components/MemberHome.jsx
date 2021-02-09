@@ -37,7 +37,9 @@ function MemberHome() {
           <PostContainer posts={posts} sessionid={sessionid} />
         </div>
       </div>
-      <TopGamesContainer />
+      <div className="rightside">
+        <TopGamesContainer />
+      </div>
 
       {/* <h1>Welcome ${'{'}displayname{'}'}</h1>
                 <a href="/members/create"><button>ADD POST</button></a>
