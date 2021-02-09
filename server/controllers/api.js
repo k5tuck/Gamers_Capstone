@@ -221,6 +221,24 @@ const makeLike = async (req, res) => {
   res.json(createdLike);
 };
 
+const deleteLike = async (req, res) => {
+  const { id } = req.params;
+  const sessionid = req.session.user.id;
+
+  const createdLike = await Like.destroy({
+    where: {
+      [Op.and]: [
+        {
+          postid: id,
+          userid: sessionid,
+        },
+      ],
+    },
+  });
+
+  res.json("Like Destroyed");
+};
+
 const processPost = async (req, res) => {
   const { id, username } = req.session.user;
   const { title, content, gameid } = req.body;
@@ -253,7 +271,6 @@ const pullMainContent = async (req, res) => {
     include: [
       {
         model: Like,
-        
       },
       {
         model: TagToPost,
@@ -289,7 +306,6 @@ const getGamePosts = async (req, res) => {
     include: [
       {
         model: Like,
-        
       },
       {
         model: TagToPost,
@@ -325,7 +341,6 @@ const getProfilePosts = async (req, res) => {
     include: [
       {
         model: Like,
-        
       },
       {
         model: TagToPost,
@@ -595,6 +610,7 @@ module.exports = {
   getTag,
   makeTag,
   makeLike,
+  deleteLike,
   processPostImage,
   game,
   getProfilePagePic,

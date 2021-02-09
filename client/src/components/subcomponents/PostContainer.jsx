@@ -5,13 +5,13 @@ import { Link } from "react-router-dom";
 import EditPost from "../EditPost";
 import AddComment from "./AddComment";
 import EditComment from "../EditComment";
+import LikeItem from "./LikeItem";
 
 Modal.setAppElement("#root");
 const PostContainer = (props) => {
   const { posts, sessionid } = props;
-  console.log("Here are the posts",  posts);
- 
-
+  console.log("Here are the posts", posts);
+  console.log(sessionid);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsOpenComment, setModalIsOpenComment] = useState(false);
   const [modalIsOpenEditComment, setModalIsOpenEditComment] = useState(false);
@@ -78,12 +78,6 @@ const PostContainer = (props) => {
     console.log(resp.data);
   }
 
-  async function processLike(postid) {
-    console.log(like);
-    const resp = await axios.put(`/api/like/${postid}`, { like });
-    console.log(resp.data);
-  }
-
   useEffect(() => {
     checkUser();
   }, []);
@@ -112,26 +106,20 @@ const PostContainer = (props) => {
               ""
             )}
             <p>{post.content}</p>
-           
-            <button
-              className={ post.Like ? post.Like.map((like)=>{
-                if(like.userid == sessionid){
-                  if( like.like == true){
-                    return "Like-True"
-                  } else {
-                    return "Like-False"
-                  }
-                }
-              }): ""}
-              onClick={(e) => {
-                e.preventDefault();
-                setLike()
-                processLike(post.id);
-              }}
-            >
-              Like
-            </button>
-            
+            <LikeItem
+              key={post.id}
+              post={post}
+              liked={
+                post.Likes
+                  ? post.Likes.filter((like) => like.userid === sessionid)
+                      .length > 0
+                    ? true
+                    : false
+                  : false
+              }
+              likes={post.Likes.length}
+            />
+
             {/* {sessionid === post.User.id ? "" : ""} */}
             {sessionid === post.userid ? (
               <div>
@@ -203,12 +191,13 @@ const PostContainer = (props) => {
               <AddComment post={editPostData} closeModal={closeCommentModal} />
             </Modal>
             <div>
-              {post.Comments.map((comment) => {
+              {post.Comments.map((comment, idx) => {
                 return (
                   <div>
                     <h4>{comment.User.displayname}</h4>
                     <p>{comment.content}</p>
-
+                    id={idx}
+                    let returnedComment = id.target.value
                     {sessionid === comment.User.id ? (
                       <div>
                         <button

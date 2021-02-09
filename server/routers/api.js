@@ -52,6 +52,7 @@ router
 
   // Likes
   .put("/like/:id", apiController.makeLike)
+  .delete("/like/:id", apiController.deleteLike)
 
   // // Tags
   .get("/tags", apiController.getTag)
