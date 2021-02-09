@@ -9,6 +9,7 @@ import EditComment from "../EditComment";
 Modal.setAppElement("#root");
 const PostContainer = (props) => {
   const { posts, sessionid } = props;
+  const [like, setLike] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsOpenComment, setModalIsOpenComment] = useState(false);
   const [modalIsOpenEditComment, setModalIsOpenEditComment] = useState(false);
@@ -75,6 +76,12 @@ const PostContainer = (props) => {
     console.log(resp.data);
   }
 
+  async function processLike(postid) {
+    console.log(like);
+    const resp = await axios.put(`/api/like/${postid}`, { like });
+    console.log(resp.data);
+  }
+
   useEffect(() => {
     checkUser();
   }, []);
@@ -103,8 +110,21 @@ const PostContainer = (props) => {
               ""
             )}
             <p>{post.content}</p>
-            {/* <p>Likes: </p>
-            {sessionid === p.User.id ? "" : ""} */}
+            <button
+              // className={
+              //   like === true
+              //     ? "Like True Txt to Green"
+              //     : "Like False Txt to Normal"
+              // }
+              onClick={(e) => {
+                e.preventDefault();
+                setLike(!like);
+                processLike(post.id);
+              }}
+            >
+              Like
+            </button>
+            {/* {sessionid === post.User.id ? "" : ""} */}
             {sessionid === post.userid ? (
               <div>
                 <button
