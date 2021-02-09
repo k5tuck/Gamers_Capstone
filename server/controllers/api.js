@@ -175,7 +175,6 @@ const getMainPhoto = async (req, res) => {
   res.json({ photo, displayname });
 };
 
-
 const getTag = async (req, res) => {
   const { tagname } = req.body;
 
@@ -236,14 +235,13 @@ const processPost = async (req, res) => {
   res.json(post);
 };
 
-const getProfilePagePic = async (req,res) => {
+const getProfilePagePic = async (req, res) => {
   const { id } = req.params;
-  const user = await User.findByPk(id)
+  const user = await User.findByPk(id);
   const photo = user.photo;
-  const displayname = user.displayname
-  res.json({photo, displayname})
-}
-
+  const displayname = user.displayname;
+  res.json({ photo, displayname });
+};
 
 const pullMainContent = async (req, res) => {
   const { displayname, username, id } = req.session.user;
@@ -426,24 +424,24 @@ const getFollowers = async (req, res) => {
     where: {
       followeeid: id,
     },
-    include: [
-      {
-        model: User,
-        attributes: ["id", "displayname"],
-      },
-    ],
+    // include: [
+    //   {
+    //     model: User,
+    //     attributes: ["id", "displayname"],
+    //   },
+    // ],
   });
 
   const following = await Follower.findAll({
     where: {
       followerid: id,
     },
-    include: [
-      {
-        model: User,
-        attributes: ["id", "displayname"],
-      },
-    ],
+    // include: [
+    //   {
+    //     model: User,
+    //     attributes: ["id", "displayname"],
+    //   },
+    // ],
   });
 
   res.json({
@@ -461,26 +459,27 @@ const getProfileFollows = async (req, res) => {
   const followers = await Follower.findAll({
     where: {
       followeeid: id,
+      // },
+      // include: [
+      //   {
+      //     model: User,
+      //     attributes: ["id", "displayname"],
+      //   },
+      // ],
+      // include: User, // Error: [SequelizeEagerLoadingError]: User is not associated to Follower!
     },
-    include: [
-      {
-        model: User,
-        attributes: ["id", "displayname"],
-      },
-    ],
-    // include: User, // Error: [SequelizeEagerLoadingError]: User is not associated to Follower!
   });
 
   const following = await Follower.findAll({
     where: {
       followerid: id,
     },
-    include: [
-      {
-        model: User,
-        attributes: ["id", "displayname"],
-      },
-    ],
+    // include: [
+    //   {
+    //     model: User,
+    //     attributes: ["id", "displayname"],
+    //   },
+    // ],
     // include: User, // Error: [SequelizeEagerLoadingError]: User is not associated to Follower!
   });
 
@@ -604,5 +603,5 @@ module.exports = {
   makeLike,
   processPostImage,
   game,
-  getProfilePagePic
+  getProfilePagePic,
 };
