@@ -21,10 +21,10 @@ module.exports = (sequelize, DataTypes) => {
       Post.belongsTo(models.User, {
         foreignKey: "username",
       });
-      Post.hasMany(models.Tag_to_Post, {
+      Post.hasMany(models.TagToPost, {
         foreignKey: "postid",
       });
-      Post.hasMany(models.Vote, {
+      Post.hasMany(models.Like, {
         foreignKey: "postid",
       });
     }

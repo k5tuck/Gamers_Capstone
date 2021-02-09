@@ -2,7 +2,7 @@ const { layout } = require("../utils");
 const bcrypt = require("bcryptjs");
 const Sequelize = require("sequelize");
 const UPLOAD_URL = "/uploads/media/";
-const { Op } = require("sequelize");
+const { Op, json } = require("sequelize");
 const {
   User,
   Comment,
@@ -11,25 +11,10 @@ const {
   Follower,
   Game_Junction,
   Tag,
-  Tag_To_Post,
-  Vote,
-  sequelize,
+  TagToPost,
+  Like,
 } = require("../models");
 const { default: axios } = require("axios");
-
-const processPost = async (req, res) => {
-  const { id, username } = req.session.user;
-  const { title, content, gameid } = req.body;
-  const post = await Post.create({
-    userid: id,
-    username,
-    title,
-    content,
-    gameid,
-  });
-
-  res.json(post);
-};
 
 const processPostImage = async (req, res) => {
   const { id } = req.params;
@@ -190,6 +175,67 @@ const getMainPhoto = async (req, res) => {
   res.json({ photo, displayname });
 };
 
+
+const getTag = async (req, res) => {
+  const { tagname } = req.body;
+
+  const tag = await Tag.findAll({
+    where: {
+      tagname,
+    },
+    include: [
+      {
+        model: TagToPost,
+        include: Post,
+      },
+    ],
+  });
+  res.json(tag);
+};
+
+const makeTag = async (req, res) => {
+  const { id } = req.params;
+  const { tagname } = req.body;
+
+  const tag = await Tag.create({
+    tagname,
+  });
+
+  const tagstopost = await TagToPost.create({
+    tagid: tag.id,
+    postid: id,
+  });
+  res.json(tag.tagname);
+};
+
+const makeLike = async (req, res) => {
+  const { id } = req.params;
+  const sessionid = req.session.user.id;
+  const { like } = req.body;
+
+  const createdLike = await Like.create({
+    userid: sessionid,
+    postid: id,
+    like,
+  });
+
+  res.json(createdLike);
+};
+
+const processPost = async (req, res) => {
+  const { id, username } = req.session.user;
+  const { title, content, gameid } = req.body;
+  const post = await Post.create({
+    userid: id,
+    username,
+    title,
+    content,
+    gameid,
+  });
+
+  res.json(post);
+};
+
 const getProfilePagePic = async (req,res) => {
   const { id } = req.params;
   const user = await User.findByPk(id)
@@ -198,9 +244,9 @@ const getProfilePagePic = async (req,res) => {
   res.json({photo, displayname})
 }
 
+
 const pullMainContent = async (req, res) => {
   const { displayname, username, id } = req.session.user;
-
   console.log(req.session.user);
 
   const posts = await Post.findAll({
@@ -208,13 +254,16 @@ const pullMainContent = async (req, res) => {
 
     include: [
       {
-        model: Vote,
+        model: Like,
+        where: {
+          like: true,
+        },
       },
-      // {
-      //   model: Tag_To_Post,
-      //   attributes: ["tagid"],
-      //   // include: Tag,
-      // },
+      {
+        model: TagToPost,
+        attributes: ["tagid"],
+        include: Tag,
+      },
       {
         model: Game,
         attributes: ["title"],
@@ -224,21 +273,8 @@ const pullMainContent = async (req, res) => {
         attributes: ["content", "createdAt", "id"],
         include: User,
       },
-
-      // {
-      //   model: Tag_To_Post,
-      //   include: Tag,
-      // },
-      // {
-      //   model: Vote,
-      // },
     ],
   });
-
-  // for (let p of posts) {
-  //   p.User = await User.findByPk(p.userid);
-  //   p.Game = await Game.findByPk(p.gameid);
-  // }
 
   res.json({
     sessionid: id,
@@ -256,13 +292,16 @@ const getGamePosts = async (req, res) => {
     order: [["createdAt", "desc"]],
     include: [
       {
-        model: Vote,
+        model: Like,
+        where: {
+          like: true,
+        },
       },
-      // {
-      //   model: Tag_To_Post,
-      //   attributes: ["tagid"],
-      //   // include: Tag,
-      // },
+      {
+        model: TagToPost,
+        attributes: ["tagid"],
+        include: Tag,
+      },
       {
         model: Game,
         attributes: ["title"],
@@ -275,12 +314,11 @@ const getGamePosts = async (req, res) => {
     ],
   });
 
-  // for (let p of posts) {
-  //   p.User = await User.findByPk(p.userid);
-  //   p.Game = await Game.findByPk(p.gameid);
-  // }
   console.log(posts);
-  res.json({ posts, sessionid });
+  res.json({
+    posts,
+    sessionid,
+  });
 };
 
 const getProfilePosts = async (req, res) => {
@@ -292,13 +330,16 @@ const getProfilePosts = async (req, res) => {
     order: [["createdAt", "desc"]],
     include: [
       {
-        model: Vote,
+        model: Like,
+        where: {
+          like: true,
+        },
       },
-      // {
-      //   model: Tag_To_Post,
-      //   attributes: ["tagid"],
-      //   // include: Tag,
-      // },
+      {
+        model: TagToPost,
+        attributes: ["tagid"],
+        include: Tag,
+      },
       {
         model: Game,
         attributes: ["title"],
@@ -310,11 +351,6 @@ const getProfilePosts = async (req, res) => {
       },
     ],
   });
-
-  // for (let p of posts) {
-  //   p.User = await User.findByPk(p.userid);
-  //   p.Game = await Game.findByPk(p.gameid);
-  // }
   console.log(posts);
   res.json(posts);
 };
@@ -332,12 +368,12 @@ const processDeletePost = async (req, res) => {
 
 const getComment = async (req, res) => {
   const { id } = req.params;
-  // const sessionid = req.session.user.id;
 
   const getComment = await Comment.findByPk(id);
 
   res.json(getComment);
 };
+
 const addComment = async (req, res) => {
   const { id } = req.params;
   const { content } = req.body;
@@ -390,12 +426,24 @@ const getFollowers = async (req, res) => {
     where: {
       followeeid: id,
     },
+    include: [
+      {
+        model: User,
+        attributes: ["id", "displayname"],
+      },
+    ],
   });
 
   const following = await Follower.findAll({
     where: {
       followerid: id,
     },
+    include: [
+      {
+        model: User,
+        attributes: ["id", "displayname"],
+      },
+    ],
   });
 
   res.json({
@@ -414,6 +462,12 @@ const getProfileFollows = async (req, res) => {
     where: {
       followeeid: id,
     },
+    include: [
+      {
+        model: User,
+        attributes: ["id", "displayname"],
+      },
+    ],
     // include: User, // Error: [SequelizeEagerLoadingError]: User is not associated to Follower!
   });
 
@@ -421,6 +475,12 @@ const getProfileFollows = async (req, res) => {
     where: {
       followerid: id,
     },
+    include: [
+      {
+        model: User,
+        attributes: ["id", "displayname"],
+      },
+    ],
     // include: User, // Error: [SequelizeEagerLoadingError]: User is not associated to Follower!
   });
 
@@ -539,6 +599,9 @@ module.exports = {
   addComment,
   editComment,
   deleteComment,
+  getTag,
+  makeTag,
+  makeLike,
   processPostImage,
   game,
   getProfilePagePic

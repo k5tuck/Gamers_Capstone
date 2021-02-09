@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Game_Junction, {
         foreignKey: "userid",
       });
-      User.hasMany(models.Vote, {
+      User.hasMany(models.Like, {
         foreignKey: "userid",
       });
       User.belongsToMany(models.User, {

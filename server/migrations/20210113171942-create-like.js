@@ -1,17 +1,17 @@
 "use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("Tag_to_Posts", {
+    await queryInterface.createTable("Likes", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      tagid: {
+      userid: {
         type: Sequelize.INTEGER,
         references: {
-          model: "Tags",
+          model: "Users",
           key: "id",
         },
       },
@@ -21,6 +21,9 @@ module.exports = {
           model: "Posts",
           key: "id",
         },
+      },
+      like: {
+        type: Sequelize.BOOLEAN,
       },
       createdAt: {
         allowNull: false,
@@ -33,6 +36,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("Tag_to_Posts");
+    await queryInterface.dropTable("Likes");
   },
 };
