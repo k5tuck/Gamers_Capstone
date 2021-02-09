@@ -10,6 +10,7 @@ import ProfilePage from "./components/ProfilePage";
 import HomeInitial from "./components/HomeInitial";
 import AddPost from "./components/AddPost";
 import GamePage from "./components/GamePage";
+import WidgetChat from './components/subcomponents/WidgetChat';
 import Layout, {
   createFollow,
   removeFollow,
@@ -56,6 +57,9 @@ function App() {
                 createFollow={createFollow}
                 removeFollow={removeFollow}
               />
+            </Route>
+            <Route path="/member/chat">
+              <WidgetChat />
             </Route>
           </Layout>
         </Switch>

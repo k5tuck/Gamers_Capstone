@@ -30,6 +30,11 @@ function Header() {
             <li>Contact</li>
           </button>
         </Link>
+        <Link to="/member/chat">
+          <button>
+            <li>Chat</li>
+          </button>
+        </Link>
         <button>
           <li onClick={onSubmitLogout}>Logout</li>
         </button>
