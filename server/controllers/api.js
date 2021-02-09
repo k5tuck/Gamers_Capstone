@@ -14,6 +14,7 @@ const {
   TagToPost,
   Like,
 } = require("../models");
+const { default: axios } = require("axios");
 
 const processPostImage = async (req, res) => {
   const { id } = req.params;
@@ -174,6 +175,7 @@ const getMainPhoto = async (req, res) => {
   res.json({ photo, displayname });
 };
 
+
 const getTag = async (req, res) => {
   const { tagname } = req.body;
 
@@ -233,6 +235,16 @@ const processPost = async (req, res) => {
 
   res.json(post);
 };
+
+const getProfilePagePic = async (req,res) => {
+  const { id } = req.params;
+  const user = await User.findByPk(id)
+  const photo = user.photo;
+  const displayname = user.displayname
+  res.json({photo, displayname})
+}
+
+
 const pullMainContent = async (req, res) => {
   const { displayname, username, id } = req.session.user;
   console.log(req.session.user);
@@ -586,4 +598,5 @@ module.exports = {
   makeLike,
   processPostImage,
   game,
+  getProfilePagePic
 };
