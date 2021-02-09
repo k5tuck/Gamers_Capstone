@@ -16,7 +16,7 @@ const { requireLogin, logout } = require("./auth");
 const UPLOAD_URL = "/uploads/media/";
 const multer = require("multer");
 const upload = multer({ dest: "public" + UPLOAD_URL });
-
+var stream = require('getstream');
 const Sequelize = require("sequelize");
 
 const { layout } = require("./utils");
