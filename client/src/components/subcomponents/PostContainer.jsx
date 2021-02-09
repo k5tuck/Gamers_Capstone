@@ -81,36 +81,36 @@ const PostContainer = (props) => {
 
   return (
     <div>
-      {posts.map((p) => {
+      {posts.map((post) => {
         return (
-          <div key={p.userid} className="post">
-            <h3>{p.title}</h3>
-            {p.Game == null ? (
+          <div key={post.userid} className="post">
+            <h3>{post.title}</h3>
+            {post.Game == null ? (
               ""
             ) : (
-              <Link to={`/member/game/${p.gameid}`}>
-                <p>{p.Game.title}</p>
+              <Link to={`/member/game/${post.gameid}`}>
+                <p>{post.Game.title}</p>
               </Link>
             )}
-            <Link to={`/profile/${p.userid}`}>
-              <h4>{p.username}</h4>
+            <Link to={`/profile/${post.userid}`}>
+              <h4>{post.username}</h4>
             </Link>
-            {p.media.includes("/uploads/media/") ? (
+            {post.media.includes("/uploads/media/") ? (
               <div className="postimgcontainer">
-                <img className="postimg" src={p.media} alt={p.title} />
+                <img className="postimg" src={post.media} alt={post.title} />
               </div>
             ) : (
               ""
             )}
-            <p>{p.content}</p>
+            <p>{post.content}</p>
             {/* <p>Likes: </p>
             {sessionid === p.User.id ? "" : ""} */}
-            {sessionid === p.userid ? (
+            {sessionid === post.userid ? (
               <div>
                 <button
                   onClick={(e) => {
                     e.preventDefault();
-                    editPost(p.id);
+                    editPost(post.id);
                     setModalIsOpen(true);
                     // Need to push 'editPostData' to EditPost.jsx
                     // Display EditPost.jsx
@@ -146,7 +146,7 @@ const PostContainer = (props) => {
                 <button
                   onClick={(e) => {
                     e.preventDefault();
-                    deletePost(p.id);
+                    deletePost(post.id);
                     window.location.reload();
                   }}
                 >
@@ -159,7 +159,7 @@ const PostContainer = (props) => {
             <button
               onClick={(e) => {
                 e.preventDefault();
-                editPost(p.id);
+                editPost(post.id);
                 setModalIsOpenComment(true);
               }}
             >
@@ -175,7 +175,7 @@ const PostContainer = (props) => {
               <AddComment post={editPostData} closeModal={closeCommentModal} />
             </Modal>
             <div>
-              {p.Comments.map((comment) => {
+              {post.Comments.map((comment) => {
                 return (
                   <div>
                     <h4>{comment.User.displayname}</h4>
