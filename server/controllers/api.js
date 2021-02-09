@@ -225,7 +225,7 @@ const deleteLike = async (req, res) => {
   const { id } = req.params;
   const sessionid = req.session.user.id;
 
-  const createdLike = await Like.destroy({
+  const deletedLike = await Like.destroy({
     where: {
       [Op.and]: [
         {
@@ -236,7 +236,7 @@ const deleteLike = async (req, res) => {
     },
   });
 
-  res.json("Like Destroyed");
+  res.json(deletedLike);
 };
 
 const processPost = async (req, res) => {

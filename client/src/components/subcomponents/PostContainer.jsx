@@ -9,7 +9,7 @@ import LikeItem from "./LikeItem";
 
 Modal.setAppElement("#root");
 const PostContainer = (props) => {
-  const { posts, sessionid } = props;
+  const { posts, sessionid, addLike, deleteLike } = props;
   console.log("Here are the posts", posts);
   console.log(sessionid);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -33,6 +33,14 @@ const PostContainer = (props) => {
         break;
       }
     }
+    return value;
+  }
+
+  function checkLike(arr) {
+    let value = arr.find((like) => like.userid === sessionid);
+    console.log("====================================");
+    console.log(value);
+    console.log("====================================");
     return value;
   }
 
@@ -109,13 +117,12 @@ const PostContainer = (props) => {
             <LikeItem
               key={post.id}
               post={post}
+              addLike={addLike}
+              deleteLike={deleteLike}
               liked={
-                post.Likes
-                  ? post.Likes.filter((like) => like.userid === sessionid)
-                      .length > 0
-                    ? true
-                    : false
-                  : false
+                checkLike(post.Likes) ? true : false
+
+                // ? post.Likes.find((like) => like.userid === sessionid)
               }
               likes={post.Likes.length}
             />
@@ -196,8 +203,6 @@ const PostContainer = (props) => {
                   <div>
                     <h4>{comment.User.displayname}</h4>
                     <p>{comment.content}</p>
-                    id={idx}
-                    let returnedComment = id.target.value
                     {sessionid === comment.User.id ? (
                       <div>
                         <button
