@@ -21,6 +21,9 @@ router
   .get("/photo", apiController.getMainPhoto)
   .get("/getmain", apiController.pullMainContent)
 
+  // Profile Page Picture
+  .get("/photo/:id", apiController.getProfilePagePic)
+
   // Comments
 
   .get("/comments/:id", apiController.getComment)

@@ -15,6 +15,7 @@ const {
   Vote,
   sequelize,
 } = require("../models");
+const { default: axios } = require("axios");
 
 const processPost = async (req, res) => {
   const { id, username } = req.session.user;
@@ -188,6 +189,14 @@ const getMainPhoto = async (req, res) => {
   console.log(photo);
   res.json({ photo, displayname });
 };
+
+const getProfilePagePic = async (req,res) => {
+  const { id } = req.params;
+  const user = await User.findByPk(id)
+  const photo = user.photo;
+  const displayname = user.displayname
+  res.json({photo, displayname})
+}
 
 const pullMainContent = async (req, res) => {
   const { displayname, username, id } = req.session.user;
@@ -532,4 +541,5 @@ module.exports = {
   deleteComment,
   processPostImage,
   game,
+  getProfilePagePic
 };

@@ -36,20 +36,40 @@
     transform: rotate(360deg);
   }
 }
-
+.profilecontainer {
+  display: flex;
+  justify-content: space-between;
+}
 .newsfeedcontainer {
   display: flex;
+  justify-content: space-evenly;
 }
-
+.profileleftpanel {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5rem;
+  width: 15rem;
+  
+}
 .leftpanel {
   display: flex;
   flex-direction: column;
   margin-right: 5rem;
   
+  
 }
 .middle{
   display:flex;
   justify-content: center;
+  align-self:center;
+}
+.middle{
+  display:flex;
+  justify-content: center;
+}
+.rightside {
+  display:flex;
+  flex-direction: column;
 }
 
 .profilepiccircle {
