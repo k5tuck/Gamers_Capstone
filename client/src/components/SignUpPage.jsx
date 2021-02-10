@@ -157,12 +157,13 @@ function SignUpPage(props) {
         <br />
 
         <label className="">
-          5 Favorite Games
+          Please Choose Your 5 Favorite Games
           <MultiSelect
             data={gameList.slice()}
             onChange={(e) => {
               setGames(e.target.value);
             }}
+            placeholder="Begin by typing in a game title..."
             value={games}
             dataItemKey="id"
             textField="title"
