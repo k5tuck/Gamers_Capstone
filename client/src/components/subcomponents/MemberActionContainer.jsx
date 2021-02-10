@@ -44,13 +44,17 @@ const MemberActionContainer = ({ isLoggedIn }) => {
         </Link>
       </div>
       <br />
-      {isLoggedIn && (
+
+      {/* {isLoggedIn && ( */}
+
         <div className="viewprofilelink">
           <Link style={{ textDecoration: "none" }} to={`/profile/${id}`}>
             <button>View Profile</button>
           </Link>
         </div>
-      )}
+
+      {/* )} */}
+
       <br />
       <div className="searchlink">
         <Link style={{ textDecoration: "none" }} to="/member/search">
