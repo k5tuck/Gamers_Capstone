@@ -264,31 +264,40 @@ const getProfilePagePic = async (req, res) => {
 
 const updateProfile = async (req, res) => {
   const { id } = req.params;
+  // console.log("====================================");
+  // console.log(req.body);
+  // console.log(req.file);
+  // console.log("====================================");
   const { displayname } = req.body;
-  console.log("====================================");
-  console.log(displayname);
-  console.log("====================================");
+  const { file } = req;
 
-  const updatedProfile = await User.update(
-    { displayname },
-    {
-      where: {
-        id,
-      },
-    }
-  );
+  // console.log("====================================");
+  // console.log(displayname);
+  // console.log(file);
+  // console.log("====================================");
 
-  // const user = await User.findOne({
-  //   where: {
-  //     id,
-  //   },
-  // });
-  // let name = displayname ? (user.displayname = displayname) : user.displayname;
-  // user.displayname = name;
+  // const updatedProfile = await User.update(
+  //   { displayname },
+  //   {
+  //     where: {
+  //       id,
+  //     },
+  //   }
+  // );
 
-  // await user.save();
+  const user = await User.findOne({
+    where: {
+      id,
+    },
+  });
+  let name = displayname ? (user.displayname = displayname) : user.displayname;
+  user.displayname = name;
+  let mediaPic = file ? UPLOAD_URL + file.filename : user.photo;
+  user.photo = mediaPic;
 
-  res.json(updatedProfile.displayname);
+  await user.save();
+
+  res.status(200).json({ displayname: user.displayname, photo: user.photo });
 };
 
 const updateProfilePic = async (req, res) => {

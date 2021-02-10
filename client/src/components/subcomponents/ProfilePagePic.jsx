@@ -23,16 +23,21 @@ function ProfilePagePic() {
     setDisplayName(displayname);
     setPhoto(photo);
   };
-  const editProfileDetails = async (displayname, photo) => {
-    const resp = await axios.put(`/api/eprofile/${id}`, { displayname });
-    setDisplayName(resp.data);
-    const picresp = await axios.put(`/api/eprofilepic/${id}`, photo, {
+
+  const editProfileDetails = async (data) => {
+    const resp = await axios.post(`/api/eprofile/${id}`, data, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
+    setDisplayName(resp.data.displayname);
+    // const picresp = await axios.put(`/api/eprofilepic/${id}`, data, {
+    //   headers: {
+    //     "Content-Type": "multipart/form-data",
+    //   },
+    // });
     console.log(resp, "====== this is the editprofile +++++");
-    setPhoto(picresp.data);
+    setPhoto(resp.data.photo);
   };
   console.log(displayName);
   console.log(Photo);

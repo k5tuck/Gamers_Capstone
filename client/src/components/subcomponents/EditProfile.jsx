@@ -18,7 +18,8 @@ function EditProfile(props) {
           e.preventDefault();
           const data = new FormData();
           data.append("file", Photo);
-          editProfileDetails(displayName, data);
+          data.append("displayname", displayName);
+          editProfileDetails(data);
           closeModal();
           window.location.reload();
         }}
