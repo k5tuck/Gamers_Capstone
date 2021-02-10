@@ -113,21 +113,25 @@ const PostContainer = (props) => {
               <Redirect to="/" />
             )} */}
 
-                {post.media.includes("/uploads/media/") ? (
-                  post.mediatype.includes("video") ? (
-                    <div className="postimgcontainer">
-                      <video controls className="postimg">
-                        <source src={post.media} type={post.mediatype} />
-                      </video>
-                    </div>
+                {post.media ? (
+                  post.media.includes("/uploads/media/") ? (
+                    post.mediatype.includes("video") ? (
+                      <div className="postimgcontainer">
+                        <video controls className="postimg">
+                          <source src={post.media} type={post.mediatype} />
+                        </video>
+                      </div>
+                    ) : (
+                      <div className="postimgcontainer">
+                        <img
+                          className="postimg"
+                          src={post.media}
+                          alt={post.title}
+                        />
+                      </div>
+                    )
                   ) : (
-                    <div className="postimgcontainer">
-                      <img
-                        className="postimg"
-                        src={post.media}
-                        alt={post.title}
-                      />
-                    </div>
+                    ""
                   )
                 ) : (
                   ""
@@ -272,7 +276,7 @@ const PostContainer = (props) => {
               </div>
             );
           })
-        : "Sorry You Need To Login"}
+        : "Sorry There are No Posts"}
     </div>
   );
 };
