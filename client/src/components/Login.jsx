@@ -3,10 +3,11 @@ import { Link, Redirect, useHistory } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-function Login({ isLoggedIn, setIsLoggedIn, setSessionId }) {
+function Login({ isLoggedIn, setIsLoggedIn }) {
   let history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [sessionid, setSessionId] = useState(null);
 
   const processLogin = async (e) => {
     e.preventDefault();
