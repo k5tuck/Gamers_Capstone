@@ -14,6 +14,7 @@ import WidgetChat from "./components/subcomponents/WidgetChat";
 import Layout, { createFollow, removeFollow } from "./components/Layout";
 import EditPost from "./components/EditPost";
 import Contact from "./components/Contact";
+import SearchPage from "./components/SearchPage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -68,6 +69,9 @@ function App() {
             </Route>
             <Route path="/member/chat">
               <WidgetChat />
+            </Route>
+            <Route path="/member/search">
+              <SearchPage />
             </Route>
           </Layout>
         </Switch>
