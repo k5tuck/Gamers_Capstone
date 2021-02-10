@@ -92,178 +92,187 @@ const PostContainer = (props) => {
 
   return (
     <div>
-      {posts.map((post) => {
-        return (
-          <div key={post.userid} className="post">
-            <h3>{post.title}</h3>
-            {post.Game == null ? (
-              ""
-            ) : (
-              <Link to={`/member/game/${post.gameid}`}>
-                <p>{post.Game.title}</p>
-              </Link>
-            )}
+      {posts
+        ? posts.map((post) => {
+            return (
+              <div key={post.userid} className="post">
+                <h3>{post.title}</h3>
+                {post.Game == null ? (
+                  ""
+                ) : (
+                  <Link to={`/member/game/${post.gameid}`}>
+                    <p>{post.Game.title}</p>
+                  </Link>
+                )}
 
-            {/* {isLoggedIn ? ( */}
-            <Link to={`/profile/${post.userid}`}>
-              <h4>{post.username}</h4>
-            </Link>
-            {/* ) : (
+                {/* {isLoggedIn ? ( */}
+                <Link to={`/profile/${post.userid}`}>
+                  <h4>{post.username}</h4>
+                </Link>
+                {/* ) : (
               <Redirect to="/" />
             )} */}
 
-            {post.media.includes("/uploads/media/") ? (
-              post.mediatype.includes("video") ? (
-                <div className="postimgcontainer">
-                  <video controls className="postimg">
-                    <source src={post.media} type={post.mediatype} />
-                  </video>
-                </div>
-              ) : (
-                <div className="postimgcontainer">
-                  <img className="postimg" src={post.media} alt={post.title} />
-                </div>
-              )
-            ) : (
-              ""
-            )}
-            <p>{post.content}</p>
-            <LikeItem
-              key={post.id}
-              post={post}
-              addLike={addLike}
-              deleteLike={deleteLike}
-              liked={
-                checkLike(post.Likes) ? true : false
+                {post.media.includes("/uploads/media/") ? (
+                  post.mediatype.includes("video") ? (
+                    <div className="postimgcontainer">
+                      <video controls className="postimg">
+                        <source src={post.media} type={post.mediatype} />
+                      </video>
+                    </div>
+                  ) : (
+                    <div className="postimgcontainer">
+                      <img
+                        className="postimg"
+                        src={post.media}
+                        alt={post.title}
+                      />
+                    </div>
+                  )
+                ) : (
+                  ""
+                )}
+                <p>{post.content}</p>
+                <LikeItem
+                  key={post.id}
+                  post={post}
+                  addLike={addLike}
+                  deleteLike={deleteLike}
+                  liked={
+                    checkLike(post.Likes) ? true : false
 
-                // ? post.Likes.find((like) => like.userid === sessionid)
-              }
-              likes={post.Likes.length}
-            />
+                    // ? post.Likes.find((like) => like.userid === sessionid)
+                  }
+                  likes={post.Likes.length}
+                />
 
-            {/* {sessionid === post.User.id ? "" : ""} */}
-            {sessionid === post.userid ? (
-              <div>
+                {/* {sessionid === post.User.id ? "" : ""} */}
+                {sessionid === post.userid ? (
+                  <div>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        editPost(post.id);
+                        setModalIsOpen(true);
+                        // Need to push 'editPostData' to EditPost.jsx
+                        // Display EditPost.jsx
+
+                        // Does Not Work
+                        // <Link to="/editpost">
+                        //   <EditPost post={editPostData} />
+                        // </Link>;
+                      }}
+                    >
+                      Edit Post
+                    </button>
+                    <Modal
+                      isOpen={modalIsOpen}
+                      // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
+                      onRequestClose={() => {
+                        setModalIsOpen(false);
+                      }}
+                    >
+                      <EditPost
+                        title={title}
+                        post={editPostData}
+                        setTitle={setTitle}
+                        content={content}
+                        setContent={setContent}
+                        media={media}
+                        setMedia={setMedia}
+                        gameid={gameid}
+                        setGameId={setGameId}
+                        closeModal={closeModal}
+                      />
+                    </Modal>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        deletePost(post.id);
+                        window.location.reload();
+                      }}
+                    >
+                      Delete Post
+                    </button>
+                  </div>
+                ) : (
+                  ""
+                )}
                 <button
                   onClick={(e) => {
                     e.preventDefault();
                     editPost(post.id);
-                    setModalIsOpen(true);
-                    // Need to push 'editPostData' to EditPost.jsx
-                    // Display EditPost.jsx
-
-                    // Does Not Work
-                    // <Link to="/editpost">
-                    //   <EditPost post={editPostData} />
-                    // </Link>;
+                    setModalIsOpenComment(true);
                   }}
                 >
-                  Edit Post
+                  Add Comment
                 </button>
                 <Modal
-                  isOpen={modalIsOpen}
+                  isOpen={modalIsOpenComment}
                   // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
                   onRequestClose={() => {
-                    setModalIsOpen(false);
+                    setModalIsOpenComment(false);
                   }}
                 >
-                  <EditPost
-                    title={title}
+                  <AddComment
                     post={editPostData}
-                    setTitle={setTitle}
-                    content={content}
-                    setContent={setContent}
-                    media={media}
-                    setMedia={setMedia}
-                    gameid={gameid}
-                    setGameId={setGameId}
-                    closeModal={closeModal}
+                    closeModal={closeCommentModal}
                   />
                 </Modal>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    deletePost(post.id);
-                    window.location.reload();
-                  }}
-                >
-                  Delete Post
-                </button>
-              </div>
-            ) : (
-              ""
-            )}
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                editPost(post.id);
-                setModalIsOpenComment(true);
-              }}
-            >
-              Add Comment
-            </button>
-            <Modal
-              isOpen={modalIsOpenComment}
-              // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
-              onRequestClose={() => {
-                setModalIsOpenComment(false);
-              }}
-            >
-              <AddComment post={editPostData} closeModal={closeCommentModal} />
-            </Modal>
-            <div>
-              {post.Comments.map((comment, idx) => {
-                return (
-                  <div>
-                    <h4>{comment.User.displayname}</h4>
-                    <p>{comment.content}</p>
-                    {sessionid === comment.User.id ? (
+                <div>
+                  {post.Comments.map((comment, idx) => {
+                    return (
                       <div>
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            editComment(comment.id);
-                            setModalIsOpenEditComment(true);
+                        <h4>{comment.User.displayname}</h4>
+                        <p>{comment.content}</p>
+                        {sessionid === comment.User.id ? (
+                          <div>
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault();
+                                editComment(comment.id);
+                                setModalIsOpenEditComment(true);
+                              }}
+                            >
+                              Edit Comment
+                            </button>
+                            <br />
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault();
+                                deleteComment(comment.id);
+                                window.location.reload();
+                              }}
+                            >
+                              Delete Comment
+                            </button>
+                          </div>
+                        ) : (
+                          ""
+                        )}
+                        <Modal
+                          isOpen={modalIsOpenEditComment}
+                          // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
+                          onRequestClose={() => {
+                            setModalIsOpenEditComment(false);
                           }}
                         >
-                          Edit Comment
-                        </button>
-                        <br />
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            deleteComment(comment.id);
-                            window.location.reload();
-                          }}
-                        >
-                          Delete Comment
-                        </button>
+                          <EditComment
+                            id={editCommentID}
+                            content={editCommentContent}
+                            setEditCommentContent={setEditCommentContent}
+                            // callComment={editComment}
+                            closeModal={closeCommentEditModal}
+                          />
+                        </Modal>
                       </div>
-                    ) : (
-                      ""
-                    )}
-                    <Modal
-                      isOpen={modalIsOpenEditComment}
-                      // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
-                      onRequestClose={() => {
-                        setModalIsOpenEditComment(false);
-                      }}
-                    >
-                      <EditComment
-                        id={editCommentID}
-                        content={editCommentContent}
-                        setEditCommentContent={setEditCommentContent}
-                        // callComment={editComment}
-                        closeModal={closeCommentEditModal}
-                      />
-                    </Modal>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        );
-      })}
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })
+        : "Sorry You Need To Login"}
     </div>
   );
 };

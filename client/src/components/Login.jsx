@@ -3,7 +3,7 @@ import { Link, Redirect, useHistory } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-function Login({ isLoggedIn, setIsLoggedIn }) {
+function Login({ isLoggedIn, setIsLoggedIn, setSessionId }) {
   let history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -18,6 +18,7 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
     console.log(resp.data);
     if (resp.data.status === true) {
       setIsLoggedIn(true);
+      setSessionId(resp.data.sessionid);
       history.push("/member/home");
     } else {
       alert(resp.data.message);

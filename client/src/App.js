@@ -17,6 +17,10 @@ import Contact from "./components/Contact";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [sessionid, setSessionId] = useState(null);
+
+  // sessionid ? setIsLoggedIn(true) : setIsLoggedIn(false);
+
   // let history = useHistory();
 
   return (
@@ -30,7 +34,11 @@ function App() {
             <SignUpPage />
           </Route>
           <Route path="/login">
-            <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+            <Login
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+              setSessionId={setSessionId}
+            />
           </Route>
           <Route path="/about">
             <About />

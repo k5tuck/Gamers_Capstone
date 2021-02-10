@@ -7,7 +7,7 @@ import { Link, useParams } from "react-router-dom";
 import PersonalTopGamesContainer from "./subcomponents/PersonalTopGameContainer";
 import UnfollowButton from "./subcomponents/UnfollowButton";
 import PostContainer from "./subcomponents/PostContainer";
-import ProfilePagePic from './subcomponents/ProfilePagePic';
+import ProfilePagePic from "./subcomponents/ProfilePagePic";
 function ProfilePage({ createFollow, removeFollow }) {
   // function ProfilePage({ editPost, deletePost, createFollow, removeFollow }) {
   const { id } = useParams();
@@ -28,6 +28,48 @@ function ProfilePage({ createFollow, removeFollow }) {
     setFollowing(respFollowing);
     const respPosts = await axios.get(`/api/posts/${id}`);
     setPosts(...posts, respPosts.data);
+  }
+
+  async function addLike(pid) {
+    const resp = await axios.put(`/api/like/${pid}`, { like: true });
+    console.log(resp.data);
+    const newPosts = posts.map((p) => {
+      if (p.id === pid) {
+        console.log(p.id);
+        return {
+          ...p,
+          Likes: [...p.Likes, resp.data],
+        };
+      } else {
+        return p;
+      }
+    });
+    setPosts(newPosts);
+  }
+
+  async function deleteLike(pid) {
+    const resp = await axios.delete(`/api/like/${pid}`);
+    console.log(resp.data);
+    const newPosts = posts.map((p) => {
+      if (p.id === pid) {
+        console.log(p.id);
+        return {
+          ...p,
+          // Little Off
+          // Likes: p.Likes.filter(
+          //   (l) => l.userid !== sessionid && l.postid !== pid
+          // ),
+          Likes: p.Likes.filter((l) => {
+            if (l.userid === sessionid && l.postid === pid) {
+              return false;
+            } else return true;
+          }),
+        };
+      } else {
+        return p;
+      }
+    });
+    setPosts(newPosts);
   }
 
   const checkFollowing = () => {
@@ -58,18 +100,27 @@ function ProfilePage({ createFollow, removeFollow }) {
             >
               <button>Followers</button>
             </Link>
-            <p>{followers.length}</p>
+            <p>{followers ? followers.length : "No Followers"}</p>
           </div>
 
-          {checkFollowing() ? (
-            <UnfollowButton removeFollow={removeFollow} />
+          {followers ? (
+            checkFollowing() ? (
+              <UnfollowButton removeFollow={removeFollow} />
+            ) : (
+              <FollowButton createFollow={createFollow} />
+            )
           ) : (
-            <FollowButton createFollow={createFollow} />
+            ""
           )}
         </div>
       </div>
       <div className="profilemiddle">
-        <PostContainer posts={posts} sessionid={sessionid} />
+        <PostContainer
+          posts={posts}
+          sessionid={sessionid}
+          addLike={addLike}
+          deleteLike={deleteLike}
+        />
       </div>
       <div className="rightside">
         <PersonalTopGamesContainer />

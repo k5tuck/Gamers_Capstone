@@ -154,7 +154,11 @@ const processLogin = async (req, res) => {
         displayname: user.displayname,
       };
       req.session.save(() => {
-        res.json({ message: "Session Saved", status: true });
+        res.json({
+          message: "Session Saved",
+          status: true,
+          sessionid: user.id,
+        });
       });
     } else {
       res.json({ message: "Wrong password! Try Again", status: false });
