@@ -669,6 +669,107 @@ const personalTopFive = async (req, res) => {
   }
 };
 
+const searchPost = async (req, res) => {
+  const { search } = req.body;
+  const { id } = req.session.user;
+
+  try {
+    if (search) {
+      const posts = await Post.findAll({
+        where: Sequelize.where(
+          Sequelize.fn(
+            "concat",
+            Sequelize.col("title") 
+          ),
+          {
+            [Op.iLike]: "%" + search + "%",
+          }
+        ),
+        order: [["createdAt", "desc"]],
+        include: [
+          {
+            model: Like,
+          },
+          {
+            model: TagToPost,
+            attributes: ["tagid"],
+            include: Tag,
+          },
+          {
+            model: Game,
+            attributes: ["title"],
+          },
+          {
+            model: Comment,
+            attributes: ["content", "createdAt", "id"],
+            include: User,
+          },
+        ],
+      });
+      
+      console.log(posts);
+
+      res.json({posts, id});
+    }
+  } catch (err) {
+    console.log(`SEARCH ERROR : ${err}`);
+    res.json(`SEARCH ERROR`);
+  }
+};
+
+const searchGame = async (req, res) => {
+  const { search } = req.body;
+  const { id } = req.session.user;
+
+  try {
+    if (search) {
+      const game = await Game.findOne({
+        where: Sequelize.where(
+          Sequelize.fn(
+            "concat",
+            Sequelize.col("title") 
+          ),
+          {
+            [Op.iLike]: "%" + search + "%",
+          }
+        ),
+      });
+      let gid = game.id;
+      const posts = await Post.findAll({
+        where: {
+          gameid: gid,
+        },
+        order: [["createdAt", "desc"]],
+        include: [
+          {
+            model: Like,
+          },
+          {
+            model: TagToPost,
+            attributes: ["tagid"],
+            include: Tag,
+          },
+          {
+            model: Game,
+            attributes: ["title"],
+          },
+          {
+            model: Comment,
+            attributes: ["content", "createdAt", "id"],
+            include: User,
+          },
+        ],
+      });
+    
+      console.log(posts);
+      res.json({posts, id});
+    }
+  } catch (err) {
+    console.log(`SEARCH ERROR : ${err}`);
+    res.json(`SEARCH ERROR`);
+  }
+};
+
 const game = async (req, res) => {
   const { id } = req.params;
   const game = await Game.findByPk(id);
@@ -711,4 +812,6 @@ module.exports = {
   getProfilePagePic,
   updateProfile,
   updateProfilePic,
+  searchPost,
+  searchGame,
 };

@@ -76,6 +76,9 @@ router
   .get("/pertopfive/:id", apiController.personalTopFive)
 
   //Game Page
-  .get("/game/:id", apiController.game);
+  .get("/game/:id", apiController.game)
 
+  // Search
+  .post("/searchpost", apiController.searchPost)
+  .post("/searchgame", apiController.searchGame)
 module.exports = router;
