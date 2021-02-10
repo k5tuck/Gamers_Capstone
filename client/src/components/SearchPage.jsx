@@ -17,7 +17,7 @@ function SearchPage() {
     }
 
     const SearchPost = async() => {
-        const resp = await axios.post("/api/searchgame", {search})
+        const resp = await axios.post("/api/searchpost", {search})
         console.log(resp.data)
         setResults(resp.data.posts)
         setSessionId(resp.data.id)
