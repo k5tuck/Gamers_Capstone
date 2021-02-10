@@ -103,13 +103,13 @@ const PostContainer = (props) => {
                 <p>{post.Game.title}</p>
               </Link>
             )}
-            {isLoggedIn ? (
+            {/* {isLoggedIn ? ( */}
               <Link to={`/profile/${post.userid}`}>
                 <h4>{post.username}</h4>
               </Link>
-            ) : (
+            {/* ) : (
               <Redirect to="/" />
-            )}
+            )} */}
             {post.media.includes("/uploads/media/") ? (
               <div className="postimgcontainer">
                 <img className="postimg" src={post.media} alt={post.title} />
