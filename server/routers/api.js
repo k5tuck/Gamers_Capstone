@@ -65,7 +65,7 @@ router
   .delete("/like/:id", apiController.deleteLike)
 
   // // Tags
-  .get("/tags", apiController.getTag)
+  .post("/searchtag", apiController.getTag)
   .post("/tags/:id", apiController.makeTag)
 
   // Games
@@ -80,5 +80,5 @@ router
 
   // Search
   .post("/searchpost", apiController.searchPost)
-  .post("/searchgame", apiController.searchGame)
+  .post("/searchgame", apiController.searchGame);
 module.exports = router;

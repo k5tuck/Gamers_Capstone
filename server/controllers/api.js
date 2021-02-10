@@ -40,7 +40,7 @@ const processPostImage = async (req, res) => {
 
 const editPost = async (req, res) => {
   const { id } = req.params;
-  const post = await Post.findByPk(id);
+  const post = await Post.findByPk(id, { include: TagToPost });
   const game = await Game.findByPk(post.gameid);
 
   res.json({ post, game });
@@ -48,7 +48,7 @@ const editPost = async (req, res) => {
 
 const processEditPost = async (req, res) => {
   const { id } = req.params;
-  const { title, content, gameid } = req.body;
+  const { title, content, gameid, tagname } = req.body;
 
   let data = {
     title,
@@ -62,6 +62,17 @@ const processEditPost = async (req, res) => {
       userid: req.session.user.id,
     },
   });
+
+  const tagstopost = await TagToPost.findOne({
+    postid: updatedPost.id,
+  });
+
+  const tag = await Tag.findOne({
+    id: tagstopost.tagid,
+  });
+
+  tag.tagname = tagname;
+  await tag.save();
 
   res.json("Edited Post succesfully");
 };
@@ -189,30 +200,43 @@ const getMainPhoto = async (req, res) => {
 };
 
 const getTag = async (req, res) => {
-  const { tagname } = req.body;
+  const { search } = req.body;
+  console.log(search);
 
-  const tag = await Tag.findAll({
+  const tag = await Tag.findOne({
     where: {
-      tagname,
+      tagname: search,
     },
-    include: [
-      {
-        model: TagToPost,
-        include: Post,
-      },
-    ],
   });
-  res.json(tag);
+  const posts = await TagToPost.findAll({
+    where: {
+      tagid: tag.id,
+    },
+    include: Post,
+  });
+
+  res.json(posts);
 };
 
 const makeTag = async (req, res) => {
   const { id } = req.params;
   const { tagname } = req.body;
 
+  // Checking to See If Tag Exist
+  const tagNameExist = await Tag.findAll({
+    where: {
+      tagname,
+    },
+  });
+
+  // Need Conditional Check Here
+
+  // If tag does Not exist - Create It
   const tag = await Tag.create({
     tagname,
   });
 
+  // Link TagID to PostId to Make Relationship
   const tagstopost = await TagToPost.create({
     tagid: tag.id,
     postid: id,
@@ -676,15 +700,9 @@ const searchPost = async (req, res) => {
   try {
     if (search) {
       const posts = await Post.findAll({
-        where: Sequelize.where(
-          Sequelize.fn(
-            "concat",
-            Sequelize.col("title") 
-          ),
-          {
-            [Op.iLike]: "%" + search + "%",
-          }
-        ),
+        where: Sequelize.where(Sequelize.fn("concat", Sequelize.col("title")), {
+          [Op.iLike]: "%" + search + "%",
+        }),
         order: [["createdAt", "desc"]],
         include: [
           {
@@ -706,10 +724,10 @@ const searchPost = async (req, res) => {
           },
         ],
       });
-      
+
       console.log(posts);
 
-      res.json({posts, id});
+      res.json({ posts, id });
     }
   } catch (err) {
     console.log(`SEARCH ERROR : ${err}`);
@@ -724,15 +742,9 @@ const searchGame = async (req, res) => {
   try {
     if (search) {
       const game = await Game.findOne({
-        where: Sequelize.where(
-          Sequelize.fn(
-            "concat",
-            Sequelize.col("title") 
-          ),
-          {
-            [Op.iLike]: "%" + search + "%",
-          }
-        ),
+        where: Sequelize.where(Sequelize.fn("concat", Sequelize.col("title")), {
+          [Op.iLike]: "%" + search + "%",
+        }),
       });
       let gid = game.id;
       const posts = await Post.findAll({
@@ -760,9 +772,9 @@ const searchGame = async (req, res) => {
           },
         ],
       });
-    
+
       console.log(posts);
-      res.json({posts, id});
+      res.json({ posts, id });
     }
   } catch (err) {
     console.log(`SEARCH ERROR : ${err}`);
