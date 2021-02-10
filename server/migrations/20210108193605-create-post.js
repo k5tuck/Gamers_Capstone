@@ -28,6 +28,9 @@ module.exports = {
       media: {
         type: Sequelize.STRING,
       },
+      mediatype: {
+        type: Sequelize.STRING,
+      },
       content: {
         type: Sequelize.STRING,
       },
