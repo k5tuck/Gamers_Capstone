@@ -22,12 +22,13 @@ const processPostImage = async (req, res) => {
   console.log("=========================================================");
   console.log(file);
   console.log("=========================================================");
-  let mediaPic = file ? UPLOAD_URL + file.filename : "";
+
   const post = await Post.findOne({
     where: {
       id,
     },
   });
+  let mediaPic = file ? UPLOAD_URL + file.filename : post.media;
   post.media = mediaPic;
   await post.save();
   res.json(post);
@@ -261,6 +262,55 @@ const getProfilePagePic = async (req, res) => {
   res.json({ photo, displayname });
 };
 
+const updateProfile = async (req, res) => {
+  const { id } = req.params;
+  const { displayname } = req.body;
+  console.log("====================================");
+  console.log(displayname);
+  console.log("====================================");
+
+  const updatedProfile = await User.update(
+    { displayname },
+    {
+      where: {
+        id,
+      },
+    }
+  );
+
+  // const user = await User.findOne({
+  //   where: {
+  //     id,
+  //   },
+  // });
+  // let name = displayname ? (user.displayname = displayname) : user.displayname;
+  // user.displayname = name;
+
+  // await user.save();
+
+  res.json(updatedProfile.displayname);
+};
+
+const updateProfilePic = async (req, res) => {
+  const { id } = req.params;
+  const { file } = req;
+  console.log("====================================");
+  console.log(file);
+  console.log("====================================");
+
+  const user = await User.findOne({
+    where: {
+      id,
+    },
+  });
+
+  let mediaPic = file ? UPLOAD_URL + file.filename : user.photo;
+  user.photo = mediaPic;
+  await user.save();
+
+  res.json(user.photo);
+};
+
 const pullMainContent = async (req, res) => {
   const { displayname, username, id } = req.session.user;
   console.log(req.session.user);
@@ -358,7 +408,7 @@ const getProfilePosts = async (req, res) => {
       },
     ],
   });
-  console.log(posts);
+  // console.log(posts);
   res.json(posts);
 };
 
@@ -614,4 +664,6 @@ module.exports = {
   processPostImage,
   game,
   getProfilePagePic,
+  updateProfile,
+  updateProfilePic,
 };
