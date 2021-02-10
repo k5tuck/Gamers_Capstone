@@ -30,14 +30,14 @@ function ProfilePagePic() {
         "Content-Type": "multipart/form-data",
       },
     });
-    setDisplayName(resp.data.displayname);
+    console.log(resp, "====== this is the editprofile +++++");
+    setPhoto(resp.data.photo);
+    // setDisplayName(resp.data.displayname);
     // const picresp = await axios.put(`/api/eprofilepic/${id}`, data, {
     //   headers: {
     //     "Content-Type": "multipart/form-data",
     //   },
     // });
-    console.log(resp, "====== this is the editprofile +++++");
-    setPhoto(resp.data.photo);
   };
   console.log(displayName);
   console.log(Photo);

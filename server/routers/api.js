@@ -4,7 +4,7 @@ const multer = require("multer");
 const UPLOAD_URL = "/uploads/media/";
 
 const upload = multer({ dest: "public" + UPLOAD_URL });
-const { apiController, userController } = require("../controllers");
+const { apiController } = require("../controllers");
 
 router
   // SignUp
@@ -74,6 +74,8 @@ router
   .get("/maintopfive", apiController.grabMainTopFive)
   .post("/savetopfive", apiController.saveTopFive)
   .get("/pertopfive/:id", apiController.personalTopFive)
+
   //Game Page
   .get("/game/:id", apiController.game);
+
 module.exports = router;

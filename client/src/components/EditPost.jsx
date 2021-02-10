@@ -2,7 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
-function EditPost({ post, title, setTitle, content, setContent, media, setMedia, gameid, setGameId, closeModal,  }) {
+function EditPost({
+  post,
+  title,
+  setTitle,
+  content,
+  setContent,
+  media,
+  setMedia,
+  gameid,
+  setGameId,
+  closeModal,
+}) {
   const history = useHistory();
   // const [title, setTitle] = useState(post.title);
   // const [gameid, setGameId] = useState(post.gameid);
@@ -27,7 +38,7 @@ function EditPost({ post, title, setTitle, content, setContent, media, setMedia,
     });
     console.log(uploadImage);
     closeModal();
-    window.location.reload();
+    // window.location.reload();
     // history.push("/member/home");
   };
 

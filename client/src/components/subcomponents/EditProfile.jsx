@@ -21,7 +21,6 @@ function EditProfile(props) {
           data.append("displayname", displayName);
           editProfileDetails(data);
           closeModal();
-          window.location.reload();
         }}
         enctype="multipart/form-data"
       >
