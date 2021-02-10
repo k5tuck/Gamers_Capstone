@@ -16,15 +16,15 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
     <div>
       <h1>Gamers Capstone</h1>
       <nav>
-        {isLoggedIn ? (
-          <Link to="/member/home">
-            <button>
-              <li>Home</li>
-            </button>
-          </Link>
-        ) : (
+        {/* {isLoggedIn ? ( */}
+        <Link to="/member/home">
+          <button>
+            <li>Home</li>
+          </button>
+        </Link>
+        {/* ) : (
           <Redirect to="/" />
-        )}
+        )} */}
 
         <Link to="/about">
           <button>

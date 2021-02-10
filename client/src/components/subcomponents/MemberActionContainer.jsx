@@ -32,11 +32,11 @@ const MemberActionContainer = ({ isLoggedIn }) => {
         <Link style={{ textDecoration: "none" }} to={followersPath}>
           <button>Followers</button>
         </Link>
-        <p>{followers.length}</p>
+        <p>{followers ? followers.length : ""}</p>
         <Link style={{ textDecoration: "none" }} to={followingPath}>
           <button>Following</button>
         </Link>
-        <p>{following.length}</p>
+        <p>{following ? following.length : ""}</p>
       </div>
       <div className="addpostlink">
         <Link style={{ textDecoration: "none" }} to="/addPost">
@@ -47,11 +47,11 @@ const MemberActionContainer = ({ isLoggedIn }) => {
 
       {/* {isLoggedIn && ( */}
 
-        <div className="viewprofilelink">
-          <Link style={{ textDecoration: "none" }} to={`/profile/${id}`}>
-            <button>View Profile</button>
-          </Link>
-        </div>
+      <div className="viewprofilelink">
+        <Link style={{ textDecoration: "none" }} to={`/profile/${id}`}>
+          <button>View Profile</button>
+        </Link>
+      </div>
 
       {/* )} */}
 

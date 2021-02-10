@@ -21,6 +21,49 @@ function GamePage() {
     setGamePosts(gameResp.data.posts);
     setSessionId(gameResp.data.sessionid);
   };
+
+  async function addLike(pid) {
+    const resp = await axios.put(`/api/like/${pid}`, { like: true });
+    console.log(resp.data);
+    const newPosts = gameposts.map((p) => {
+      if (p.id === pid) {
+        console.log(p.id);
+        return {
+          ...p,
+          Likes: [...p.Likes, resp.data],
+        };
+      } else {
+        return p;
+      }
+    });
+    setGamePosts(newPosts);
+  }
+
+  async function deleteLike(pid) {
+    const resp = await axios.delete(`/api/like/${pid}`);
+    console.log(resp.data);
+    const newPosts = gameposts.map((p) => {
+      if (p.id === pid) {
+        console.log(p.id);
+        return {
+          ...p,
+          // Little Off
+          // Likes: p.Likes.filter(
+          //   (l) => l.userid !== sessionid && l.postid !== pid
+          // ),
+          Likes: p.Likes.filter((l) => {
+            if (l.userid === sessionid && l.postid === pid) {
+              return false;
+            } else return true;
+          }),
+        };
+      } else {
+        return p;
+      }
+    });
+    setGamePosts(newPosts);
+  }
+
   useEffect(() => {
     getGame();
   }, []);
@@ -34,7 +77,12 @@ function GamePage() {
         <p>Genre: {genre}</p>
         <p>Platforms: {platform}</p>
       </div>
-      <PostContainer posts={gameposts} sessionid={sessionid} />
+      <PostContainer
+        posts={gameposts}
+        sessionid={sessionid}
+        addLike={addLike}
+        deleteLike={deleteLike}
+      />
     </div>
   );
 }
