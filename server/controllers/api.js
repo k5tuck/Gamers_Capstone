@@ -675,7 +675,7 @@ const searchPost = async (req, res) => {
 
   try {
     if (search) {
-      const posts = await Post.findAll({
+      const searchedposts = await Post.findAll({
         where: Sequelize.where(
           Sequelize.fn(
             "concat",
@@ -684,7 +684,18 @@ const searchPost = async (req, res) => {
           {
             [Op.iLike]: "%" + search + "%",
           }
-        ),
+        )});
+        console.log(searchedposts);
+
+        const postids = []
+        for (let p of searchedposts) {
+          postids.push(p.id)
+        }
+
+        const posts = await Post.findAll({ 
+        where: {
+          [Op.or]: [{id: postids[0]}],
+        } ,
         order: [["createdAt", "desc"]],
         include: [
           {
@@ -706,9 +717,6 @@ const searchPost = async (req, res) => {
           },
         ],
       });
-      
-      console.log(posts);
-
       res.json({posts, id});
     }
   } catch (err) {
