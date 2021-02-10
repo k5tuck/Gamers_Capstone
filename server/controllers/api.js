@@ -201,6 +201,8 @@ const getMainPhoto = async (req, res) => {
 
 const getTag = async (req, res) => {
   const { search } = req.body;
+
+  const sessionid = req.session.user.id;
   console.log(search);
 
   const tag = await Tag.findOne({
@@ -215,7 +217,7 @@ const getTag = async (req, res) => {
     include: Post,
   });
 
-  res.json(posts);
+  res.json({ posts, sessionid });
 };
 
 const makeTag = async (req, res) => {
