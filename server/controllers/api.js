@@ -19,6 +19,7 @@ const { default: axios } = require("axios");
 const processPostImage = async (req, res) => {
   const { id } = req.params;
   const { file } = req;
+
   console.log("=========================================================");
   console.log(file);
   console.log("=========================================================");
@@ -29,9 +30,12 @@ const processPostImage = async (req, res) => {
     },
   });
   let mediaPic = file ? UPLOAD_URL + file.filename : post.media;
+  let mediaType = file ? file.mimetype : post.mediatype;
   post.media = mediaPic;
+  post.mediatype = mediaType;
+
   await post.save();
-  res.json(post);
+  res.json({ post, file });
 };
 
 const editPost = async (req, res) => {

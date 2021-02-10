@@ -105,18 +105,25 @@ const PostContainer = (props) => {
             )}
 
             {/* {isLoggedIn ? ( */}
-              <Link to={`/profile/${post.userid}`}>
-                <h4>{post.username}</h4>
-              </Link>
+            <Link to={`/profile/${post.userid}`}>
+              <h4>{post.username}</h4>
+            </Link>
             {/* ) : (
               <Redirect to="/" />
             )} */}
 
-          
             {post.media.includes("/uploads/media/") ? (
-              <div className="postimgcontainer">
-                <img className="postimg" src={post.media} alt={post.title} />
-              </div>
+              post.mediatype.includes("video") ? (
+                <div className="postimgcontainer">
+                  <video controls className="postimg">
+                    <source src={post.media} type={post.mediatype} />
+                  </video>
+                </div>
+              ) : (
+                <div className="postimgcontainer">
+                  <img className="postimg" src={post.media} alt={post.title} />
+                </div>
+              )
             ) : (
               ""
             )}

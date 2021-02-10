@@ -36,6 +36,7 @@ module.exports = (sequelize, DataTypes) => {
       gameid: DataTypes.INTEGER,
       title: DataTypes.STRING,
       media: DataTypes.STRING,
+      mediatype: DataTypes.STRING,
       content: DataTypes.STRING,
     },
     {
