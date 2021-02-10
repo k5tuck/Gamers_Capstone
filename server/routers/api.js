@@ -24,6 +24,16 @@ router
   // Profile Page Picture
   .get("/photo/:id", apiController.getProfilePagePic)
 
+  // Edit Profile Details
+  .post("/eprofile/:id", upload.single("file"), apiController.updateProfile)
+
+  // Not Using
+  // .put(
+  //   "/eprofilepic/:id",
+  //   upload.single("file"),
+  //   apiController.updateProfilePic
+  // )
+
   // Comments
 
   .get("/comments/:id", apiController.getComment)
