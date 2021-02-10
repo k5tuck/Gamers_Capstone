@@ -4,9 +4,9 @@ import MemberActionContainer from "./subcomponents/MemberActionContainer";
 import PostContainer from "./subcomponents/PostContainer";
 import TopGamesContainer from "./subcomponents/TopGamesContainer";
 import axios from "axios";
-import WidgetChat from './subcomponents/WidgetChat';
+import WidgetChat from "./subcomponents/WidgetChat";
 
-function MemberHome() {
+function MemberHome({ isLoggedIn }) {
   // function MemberHome({ editPost, deletePost }) {
   const [posts, setPosts] = useState([]);
   const [sessionid, setSessionId] = useState(null);
@@ -72,7 +72,7 @@ function MemberHome() {
           <ProfilePic />
         </div>
         <div className="memberactions">
-          <MemberActionContainer />
+          <MemberActionContainer isLoggedIn={isLoggedIn} />
         </div>
       </div>
       <div className="middle">
@@ -82,12 +82,13 @@ function MemberHome() {
             deleteLike={deleteLike}
             posts={posts}
             sessionid={sessionid}
+            isLoggedIn={isLoggedIn}
           />
         </div>
       </div>
       <div className="rightside">
         <TopGamesContainer />
-        <WidgetChat sessionid={sessionid}/>
+        <WidgetChat sessionid={sessionid} />
       </div>
 
       {/* <h1>Welcome ${'{'}displayname{'}'}</h1>

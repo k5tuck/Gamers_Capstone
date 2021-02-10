@@ -12,10 +12,12 @@ async function removeFollow(id) {
   console.log(resp.data);
 }
 
-export default function Layout({ children }) {
+export default function Layout({ children, isLoggedIn, setIsLoggedIn }) {
+  // const [isLoggedIn, setIsLoggedIn] = useState(false)
+
   return (
     <div>
-      <Header />
+      <Header setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
       {children}
       <Footer />
     </div>

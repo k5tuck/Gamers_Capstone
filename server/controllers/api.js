@@ -150,13 +150,13 @@ const processLogin = async (req, res) => {
         displayname: user.displayname,
       };
       req.session.save(() => {
-        res.json("Session Saved");
+        res.json({ message: "Session Saved", status: true });
       });
     } else {
-      res.json("Wrong password! Try Again");
+      res.json({ message: "Wrong password! Try Again", status: false });
     }
   } else {
-    res.json("User Does Not Exist");
+    res.json({ message: "User Does Not Exist", status: false });
   }
 };
 
@@ -168,12 +168,16 @@ const processLogout = (req, res) => {
 };
 
 const getMainPhoto = async (req, res) => {
-  const { id, displayname } = req.session.user;
-  const user = await User.findByPk(id);
-  console.log(user);
-  const photo = user.photo;
-  console.log(photo);
-  res.json({ photo, displayname });
+  if (!req.session.user) {
+    res.json("User is Not Logged In");
+  } else {
+    const { id, displayname } = req.session.user;
+    const user = await User.findByPk(id);
+    console.log(user);
+    const photo = user.photo;
+    console.log(photo);
+    res.json({ photo, displayname });
+  }
 };
 
 const getTag = async (req, res) => {
@@ -255,11 +259,15 @@ const processPost = async (req, res) => {
 };
 
 const getProfilePagePic = async (req, res) => {
-  const { id } = req.params;
-  const user = await User.findByPk(id);
-  const photo = user.photo;
-  const displayname = user.displayname;
-  res.json({ photo, displayname });
+  if (!req.session.user) {
+    res.json("User is Not Logged In");
+  } else {
+    const { id } = req.params;
+    const user = await User.findByPk(id);
+    const photo = user.photo;
+    const displayname = user.displayname;
+    res.json({ photo, displayname });
+  }
 };
 
 const updateProfile = async (req, res) => {
@@ -321,37 +329,41 @@ const updateProfilePic = async (req, res) => {
 };
 
 const pullMainContent = async (req, res) => {
-  const { displayname, username, id } = req.session.user;
-  console.log(req.session.user);
+  if (!req.session.user) {
+    res.json("User is Not Logged In");
+  } else {
+    const { displayname, username, id } = req.session.user;
+    console.log(req.session.user);
 
-  const posts = await Post.findAll({
-    order: [["createdAt", "desc"]],
+    const posts = await Post.findAll({
+      order: [["createdAt", "desc"]],
 
-    include: [
-      {
-        model: Like,
-      },
-      {
-        model: TagToPost,
-        attributes: ["tagid"],
-        include: Tag,
-      },
-      {
-        model: Game,
-        attributes: ["title"],
-      },
-      {
-        model: Comment,
-        attributes: ["content", "createdAt", "id"],
-        include: User,
-      },
-    ],
-  });
+      include: [
+        {
+          model: Like,
+        },
+        {
+          model: TagToPost,
+          attributes: ["tagid"],
+          include: Tag,
+        },
+        {
+          model: Game,
+          attributes: ["title"],
+        },
+        {
+          model: Comment,
+          attributes: ["content", "createdAt", "id"],
+          include: User,
+        },
+      ],
+    });
 
-  res.json({
-    sessionid: id,
-    posts,
-  });
+    res.json({
+      sessionid: id,
+      posts,
+    });
+  }
 };
 
 const getGamePosts = async (req, res) => {
@@ -391,34 +403,38 @@ const getGamePosts = async (req, res) => {
 };
 
 const getProfilePosts = async (req, res) => {
-  const { id } = req.params;
-  const posts = await Post.findAll({
-    where: {
-      userid: id,
-    },
-    order: [["createdAt", "desc"]],
-    include: [
-      {
-        model: Like,
+  if (!req.session.user) {
+    res.json("User is Not Logged In");
+  } else {
+    const { id } = req.params;
+    const posts = await Post.findAll({
+      where: {
+        userid: id,
       },
-      {
-        model: TagToPost,
-        attributes: ["tagid"],
-        include: Tag,
-      },
-      {
-        model: Game,
-        attributes: ["title"],
-      },
-      {
-        model: Comment,
-        attributes: ["content", "createdAt", "id"],
-        include: User,
-      },
-    ],
-  });
-  // console.log(posts);
-  res.json(posts);
+      order: [["createdAt", "desc"]],
+      include: [
+        {
+          model: Like,
+        },
+        {
+          model: TagToPost,
+          attributes: ["tagid"],
+          include: Tag,
+        },
+        {
+          model: Game,
+          attributes: ["title"],
+        },
+        {
+          model: Comment,
+          attributes: ["content", "createdAt", "id"],
+          include: User,
+        },
+      ],
+    });
+    // console.log(posts);
+    res.json(posts);
+  }
 };
 
 const processDeletePost = async (req, res) => {
@@ -486,48 +502,69 @@ const deleteComment = async (req, res) => {
 };
 
 const getFollowers = async (req, res) => {
-  const { id } = req.session.user;
+  if (!req.session.user) {
+    res.json("User is Not Logged In");
+  } else {
+    const { id } = req.session.user;
 
-  const followers = await Follower.findAll({
-    where: {
-      followeeid: id,
-    },
-    // include: [
-    //   {
-    //     model: User,
-    //     attributes: ["id", "displayname"],
-    //   },
-    // ],
-  });
+    const followers = await Follower.findAll({
+      where: {
+        followeeid: id,
+      },
+      // include: [
+      //   {
+      //     model: User,
+      //     attributes: ["id", "displayname"],
+      //   },
+      // ],
+    });
 
-  const following = await Follower.findAll({
-    where: {
-      followerid: id,
-    },
-    // include: [
-    //   {
-    //     model: User,
-    //     attributes: ["id", "displayname"],
-    //   },
-    // ],
-  });
+    const following = await Follower.findAll({
+      where: {
+        followerid: id,
+      },
+      // include: [
+      //   {
+      //     model: User,
+      //     attributes: ["id", "displayname"],
+      //   },
+      // ],
+    });
 
-  res.json({
-    message: "Sending Followers",
-    followers,
-    following,
-    id,
-  });
+    res.json({
+      message: "Sending Followers",
+      followers,
+      following,
+      id,
+    });
+  }
 };
 
 const getProfileFollows = async (req, res) => {
-  const { id } = req.params;
-  const sessionid = req.session.user.id;
+  if (!req.session.user) {
+    res.json("User is Not Logged In");
+  } else {
+    const { id } = req.params;
+    const sessionid = req.session.user.id;
 
-  const followers = await Follower.findAll({
-    where: {
-      followeeid: id,
-      // },
+    const followers = await Follower.findAll({
+      where: {
+        followeeid: id,
+        // },
+        // include: [
+        //   {
+        //     model: User,
+        //     attributes: ["id", "displayname"],
+        //   },
+        // ],
+        // include: User, // Error: [SequelizeEagerLoadingError]: User is not associated to Follower!
+      },
+    });
+
+    const following = await Follower.findAll({
+      where: {
+        followerid: id,
+      },
       // include: [
       //   {
       //     model: User,
@@ -535,29 +572,16 @@ const getProfileFollows = async (req, res) => {
       //   },
       // ],
       // include: User, // Error: [SequelizeEagerLoadingError]: User is not associated to Follower!
-    },
-  });
+    });
 
-  const following = await Follower.findAll({
-    where: {
-      followerid: id,
-    },
-    // include: [
-    //   {
-    //     model: User,
-    //     attributes: ["id", "displayname"],
-    //   },
-    // ],
-    // include: User, // Error: [SequelizeEagerLoadingError]: User is not associated to Follower!
-  });
-
-  res.json({
-    message: "Sending Profile Followers",
-    followers,
-    following,
-    sessionid,
-    id,
-  });
+    res.json({
+      message: "Sending Profile Followers",
+      followers,
+      following,
+      sessionid,
+      id,
+    });
+  }
 };
 
 const saveFollower = async (req, res) => {
@@ -620,17 +644,21 @@ const saveTopFive = async (req, res) => {
 };
 
 const personalTopFive = async (req, res) => {
-  const { id } = req.params;
-  const cInt = Number(id);
+  if (!req.session.user) {
+    res.json("User is Not Logged In");
+  } else {
+    const { id } = req.params;
+    const cInt = Number(id);
 
-  const [grabPersonalTopFive] = await Game_Junction.personaltop(cInt, 5);
-  const user = await User.findByPk(id);
+    const [grabPersonalTopFive] = await Game_Junction.personaltop(cInt, 5);
+    const user = await User.findByPk(id);
 
-  res.json({
-    message: "Sending Personal Top Five",
-    grabPersonalTopFive,
-    displayname: user.displayname,
-  });
+    res.json({
+      message: "Sending Personal Top Five",
+      grabPersonalTopFive,
+      displayname: user.displayname,
+    });
+  }
 };
 
 const game = async (req, res) => {
