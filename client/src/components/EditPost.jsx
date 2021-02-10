@@ -12,6 +12,8 @@ function EditPost({
   setMedia,
   gameid,
   setGameId,
+  tagname,
+  setTagname,
   closeModal,
 }) {
   const history = useHistory();
@@ -29,6 +31,7 @@ function EditPost({
       title,
       gameid,
       content,
+      tagname,
     };
     const resp = await axios.put(`/api/editpost/${post.id}`, editedPostInfo);
     const uploadImage = await axios.put(`/api/postimage/${post.id}`, data, {
@@ -105,6 +108,17 @@ function EditPost({
               setContent(e.target.value);
             }}
           ></textarea>
+        </label>
+        <br />
+        <label>
+          Tags:
+          <input
+            type="text"
+            value={tagname}
+            onChange={(e) => {
+              setTagname(e.target.value);
+            }}
+          />
         </label>
         <br />
         <input type="submit" value="Edit Post" />

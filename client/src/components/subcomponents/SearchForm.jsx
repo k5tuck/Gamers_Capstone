@@ -3,6 +3,7 @@ import axios from "axios";
 
 function SearchForm({
   SearchGame,
+  SearchTag,
   SearchPost,
   setSearch,
   search,
@@ -28,7 +29,11 @@ function SearchForm({
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          searchType == "Post" ? SearchPost() : SearchGame();
+          searchType == "Tag"
+            ? SearchTag()
+            : searchType == "Post"
+            ? SearchPost()
+            : SearchGame();
         }}
       >
         <label>
@@ -62,6 +67,18 @@ function SearchForm({
           <input
             type="radio"
             value="Game"
+            name="typeofsearch"
+            onChange={(e) => {
+              setSearchType(e.target.value);
+            }}
+          />
+        </label>
+        <br />
+        <label>
+          Tags
+          <input
+            type="radio"
+            value="Tag"
             name="typeofsearch"
             onChange={(e) => {
               setSearchType(e.target.value);

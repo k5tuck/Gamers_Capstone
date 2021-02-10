@@ -24,6 +24,7 @@ const PostContainer = (props) => {
   const [gameid, setGameId] = useState("");
   const [media, setMedia] = useState("");
   const [content, setContent] = useState("");
+  const [tagname, setTagname] = useState("");
 
   function checkUser() {
     let value = false;
@@ -186,6 +187,8 @@ const PostContainer = (props) => {
                         setMedia={setMedia}
                         gameid={gameid}
                         setGameId={setGameId}
+                        tagname={tagname}
+                        setTagname={setTagname}
                         closeModal={closeModal}
                       />
                     </Modal>

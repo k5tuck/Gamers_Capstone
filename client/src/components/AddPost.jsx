@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 
 function AddPost() {
   const history = useHistory();
+  const [tagname, setTagname] = useState("");
   const [title, setTitle] = useState("");
   const [gameid, setGameId] = useState(null);
   const [media, setMedia] = useState("");
@@ -21,6 +22,9 @@ function AddPost() {
     };
     const resp = await axios.post("/api/post", newPost);
     const postid = resp.data.id;
+
+    const respTag = await axios.post(`/api/tags/${postid}`, { tagname });
+    console.log(respTag.data);
 
     const uploadImage = await axios.put(`/api/postimage/${postid}`, data, {
       headers: {
@@ -57,15 +61,14 @@ function AddPost() {
         <br />
         <label>
           {" "}
-          Game Title 
+          Game Title
           <select
             value={gameid}
-          
             onChange={(e) => {
               setGameId(e.target.value);
             }}
-          ><option selected>Please Select a Game</option>
-            $
+          >
+            <option selected>Please Select a Game</option>$
             {games.map((game) => (
               <option value={game.id}>{game.title}</option>
             ))}
@@ -95,6 +98,17 @@ function AddPost() {
               setContent(e.target.value);
             }}
           ></textarea>
+        </label>
+        <br />
+        <label>
+          Tags:
+          <input
+            type="text"
+            value={tagname}
+            onChange={(e) => {
+              setTagname(e.target.value);
+            }}
+          />
         </label>
         <br />
         <input type="submit" value="POST" />
