@@ -68,7 +68,10 @@ function WidgetChat() {
 
     return (
         <div>
-            <Widget handleNewUserMessage={handleNewUserMessage}/>
+            <Widget 
+            handleNewUserMessage={handleNewUserMessage}
+            title="Gamer's Paradise"
+            subtitle="Chat Center"/>
         </div>
     )
 }

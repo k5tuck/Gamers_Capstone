@@ -4,6 +4,7 @@ import MemberActionContainer from "./subcomponents/MemberActionContainer";
 import PostContainer from "./subcomponents/PostContainer";
 import TopGamesContainer from "./subcomponents/TopGamesContainer";
 import axios from "axios";
+import WidgetChat from './subcomponents/WidgetChat';
 
 function MemberHome() {
   // function MemberHome({ editPost, deletePost }) {
@@ -86,6 +87,7 @@ function MemberHome() {
       </div>
       <div className="rightside">
         <TopGamesContainer />
+        <WidgetChat sessionid={sessionid}/>
       </div>
 
       {/* <h1>Welcome ${'{'}displayname{'}'}</h1>
