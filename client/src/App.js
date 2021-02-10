@@ -18,7 +18,7 @@ import SearchPage from "./components/SearchPage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [sessionid, setSessionId] = useState(null);
+  // const [sessionid, setSessionId] = useState(null);
 
   // sessionid ? setIsLoggedIn(true) : setIsLoggedIn(false);
 
@@ -38,7 +38,7 @@ function App() {
             <Login
               isLoggedIn={isLoggedIn}
               setIsLoggedIn={setIsLoggedIn}
-              setSessionId={setSessionId}
+              // setSessionId={setSessionId}
             />
           </Route>
           <Route path="/about">
