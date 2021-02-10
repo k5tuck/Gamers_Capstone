@@ -172,7 +172,7 @@ function SignUpPage(props) {
             //   let results = filterBy(gameList.slice(), e.filter)
             //   setGameList(results)
             // }}
-            defaultItem={{ title: "Select game...", id: null }}
+            // defaultItem={{ title: "Select game...", id: null }}
           />
           {/* <button
           disabled={games.length > 5 ? true : false}
