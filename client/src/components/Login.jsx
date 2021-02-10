@@ -1,29 +1,29 @@
 import React from "react";
-import { Link, useHistory } from 'react-router-dom';
-import { useState } from 'react'
+import { Link, Redirect, useHistory } from "react-router-dom";
+import { useState } from "react";
 import axios from "axios";
 
-function Login(props) {
+function Login({ isLoggedIn, setIsLoggedIn }) {
   let history = useHistory();
-  
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const processLogin = async (e) => {
     e.preventDefault();
     let user = {
       username,
-      password
+      password,
+    };
+    const resp = await axios.post("/api/login", user);
+    console.log(resp.data);
+    if (resp.data.status === true) {
+      setIsLoggedIn(true);
+      history.push("/member/home");
+    } else {
+      alert(resp.data.message);
     }
-    const resp = await axios.post('/api/login', user)
-    
-    if(resp.status === 200){
-    history.push('/member/home')
-    }
-  }
+  };
 
-
-  
   return (
     <div>
       <h1 align="center">Welcome Please Sign In To Your Gamer's Account</h1>
@@ -33,26 +33,29 @@ function Login(props) {
         <input
           type="text"
           name="username"
+          value={username}
           autofocus
           placeholder="username/email"
-          onChange={(e)=>{
-            setUsername(e.target.value)
+          onChange={(e) => {
+            setUsername(e.target.value);
           }}
         />
         <br />
-        <input type="password" name="password" onChange={(e)=>{
-          setPassword(e.target.value)
-        }}/>
+        <input
+          type="password"
+          name="password"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+        />
         <br />
         <input type="submit" value="Login" />
       </form>
       <br />
       <div align="center">
         <p>
-          If you need to Sign Up Please Click :
-          
-            <Link to="/signup">HERE</Link>
-          
+          If you need to Sign Up Please Click :<Link to="/signup">HERE</Link>
         </p>
       </div>
     </div>

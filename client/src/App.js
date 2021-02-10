@@ -1,6 +1,6 @@
 import "@progress/kendo-theme-default/dist/all.css";
 import "./App.css";
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SignUpPage from "./components/SignUpPage";
 import Login from "./components/Login";
@@ -10,16 +10,13 @@ import ProfilePage from "./components/ProfilePage";
 import HomeInitial from "./components/HomeInitial";
 import AddPost from "./components/AddPost";
 import GamePage from "./components/GamePage";
-import WidgetChat from './components/subcomponents/WidgetChat';
-import Layout, {
-  createFollow,
-  removeFollow,
-  editPost,
-  deletePost,
-} from "./components/Layout";
+import WidgetChat from "./components/subcomponents/WidgetChat";
+import Layout, { createFollow, removeFollow } from "./components/Layout";
 import EditPost from "./components/EditPost";
+import Contact from "./components/Contact";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   // let history = useHistory();
 
   return (
@@ -33,15 +30,18 @@ function App() {
             <SignUpPage />
           </Route>
           <Route path="/login">
-            <Login />
+            <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          </Route>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/contact">
+            <Contact />
           </Route>
           Gamers Capstone
-          <Layout>
-            <Route path="/about">
-              <About />
-            </Route>
+          <Layout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}>
             <Route path="/member/home">
-              <MemberHome />
+              <MemberHome isLoggedIn={isLoggedIn} />
             </Route>
             <Route path="/addPost">
               <AddPost />

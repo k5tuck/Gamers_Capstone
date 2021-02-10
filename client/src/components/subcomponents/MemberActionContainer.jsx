@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
-const MemberActionContainer = () => {
+const MemberActionContainer = ({ isLoggedIn }) => {
   const [id, setid] = useState(null);
 
   const [followers, setFollower] = useState([]);
@@ -44,11 +44,13 @@ const MemberActionContainer = () => {
         </Link>
       </div>
       <br />
-      <div className="viewprofilelink">
-        <Link style={{ textDecoration: "none" }} to={`/profile/${id}`}>
-          <button>View Profile</button>
-        </Link>
-      </div>
+      {isLoggedIn && (
+        <div className="viewprofilelink">
+          <Link style={{ textDecoration: "none" }} to={`/profile/${id}`}>
+            <button>View Profile</button>
+          </Link>
+        </div>
+      )}
       <br />
       <div className="searchlink">
         <Link style={{ textDecoration: "none" }} to="/member/search">

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import EditPost from "../EditPost";
 import AddComment from "./AddComment";
 import EditComment from "../EditComment";
@@ -9,7 +9,7 @@ import LikeItem from "./LikeItem";
 
 Modal.setAppElement("#root");
 const PostContainer = (props) => {
-  const { posts, sessionid, addLike, deleteLike } = props;
+  const { posts, sessionid, addLike, deleteLike, isLoggedIn } = props;
   console.log("Here are the posts", posts);
   console.log(sessionid);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -103,9 +103,13 @@ const PostContainer = (props) => {
                 <p>{post.Game.title}</p>
               </Link>
             )}
-            <Link to={`/profile/${post.userid}`}>
-              <h4>{post.username}</h4>
-            </Link>
+            {isLoggedIn ? (
+              <Link to={`/profile/${post.userid}`}>
+                <h4>{post.username}</h4>
+              </Link>
+            ) : (
+              <Redirect to="/" />
+            )}
             {post.media.includes("/uploads/media/") ? (
               <div className="postimgcontainer">
                 <img className="postimg" src={post.media} alt={post.title} />
