@@ -25,7 +25,8 @@ function PersonalTopGamesContainer() {
           ? games.map((g) => {
               return (
                 <Link
-                  style={{ textDecoration: "none" }}
+                className="links"
+                  
                   to={"/member/game/" + g.gameid}
                 >
                   <li style={{ listStyleType: "none" }}>{g.title}</li>

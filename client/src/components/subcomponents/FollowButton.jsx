@@ -12,7 +12,7 @@ export default function FollowButton({ createFollow }) {
           window.location.reload();
         }}
       >
-        Follow
+        <i class="fas fa-user-plus"></i>
       </button>
     </div>
   );

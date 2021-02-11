@@ -45,6 +45,7 @@ const MemberActionContainer = ({ isLoggedIn }) => {
           Followers
         </button>
         <Modal
+          dialogClassName="my-modal"
           isOpen={followermodalIsOpen}
           // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
           onRequestClose={() => {
@@ -66,6 +67,7 @@ const MemberActionContainer = ({ isLoggedIn }) => {
           Following
         </button>
         <Modal
+          dialogClassName="my-modal"
           isOpen={followingmodalIsOpen}
           // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
           onRequestClose={() => {
@@ -78,7 +80,7 @@ const MemberActionContainer = ({ isLoggedIn }) => {
         <p>{following ? following.length : ""}</p>
       </div>
       <div className="addpostlink">
-        <Link style={{ textDecoration: "none" }} to="/addPost">
+        <Link className="links" to="/addPost">
           <button>Add Post</button>
         </Link>
       </div>
@@ -87,7 +89,7 @@ const MemberActionContainer = ({ isLoggedIn }) => {
       {/* {isLoggedIn && ( */}
 
       <div className="viewprofilelink">
-        <Link style={{ textDecoration: "none" }} to={`/profile/${id}`}>
+        <Link className="links" to={`/profile/${id}`}>
           <button>View Profile</button>
         </Link>
       </div>
@@ -96,7 +98,7 @@ const MemberActionContainer = ({ isLoggedIn }) => {
 
       <br />
       <div className="searchlink">
-        <Link style={{ textDecoration: "none" }} to="/member/search">
+        <Link className="links"  to="/member/search">
           <button>Search</button>
         </Link>
       </div>

@@ -3,13 +3,15 @@ import { Link } from "react-router-dom";
 
 function FollowingPage({ following }) {
   return (
-    <div>
+    <div className="followingmodal">
       <h1>This is The Following Page</h1>
       {following.map((follower) => {
         return (
           <ul>
             <li>
-              <Link to={`/profile/${follower.followee}`}>
+              <Link 
+              className="links" 
+              to={`/profile/${follower.followee}`}>
                 <div className="userpostpiccontainer">
                   <span className="postpiccontainer">
                     <img className="postpicimage" src={follower.photo} alt="" />

@@ -98,7 +98,10 @@ const PostContainer = (props) => {
             return (
               <div key={post.userid} className="post">
                 <div className="post-top-row">
-                  <Link to={`/profile/${post.userid}`}>
+                  <Link 
+                  className="links"
+                  
+                  to={`/profile/${post.userid}`}>
                   <div className="userpostpiccontainer">
                     <span className="postpiccontainer">
                       <img
@@ -110,17 +113,19 @@ const PostContainer = (props) => {
                     <h4>{post.username}</h4>
                   </div>
                 </Link>
-                <br/>
-                <br/>
+               
                 {post.Game == null ? (
                   ""
                 ) : (
-                  <Link to={`/member/game/${post.gameid}`}>
+                  <Link 
+                  className="links"
+                  
+                  to={`/member/game/${post.gameid}`}>
                     <p>{post.Game.title}</p>
                   </Link>
                 )}
                 </div>
-                <h3>{post.title ? post.title : "There Are No Posts"}</h3>
+                <h3 className="posttitle" >{post.title ? post.title : "There Are No Posts"}</h3>
                 {/* {isLoggedIn ? ( */}
               
                 {/* ) : (
@@ -151,8 +156,9 @@ const PostContainer = (props) => {
                 ) : (
                   ""
                 )}
-                <p>{post.content}</p>
+                <p className="postcontent" >{post.content}</p>
                 <LikeItem
+                  className="likebutton"
                   key={post.id}
                   post={post}
                   addLike={addLike}
@@ -167,7 +173,7 @@ const PostContainer = (props) => {
 
                 {/* {sessionid === post.User.id ? "" : ""} */}
                 {sessionid === post.userid ? (
-                  <div>
+                  <div className="editdelpostbtns">
                     <button
                       onClick={(e) => {
                         e.preventDefault();
