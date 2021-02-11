@@ -205,16 +205,16 @@ const getTag = async (req, res) => {
   const sessionid = req.session.user.id;
   console.log(search);
 
-  const tag = await Tag.findOne({
-    where: {
-      tagname: search,
-    },
+  const tag = await Tag.findAll({
+    where: Sequelize.where(Sequelize.fn("concat", Sequelize.col("tagname")), {
+      [Op.iLike]: "%" + search + "%",
+    }),
   });
 
   if (tag !== null) {
     const posts = await TagToPost.findAll({
       where: {
-        tagid: tag.id,
+        tagid: tag.map((t) => t.id),
       },
       include: [
         {
@@ -726,7 +726,8 @@ const searchPost = async (req, res) => {
 
       const posts = await Post.findAll({
         where: {
-          [Op.or]: [{ id: postids[0] }],
+          id: postids,
+          // [Op.or]: [{ id: postids[0] }],
         },
         order: [["createdAt", "desc"]],
         include: [
