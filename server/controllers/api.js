@@ -595,29 +595,9 @@ const getFollowers = async (req, res) => {
   } else {
     const { id } = req.session.user;
 
-    const followers = await Follower.findAll({
-      where: {
-        followeeid: id,
-      },
-      // include: [
-      //   {
-      //     model: User,
-      //     attributes: ["id", "displayname"],
-      //   },
-      // ],
-    });
+    const [following] = await Follower.following(id);
 
-    const following = await Follower.findAll({
-      where: {
-        followerid: id,
-      },
-      // include: [
-      //   {
-      //     model: User,
-      //     attributes: ["id", "displayname"],
-      //   },
-      // ],
-    });
+    const [followers] = await Follower.followers(id);
 
     res.json({
       message: "Sending Followers",
@@ -635,32 +615,9 @@ const getProfileFollows = async (req, res) => {
     const { id } = req.params;
     const sessionid = req.session.user.id;
 
-    const followers = await Follower.findAll({
-      where: {
-        followeeid: id,
-        // },
-        // include: [
-        //   {
-        //     model: User,
-        //     attributes: ["id", "displayname"],
-        //   },
-        // ],
-        // include: User, // Error: [SequelizeEagerLoadingError]: User is not associated to Follower!
-      },
-    });
+    const [following] = await Follower.following(id);
 
-    const following = await Follower.findAll({
-      where: {
-        followerid: id,
-      },
-      // include: [
-      //   {
-      //     model: User,
-      //     attributes: ["id", "displayname"],
-      //   },
-      // ],
-      // include: User, // Error: [SequelizeEagerLoadingError]: User is not associated to Follower!
-    });
+    const [followers] = await Follower.followers(id);
 
     res.json({
       message: "Sending Profile Followers",

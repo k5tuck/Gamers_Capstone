@@ -70,6 +70,9 @@ function App() {
             <Route path="/member/chat">
               <WidgetChat />
             </Route>
+            {/* <Route path="/members/following/:id">
+              <FollowingPage following={following} />
+            </Route> */}
             <Route path="/member/search">
               <SearchPage />
             </Route>
