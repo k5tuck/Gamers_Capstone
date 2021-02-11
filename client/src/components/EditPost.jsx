@@ -41,8 +41,8 @@ function EditPost({
     });
     console.log(uploadImage);
     closeModal();
-    // window.location.reload();
-    // history.push("/member/home");
+    window.location.reload();
+    
   };
 
   const getGames = async () => {

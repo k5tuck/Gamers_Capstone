@@ -1,9 +1,12 @@
 .App {
   text-align: center;
-  background-color: #5680E9;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  font-weight: bolder;
+  
 }
 html {
-  background-color: #5680E9;
+  background-color: #c5d6ec;
+  font-family: 'Pangolin', cursive;
 }
 
 .App-logo {
@@ -47,6 +50,7 @@ html {
 .newsfeedcontainer {
   display: flex;
   justify-content: space-evenly;
+  
 }
 .profileleftpanel {
   display: flex;
@@ -55,38 +59,43 @@ html {
   width: 15rem;
 }
 .leftpanel {
-  display: flex;
-  flex-direction: column;
+  
+  background: #a6b1dd;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 1rem;
+  height: 40rem;
+
   
 }
+
 .middle {
   display: flex;
   justify-content: center;
   align-self: center;
-}
-.middle {
-  display: flex;
-  justify-content: center;
+  background: #a6b1dd;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 1rem;
 }
 .rightside {
   display: flex;
   flex-direction: column;
-  
+  background: #a6b1dd;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 1rem;
+  height: 40rem;
 }
 
-.profilepiccircle {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: solid #000000 0.1rem;
-  border-radius: 60%;
-  height: 15rem;
-  width: 15rem;
-  margin-bottom: 4rem;
-  padding: 2rem 0rem;
-  background:#C1C8E4;
+.links {
+ color: inherit;
+ text-decoration: none;
 }
+.links:hover {
+  color: #a6b1dd;
+}
+
 .userpostpiccontainer {
   display: flex;
   /* flex-direction: column; */
@@ -96,35 +105,53 @@ html {
   /* border-radius: 50%; */
   height: 55px;
   width: 120px;
-  margin-right:6rem;
+  margin-right:12rem; /*seperates the post username and the game title */
   /* margin-bottom: 4rem; */
   /* padding-top: 2rem; */
 }
 
+.posttitle {
+  margin-top: 0;
+  font-size:2rem;
+  
+  text-shadow: .2rem .2rem #a6b1dd;
+}
+
 .postpiccontainer {
-  width: 5rem;
-  height: auto;
+  width: 3rem;
+  height: 3rem;
   overflow: hidden;
   margin: 0;
+  border-radius: 100%;
   margin-right: 8px;
 }
 .postpicimage {
   width: 100%;
   height: auto;
-  border-radius: 100%
+  
 }
 
 .profilepiccontainer {
   width: 10rem;
   height: 10rem;
+  margin-bottom: 3.2rem;
+  border-radius: 100%;
+  overflow: hidden;
+  border: white .1rem solid;
+}
+.profileheader {
+  color: white;
+  font-size: 1.5rem;
   
-  margin-bottom: 2rem;
+}
+.profileh3 {
+  margin-top:0;
 }
 
 .profilepicimage {
   width: 100%;
   height: auto;
-  border-radius: 100%;
+  
 }
 .profilepicheader {
   float: left;
@@ -137,23 +164,35 @@ html {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: solid black 0.1rem;
-  box-shadow: 10px 10px lightseagreen;
+  border: solid white 0.1rem;
+  
   margin: 1rem;
-  width: 25rem;
+  width: 30rem;
   
 }
 .post-top-row {
   display:flex;
   justify-content: space-evenly;
+  
 }
 .postimgcontainer {
-  width: 19rem;
+  width: 22rem;
   height: 13rem;
 }
 .postimg {
   width: 100%;
   height: auto;
+}
+.editdelpostbtns {
+
+}
+
+.likebutton {
+
+}
+
+.postcontent {
+  margin-top:2rem;
 }
 .gamepagecontainer {
   display: flex;
@@ -173,19 +212,30 @@ html {
   width: 100%;
   height: auto;
 }
-.memberactions {
-  border: black solid 0.1rem;
-  
-}
+
 .memberactionscontainer {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  background-color:#C1C8E4;
+  background-color:#c5d6ec;
   padding: 1rem;
+  border: white solid 0.1rem;
+  border-radius: 1rem;
   
 }
-
+button {
+  background: transparent;
+  background: #a6b1dd;
+  border-radius: .4rem;
+  border: solid .1rem white;
+  padding: .5rem;
+  width: 8rem;
+}
+button:hover {
+  cursor:pointer;
+  background: white;
+  border: solid .1rem white;
+}
 .memberactionfollowers {
   display: flex;
   justify-content: space-evenly;
@@ -201,17 +251,45 @@ html {
   text-decoration: none;
 }
 .post {
-  background-color:#C1C8E4;
-  border-radius: 15px;
+  background-color:#c5d6ec;
+  border-radius: 1rem;
 }
 
 .TopGamesContainer {
-  background-color:#C1C8E4;
+  background-color:#c5d6ec;
   display:flex;
   flex-direction: column;
   align-items: center;
-
+  border: solid white .1rem;
+  border-radius: 15%;
   padding: .4rem;
-  border: .1rem solid;
   margin-top: 1rem;
+}
+.ReactModal__Overlay--after-open {
+  width: 55vw;
+  height: 75vh;
+  max-width: 55vw;
+  max-height: 75vh;
+  position: relative;
+  margin-left: 20%;
+  margin-top: 5%;
+  overflow:scroll;  
+}
+
+.followermodal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+.followermodalheader {
+  
+}
+.followers {
+  list-style-type: none;
+}
+
+#profilefollowermodal {
+  background: #a6b1dd;
 }

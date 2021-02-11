@@ -107,6 +107,8 @@ function ProfilePage({ createFollow, removeFollow }) {
           Followers
         </button>
         <Modal
+          id="profilefollowermodal"
+          
           isOpen={followermodalIsOpen}
           // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
           onRequestClose={() => {

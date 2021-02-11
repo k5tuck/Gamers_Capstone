@@ -5,22 +5,26 @@ function About() {
   return (
     <>
       <nav>
-        <Link to="/">
+        <Link to="/member/home">
           <button>
             <li>Home</li>
           </button>
         </Link>
-
+        <Link to="/about">
+          <button>
+            <li>About</li>
+          </button>
+        </Link>
         <Link to="/contact">
           <button>
             <li>Contact</li>
           </button>
         </Link>
-        <Link to="/login">
+        {/* <Link to="/login">
           <button>
             <li>Login</li>
           </button>
-        </Link>
+        </Link> */}
       </nav>
       <div className="game-page">
         <h1>About Us</h1>

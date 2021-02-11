@@ -67,12 +67,15 @@ function MemberHome({ isLoggedIn }) {
   return (
     <div className="newsfeedcontainer">
       <div className="leftpanel">
+        
         {/* <div className=""> */}
+        <div className="fixed">
         <div className="profilepiccomponent">
           <ProfilePic />
         </div>
         <div className="memberactions">
           <MemberActionContainer isLoggedIn={isLoggedIn} />
+        </div>
         </div>
       </div>
       <div className="middle">

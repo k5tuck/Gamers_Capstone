@@ -3,13 +3,15 @@ import { Link } from "react-router-dom";
 
 function FollowerPage({ followers }) {
   return (
-    <div>
-      <h1>This is The Followers Page</h1>
+    <div className="followermodal">
+      <h1 classname="followermodalheader">Followers:</h1>
       {followers.map((follower) => {
         return (
-          <ul>
-            <li>
-              <Link to={`/profile/${follower.follower}`}>
+          
+            <li className="followers">
+              <Link
+              className="links" 
+               to={`/profile/${follower.follower}`}>
                 <div className="userpostpiccontainer">
                   <span className="postpiccontainer">
                     <img className="postpicimage" src={follower.photo} alt="" />
@@ -18,7 +20,7 @@ function FollowerPage({ followers }) {
                 </div>
               </Link>
             </li>
-          </ul>
+          
         );
       })}
     </div>
