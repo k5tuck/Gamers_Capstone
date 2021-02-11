@@ -201,6 +201,8 @@ const getMainPhoto = async (req, res) => {
 
 const getTag = async (req, res) => {
   const { search } = req.body;
+
+  const sessionid = req.session.user.id;
   console.log(search);
 
   const tag = await Tag.findOne({
@@ -215,7 +217,7 @@ const getTag = async (req, res) => {
     include: Post,
   });
 
-  res.json(posts);
+  res.json({ posts, sessionid });
 };
 
 const makeTag = async (req, res) => {
@@ -223,25 +225,36 @@ const makeTag = async (req, res) => {
   const { tagname } = req.body;
 
   // Checking to See If Tag Exist
-  const tagNameExist = await Tag.findAll({
+  const tagNameExist = await Tag.findOne({
     where: {
       tagname,
     },
   });
 
+  console.log("====================================");
+  console.log(tagNameExist);
+  console.log("====================================");
+
   // Need Conditional Check Here
 
-  // If tag does Not exist - Create It
-  const tag = await Tag.create({
-    tagname,
-  });
+  if (!tagNameExist) {
+    // If tag does Not exist - Create It
+    const tag = await Tag.create({
+      tagname,
+    });
+    const tagstopost = await TagToPost.create({
+      tagid: tag.id,
+      postid: id,
+    });
+  } else {
+    const tagstopost = await TagToPost.create({
+      tagid: tagNameExist.id,
+      postid: id,
+    });
+  }
 
   // Link TagID to PostId to Make Relationship
-  const tagstopost = await TagToPost.create({
-    tagid: tag.id,
-    postid: id,
-  });
-  res.json(tag.tagname);
+  res.json(tagname);
 };
 
 const makeLike = async (req, res) => {
@@ -699,28 +712,22 @@ const searchPost = async (req, res) => {
 
   try {
     if (search) {
-
       const searchedposts = await Post.findAll({
-        where: Sequelize.where(
-          Sequelize.fn(
-            "concat",
-            Sequelize.col("title") 
-          ),
-          {
-            [Op.iLike]: "%" + search + "%",
-          }
-        )});
-        console.log(searchedposts);
+        where: Sequelize.where(Sequelize.fn("concat", Sequelize.col("title")), {
+          [Op.iLike]: "%" + search + "%",
+        }),
+      });
+      console.log(searchedposts);
 
-        const postids = []
-        for (let p of searchedposts) {
-          postids.push(p.id)
-        }
+      const postids = [];
+      for (let p of searchedposts) {
+        postids.push(p.id);
+      }
 
-        const posts = await Post.findAll({ 
+      const posts = await Post.findAll({
         where: {
-          [Op.or]: [{id: postids[0]}],
-        } ,
+          [Op.or]: [{ id: postids[0] }],
+        },
         order: [["createdAt", "desc"]],
         include: [
           {
@@ -742,7 +749,7 @@ const searchPost = async (req, res) => {
           },
         ],
       });
-      res.json({posts, id});
+      res.json({ posts, id });
     }
   } catch (err) {
     console.log(`SEARCH ERROR : ${err}`);
