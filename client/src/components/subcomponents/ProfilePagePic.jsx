@@ -48,11 +48,13 @@ function ProfilePagePic() {
 
   return (
     <div className="profilepiccircle">
-      <h3 className="profilepicheader">{displayName}</h3>
+      <div className="profileheader">
+                <h3 className="profileh3">{displayName}</h3>
+            </div>
       <div className="profilepiccontainer">
         <img className="profilepicimage" src={Photo} alt="prof pic" />
       </div>
-      <div>
+      <div className="editprofilebutton">
         <button
           onClick={(e) => {
             e.preventDefault();

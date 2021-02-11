@@ -156,7 +156,9 @@ const PostContainer = (props) => {
                 ) : (
                   ""
                 )}
-                <p className="postcontent" >{post.content}</p>
+                <div className="postcontent">
+                <p  className="postcontentp">{post.content}</p>
+                </div>
                 <LikeItem
                   className="likebutton"
                   key={post.id}
