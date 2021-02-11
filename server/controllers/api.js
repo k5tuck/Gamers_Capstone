@@ -2,6 +2,8 @@ const { layout } = require("../utils");
 const bcrypt = require("bcryptjs");
 const Sequelize = require("sequelize");
 const UPLOAD_URL = "/uploads/media/";
+const UPLOAD_URL_DEFAULT = "/images/";
+
 const { Op, json } = require("sequelize");
 const {
   User,
@@ -123,7 +125,7 @@ const addImageToNewUser = async (req, res) => {
   const { id } = req.params;
   const { file } = req;
   console.log(file);
-  let mediaPic = file ? UPLOAD_URL + file.filename : "";
+  let mediaPic = file ? UPLOAD_URL + file.filename : UPLOAD_URL_DEFAULT;
   const user = await User.findOne({
     where: {
       id,
@@ -333,8 +335,14 @@ const processPost = async (req, res) => {
     userphoto: user.photo,
   });
 
-  res.json(post);
-};
+   const game =  await Game_Junction.create({
+      gameid,
+      userid: id,
+    });
+ 
+
+  res.json({post , game});
+}; 
 
 const getProfilePagePic = async (req, res) => {
   if (!req.session.user) {

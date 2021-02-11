@@ -21,7 +21,7 @@ function AddPost() {
       content,
     };
     const resp = await axios.post("/api/post", newPost);
-    const postid = resp.data.id;
+    const postid = resp.data.post.id;
 
     const respTag = await axios.post(`/api/tags/${postid}`, { tagname });
     console.log(respTag.data);
@@ -31,6 +31,10 @@ function AddPost() {
         "Content-Type": "multipart/form-data",
       },
     });
+
+
+
+
     console.log(uploadImage);
     history.push("/member/home");
   };
@@ -56,7 +60,7 @@ function AddPost() {
             onChange={(e) => {
               setTitle(e.target.value);
             }}
-          />
+          required autoFocus/>
         </label>
         <br />
         <label>
@@ -67,7 +71,7 @@ function AddPost() {
             onChange={(e) => {
               setGameId(e.target.value);
             }}
-          >
+          required>
             <option selected>Please Select a Game</option>$
             {games.map((game) => (
               <option value={game.id}>{game.title}</option>
