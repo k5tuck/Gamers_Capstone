@@ -97,17 +97,8 @@ const PostContainer = (props) => {
         ? posts.map((post) => {
             return (
               <div key={post.userid} className="post">
-                <h3>{post.title ? post.title : "There Are No Posts"}</h3>
-                {post.Game == null ? (
-                  ""
-                ) : (
-                  <Link to={`/member/game/${post.gameid}`}>
-                    <p>{post.Game.title}</p>
-                  </Link>
-                )}
-
-                {/* {isLoggedIn ? ( */}
-                <Link to={`/profile/${post.userid}`}>
+                <div className="post-top-row">
+                  <Link to={`/profile/${post.userid}`}>
                   <div className="userpostpiccontainer">
                     <span className="postpiccontainer">
                       <img
@@ -119,6 +110,19 @@ const PostContainer = (props) => {
                     <h4>{post.username}</h4>
                   </div>
                 </Link>
+                <br/>
+                <br/>
+                {post.Game == null ? (
+                  ""
+                ) : (
+                  <Link to={`/member/game/${post.gameid}`}>
+                    <p>{post.Game.title}</p>
+                  </Link>
+                )}
+                </div>
+                <h3>{post.title ? post.title : "There Are No Posts"}</h3>
+                {/* {isLoggedIn ? ( */}
+              
                 {/* ) : (
               <Redirect to="/" />
             )} */}

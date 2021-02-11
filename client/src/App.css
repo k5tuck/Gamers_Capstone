@@ -1,5 +1,9 @@
 .App {
   text-align: center;
+  background-color: #5680E9;
+}
+html {
+  background-color: #5680E9;
 }
 
 .App-logo {
@@ -47,13 +51,13 @@
 .profileleftpanel {
   display: flex;
   flex-direction: column;
-  margin-left: 5rem;
+  
   width: 15rem;
 }
 .leftpanel {
   display: flex;
   flex-direction: column;
-  margin-right: 5rem;
+  
 }
 .middle {
   display: flex;
@@ -67,6 +71,7 @@
 .rightside {
   display: flex;
   flex-direction: column;
+  
 }
 
 .profilepiccircle {
@@ -79,7 +84,8 @@
   height: 15rem;
   width: 15rem;
   margin-bottom: 4rem;
-  padding-top: 2rem;
+  padding: 2rem 0rem;
+  background:#C1C8E4;
 }
 .userpostpiccontainer {
   display: flex;
@@ -90,6 +96,7 @@
   /* border-radius: 50%; */
   height: 55px;
   width: 120px;
+  margin-right:6rem;
   /* margin-bottom: 4rem; */
   /* padding-top: 2rem; */
 }
@@ -104,18 +111,20 @@
 .postpicimage {
   width: 100%;
   height: auto;
+  border-radius: 100%
 }
 
 .profilepiccontainer {
   width: 10rem;
   height: 10rem;
-  overflow: hidden;
+  
   margin-bottom: 2rem;
 }
 
 .profilepicimage {
   width: 100%;
   height: auto;
+  border-radius: 100%;
 }
 .profilepicheader {
   float: left;
@@ -129,11 +138,18 @@
   justify-content: center;
   align-items: center;
   border: solid black 0.1rem;
+  box-shadow: 10px 10px lightseagreen;
   margin: 1rem;
+  width: 25rem;
+  
+}
+.post-top-row {
+  display:flex;
+  justify-content: space-evenly;
 }
 .postimgcontainer {
-  width: 16rem;
-  height: 16rem;
+  width: 19rem;
+  height: 13rem;
 }
 .postimg {
   width: 100%;
@@ -159,12 +175,15 @@
 }
 .memberactions {
   border: black solid 0.1rem;
-  padding: 1rem;
+  
 }
 .memberactionscontainer {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  background-color:#C1C8E4;
+  padding: 1rem;
+  
 }
 
 .memberactionfollowers {
@@ -182,6 +201,17 @@
   text-decoration: none;
 }
 .post {
-  background-color: #61dafbe7;
+  background-color:#C1C8E4;
   border-radius: 15px;
+}
+
+.TopGamesContainer {
+  background-color:#C1C8E4;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: .4rem;
+  border: .1rem solid;
+  margin-top: 1rem;
 }

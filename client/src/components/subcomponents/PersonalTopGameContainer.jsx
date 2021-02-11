@@ -17,9 +17,10 @@ function PersonalTopGamesContainer() {
     getGame();
   }, []);
   return (
-    <div>
-      <ul>
-        <h2>{displayname}'s Top 5 Games </h2>
+    <div className="TopGamesContainer">
+      
+        <h2>{displayname}'s
+        <br/> Top 5 Games </h2>
         {games
           ? games.map((g) => {
               return (
@@ -33,7 +34,7 @@ function PersonalTopGamesContainer() {
               );
             })
           : "No Games Added"}
-      </ul>
+      
     </div>
   );
 }
