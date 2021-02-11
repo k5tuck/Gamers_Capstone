@@ -1,12 +1,11 @@
 .App {
   text-align: center;
-  font-family: 'Yanone Kaffeesatz', sans-serif;
+  font-family: "Yanone Kaffeesatz", sans-serif;
   font-weight: bolder;
-  
 }
 html {
   background-color: #c5d6ec;
-  font-family: 'Pangolin', cursive;
+  font-family: "Pangolin", cursive;
 }
 
 .App-logo {
@@ -50,23 +49,19 @@ html {
 .newsfeedcontainer {
   display: flex;
   justify-content: space-evenly;
-  
 }
 .profileleftpanel {
   display: flex;
   flex-direction: column;
-  
+
   width: 15rem;
 }
 .leftpanel {
-  
   background: #a6b1dd;
   padding: 1rem;
   margin: 1rem;
   border-radius: 1rem;
   height: 40rem;
-
-  
 }
 
 .middle {
@@ -89,8 +84,8 @@ html {
 }
 
 .links {
- color: inherit;
- text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 .links:hover {
   color: #a6b1dd;
@@ -105,16 +100,16 @@ html {
   /* border-radius: 50%; */
   height: 55px;
   width: 120px;
-  margin-right:12rem; /*seperates the post username and the game title */
+  margin-right: 12rem; /*seperates the post username and the game title */
   /* margin-bottom: 4rem; */
   /* padding-top: 2rem; */
 }
 
 .posttitle {
   margin-top: 0;
-  font-size:2rem;
-  
-  text-shadow: .2rem .2rem #a6b1dd;
+  font-size: 2rem;
+
+  text-shadow: 0.2rem 0.2rem #a6b1dd;
 }
 
 .postpiccontainer {
@@ -128,7 +123,6 @@ html {
 .postpicimage {
   width: 100%;
   height: auto;
-  
 }
 
 .profilepiccontainer {
@@ -137,21 +131,19 @@ html {
   margin-bottom: 3.2rem;
   border-radius: 100%;
   overflow: hidden;
-  border: white .1rem solid;
+  border: white 0.1rem solid;
 }
 .profileheader {
   color: white;
   font-size: 1.5rem;
-  
 }
 .profileh3 {
-  margin-top:0;
+  margin-top: 0;
 }
 
 .profilepicimage {
   width: 100%;
   height: auto;
-  
 }
 .profilepicheader {
   float: left;
@@ -165,15 +157,13 @@ html {
   justify-content: center;
   align-items: center;
   border: solid white 0.1rem;
-  
+
   margin: 1rem;
   width: 30rem;
-  
 }
 .post-top-row {
-  display:flex;
+  display: flex;
   justify-content: space-evenly;
-  
 }
 .postimgcontainer {
   width: 22rem;
@@ -184,15 +174,13 @@ html {
   height: auto;
 }
 .editdelpostbtns {
-
 }
 
 .likebutton {
-
 }
 
 .postcontent {
-  margin-top:2rem;
+  margin-top: 2rem;
 }
 .gamepagecontainer {
   display: flex;
@@ -217,24 +205,23 @@ html {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  background-color:#c5d6ec;
+  background-color: #c5d6ec;
   padding: 1rem;
   border: white solid 0.1rem;
   border-radius: 1rem;
-  
 }
 button {
   background: transparent;
   background: #a6b1dd;
-  border-radius: .4rem;
-  border: solid .1rem white;
-  padding: .5rem;
+  border-radius: 0.4rem;
+  border: solid 0.1rem white;
+  padding: 0.5rem;
   width: 8rem;
 }
 button:hover {
-  cursor:pointer;
+  cursor: pointer;
   background: white;
-  border: solid .1rem white;
+  border: solid 0.1rem white;
 }
 .memberactionfollowers {
   display: flex;
@@ -251,18 +238,18 @@ button:hover {
   text-decoration: none;
 }
 .post {
-  background-color:#c5d6ec;
+  background-color: #c5d6ec;
   border-radius: 1rem;
 }
 
 .TopGamesContainer {
-  background-color:#c5d6ec;
-  display:flex;
+  background-color: #c5d6ec;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  border: solid white .1rem;
+  border: solid white 0.1rem;
   border-radius: 15%;
-  padding: .4rem;
+  padding: 0.4rem;
   margin-top: 1rem;
 }
 .ReactModal__Overlay--after-open {
@@ -273,7 +260,7 @@ button:hover {
   position: relative;
   margin-left: 20%;
   margin-top: 5%;
-  overflow:scroll;  
+  overflow: scroll;
 }
 
 .followermodal {
@@ -281,15 +268,10 @@ button:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
 }
 .followermodalheader {
-  
-}
-.followers {
-  list-style-type: none;
 }
 
-#profilefollowermodal {
-  background: #a6b1dd;
+.followers {
+  list-style-type: none;
 }
