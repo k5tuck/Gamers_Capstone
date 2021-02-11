@@ -33,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       userid: DataTypes.INTEGER,
       username: DataTypes.STRING,
+      userphoto: DataTypes.STRING,
       gameid: DataTypes.INTEGER,
       title: DataTypes.STRING,
       media: DataTypes.STRING,

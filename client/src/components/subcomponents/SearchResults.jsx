@@ -1,11 +1,16 @@
 import React from "react";
 import PostContainer from "./PostContainer";
 
-function SearchResults({ results, setResults, id }) {
+function SearchResults({ addLike, deleteLike, results, setResults, id }) {
   console.log(results);
   return (
     <div className="searchresults">
-      <PostContainer posts={results} sessionid={id} />
+      <PostContainer
+        addLike={addLike}
+        deleteLike={deleteLike}
+        posts={results}
+        sessionid={id}
+      />
     </div>
   );
 }

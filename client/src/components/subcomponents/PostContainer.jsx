@@ -97,7 +97,7 @@ const PostContainer = (props) => {
         ? posts.map((post) => {
             return (
               <div key={post.userid} className="post">
-                <h3>{post.title}</h3>
+                <h3>{post.title ? post.title : "There Are No Posts"}</h3>
                 {post.Game == null ? (
                   ""
                 ) : (
@@ -108,7 +108,16 @@ const PostContainer = (props) => {
 
                 {/* {isLoggedIn ? ( */}
                 <Link to={`/profile/${post.userid}`}>
-                  <h4>{post.username}</h4>
+                  <div className="userpostpiccontainer">
+                    <span className="postpiccontainer">
+                      <img
+                        className="postpicimage"
+                        src={post.userphoto}
+                        alt=""
+                      />
+                    </span>
+                    <h4>{post.username}</h4>
+                  </div>
                 </Link>
                 {/* ) : (
               <Redirect to="/" />
@@ -118,6 +127,7 @@ const PostContainer = (props) => {
                   post.media.includes("/uploads/media/") ? (
                     post.mediatype.includes("video") ? (
                       <div className="postimgcontainer">
+                        {/* <video autoPlay loop className="postimg"> */}
                         <video controls className="postimg">
                           <source src={post.media} type={post.mediatype} />
                         </video>
@@ -144,11 +154,11 @@ const PostContainer = (props) => {
                   addLike={addLike}
                   deleteLike={deleteLike}
                   liked={
-                    checkLike(post.Likes) ? true : false
+                    post.Likes ? (checkLike(post.Likes) ? true : false) : false
 
                     // ? post.Likes.find((like) => like.userid === sessionid)
                   }
-                  likes={post.Likes.length}
+                  likes={post.Likes ? post.Likes.length : 0}
                 />
 
                 {/* {sessionid === post.User.id ? "" : ""} */}
@@ -227,54 +237,63 @@ const PostContainer = (props) => {
                   />
                 </Modal>
                 <div>
-                  {post.Comments.map((comment, idx) => {
-                    return (
-                      <div>
-                        <h4>{comment.User.displayname}</h4>
-                        <p>{comment.content}</p>
-                        {sessionid === comment.User.id ? (
+                  {post.Comments
+                    ? post.Comments.map((comment, idx) => {
+                        return (
                           <div>
-                            <button
-                              onClick={(e) => {
-                                e.preventDefault();
-                                editComment(comment.id);
-                                setModalIsOpenEditComment(true);
+                            {/* <span className="postpiccontainer">
+                              <img
+                                className="postpicimage"
+                                // src={comment.User.photo}
+                                alt=""
+                              />
+                            </span> */}
+                            <h4>{comment.User.displayname}</h4>
+                            <p>{comment.content}</p>
+                            {sessionid === comment.User.id ? (
+                              <div>
+                                <button
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    editComment(comment.id);
+                                    setModalIsOpenEditComment(true);
+                                  }}
+                                >
+                                  Edit Comment
+                                </button>
+                                <br />
+                                <button
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    deleteComment(comment.id);
+                                    window.location.reload();
+                                  }}
+                                >
+                                  Delete Comment
+                                </button>
+                              </div>
+                            ) : (
+                              ""
+                            )}
+                            <Modal
+                              isOpen={modalIsOpenEditComment}
+                              // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
+                              onRequestClose={() => {
+                                setModalIsOpenEditComment(false);
                               }}
                             >
-                              Edit Comment
-                            </button>
-                            <br />
-                            <button
-                              onClick={(e) => {
-                                e.preventDefault();
-                                deleteComment(comment.id);
-                                window.location.reload();
-                              }}
-                            >
-                              Delete Comment
-                            </button>
+                              <EditComment
+                                id={editCommentID}
+                                content={editCommentContent}
+                                setEditCommentContent={setEditCommentContent}
+                                // callComment={editComment}
+                                closeModal={closeCommentEditModal}
+                              />
+                            </Modal>
                           </div>
-                        ) : (
-                          ""
-                        )}
-                        <Modal
-                          isOpen={modalIsOpenEditComment}
-                          // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
-                          onRequestClose={() => {
-                            setModalIsOpenEditComment(false);
-                          }}
-                        >
-                          <EditComment
-                            id={editCommentID}
-                            content={editCommentContent}
-                            setEditCommentContent={setEditCommentContent}
-                            // callComment={editComment}
-                            closeModal={closeCommentEditModal}
-                          />
-                        </Modal>
-                      </div>
-                    );
-                  })}
+                        );
+                      })
+                    : "No Comments"}
                 </div>
               </div>
             );
