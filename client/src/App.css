@@ -275,3 +275,12 @@ button:hover {
 .followers {
   list-style-type: none;
 }
+
+#profilefollowermodal {
+  background: #a6b1dd;
+}
+
+.contact {
+  list-style-type: none;
+}
+

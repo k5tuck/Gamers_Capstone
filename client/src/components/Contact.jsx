@@ -26,10 +26,10 @@ function Contact() {
           </button>
         </Link> */}
       </nav>
-      <div class="game-page">
+      <div >
         <h1>Contact Us.</h1>
         <h3>Joshua Lopez</h3>
-        <ul>
+        <ul className="contact">
           <li>
             <Link to="https://github.com/JoshuaNow">Github</Link>
           </li>
@@ -38,9 +38,9 @@ function Contact() {
               LinkedIn
             </Link>
           </li>
-        </ul>
+        </ul >
         <h3>Ian Storms</h3>
-        <ul>
+        <ul className="contact">
           <li>
             <Link to="https://github.com/Stormy110">Github</Link>
           </li>
@@ -49,7 +49,7 @@ function Contact() {
           </li>
         </ul>
         <h3>Kevin Tucker</h3>
-        <ul>
+        <ul className="contact">
           <li>
             <Link to="https://github.com/k5tuck">Github</Link>
           </li>
@@ -58,7 +58,7 @@ function Contact() {
           </li>
         </ul>
         <h3>Shoel Uddin</h3>
-        <ul>
+        <ul className="contact">
           <li>
             <Link to="https://github.com/shoel-uddin">Github</Link>
           </li>
