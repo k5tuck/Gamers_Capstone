@@ -49,48 +49,68 @@
   flex-direction: column;
   margin-left: 5rem;
   width: 15rem;
-  
 }
 .leftpanel {
   display: flex;
   flex-direction: column;
   margin-right: 5rem;
-  
-  
 }
-.middle{
-  display:flex;
+.middle {
+  display: flex;
   justify-content: center;
-  align-self:center;
+  align-self: center;
 }
-.middle{
-  display:flex;
+.middle {
+  display: flex;
   justify-content: center;
 }
 .rightside {
-  display:flex;
+  display: flex;
   flex-direction: column;
 }
 
 .profilepiccircle {
-  display:flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border:solid #000000 0.1rem;
+  border: solid #000000 0.1rem;
   border-radius: 60%;
-  height:15rem;
-  width:15rem;
+  height: 15rem;
+  width: 15rem;
   margin-bottom: 4rem;
   padding-top: 2rem;
-  
+}
+.userpostpiccontainer {
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
+  /* border: solid #000000 0.1rem; */
+  /* border-radius: 50%; */
+  height: 55px;
+  width: 120px;
+  /* margin-bottom: 4rem; */
+  /* padding-top: 2rem; */
+}
+
+.postpiccontainer {
+  width: 5rem;
+  height: auto;
+  overflow: hidden;
+  margin: 0;
+  margin-right: 8px;
+}
+.postpicimage {
+  width: 100%;
+  height: auto;
 }
 
 .profilepiccontainer {
   width: 10rem;
   height: 10rem;
-  overflow:hidden;
-  margin-bottom:2rem;
+  overflow: hidden;
+  margin-bottom: 2rem;
 }
 
 .profilepicimage {
@@ -98,13 +118,13 @@
   height: auto;
 }
 .profilepicheader {
-  float:left;
+  float: left;
 }
 .profilepostcontainer {
   margin: 0 10rem;
 }
 .post {
-  display:flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -117,10 +137,10 @@
 }
 .postimg {
   width: 100%;
-  height: auto
+  height: auto;
 }
 .gamepagecontainer {
-  display:flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -129,26 +149,26 @@
 .gameimgcontainer {
   width: 20rem;
   height: 20rem;
-  display:flex;
+  display: flex;
   justify-content: center;
-  float:center;
+  float: center;
 }
 .gameimg {
   width: 100%;
-  height: auto
+  height: auto;
 }
 .memberactions {
   border: black solid 0.1rem;
   padding: 1rem;
 }
 .memberactionscontainer {
-  display:flex;
+  display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 }
 
 .memberactionfollowers {
-  display:flex;
+  display: flex;
   justify-content: space-evenly;
   text-decoration: none;
 }
@@ -162,6 +182,6 @@
   text-decoration: none;
 }
 .post {
- background-color: #61dafbe7;
- border-radius: 15px;
+  background-color: #61dafbe7;
+  border-radius: 15px;
 }

@@ -13,6 +13,20 @@ module.exports = (sequelize, DataTypes) => {
       //   foreignKey: ["followeeid", "followerid"],
       // });
     }
+    static following(follower) {
+      return sequelize.query(`
+      SELECT displayname, photo, followeeid as followee  FROM "Followers" as FE
+      Join "Users" as U on U.id = FE.followeeid 
+     Where FE.followerid = ${follower}
+      `);
+    }
+    static followers(followee) {
+      return sequelize.query(`
+      SELECT displayname, photo, followeeid as followee, followerid as follower  FROM "Followers" as FE
+      Join "Users" as U on U.id = FE.followerid 
+     Where FE.followeeid = ${followee}
+      `);
+    }
   }
   Follower.init(
     {

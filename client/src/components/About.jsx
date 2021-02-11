@@ -1,8 +1,27 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function About() {
   return (
     <>
+      <nav>
+        <Link to="/">
+          <button>
+            <li>Home</li>
+          </button>
+        </Link>
+
+        <Link to="/contact">
+          <button>
+            <li>Contact</li>
+          </button>
+        </Link>
+        <Link to="/login">
+          <button>
+            <li>Login</li>
+          </button>
+        </Link>
+      </nav>
       <div className="game-page">
         <h1>About Us</h1>
         <p>

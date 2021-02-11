@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import FollowingPage from "./FollowingPage";
+import FollowerPage from "./FollowerPage";
+import Modal from "react-modal";
 import axios from "axios";
 
 const MemberActionContainer = ({ isLoggedIn }) => {
   const [id, setid] = useState(null);
+  const [followingmodalIsOpen, setFollowingModalIsOpen] = useState(false);
+  const [followermodalIsOpen, setFollowerModalIsOpen] = useState(false);
 
   const [followers, setFollower] = useState([]);
   const [following, setFollowing] = useState([]);
@@ -29,13 +34,47 @@ const MemberActionContainer = ({ isLoggedIn }) => {
   return (
     <div className="memberactionscontainer">
       <div className="memberactionsfollowers">
-        <Link style={{ textDecoration: "none" }} to={followersPath}>
-          <button>Followers</button>
-        </Link>
+        {/* <Link  to={followersPath}> */}
+        <button
+          style={{ textDecoration: "none" }}
+          onClick={(e) => {
+            e.preventDefault();
+            setFollowerModalIsOpen(true);
+          }}
+        >
+          Followers
+        </button>
+        <Modal
+          isOpen={followermodalIsOpen}
+          // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
+          onRequestClose={() => {
+            setFollowerModalIsOpen(false);
+          }}
+        >
+          <FollowerPage followers={followers} />
+        </Modal>
+        {/* </Link> */}
         <p>{followers ? followers.length : ""}</p>
-        <Link style={{ textDecoration: "none" }} to={followingPath}>
-          <button>Following</button>
-        </Link>
+        {/* <Link  to={followingPath}> */}
+        <button
+          style={{ textDecoration: "none" }}
+          onClick={(e) => {
+            e.preventDefault();
+            setFollowingModalIsOpen(true);
+          }}
+        >
+          Following
+        </button>
+        <Modal
+          isOpen={followingmodalIsOpen}
+          // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
+          onRequestClose={() => {
+            setFollowingModalIsOpen(false);
+          }}
+        >
+          <FollowingPage following={following} />
+        </Modal>
+        {/* </Link> */}
         <p>{following ? following.length : ""}</p>
       </div>
       <div className="addpostlink">
