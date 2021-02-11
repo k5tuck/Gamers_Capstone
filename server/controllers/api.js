@@ -536,6 +536,22 @@ const getProfilePosts = async (req, res) => {
 const processDeletePost = async (req, res) => {
   const { id } = req.params;
 
+  const destroyedtag = await TagToPost.destroy({
+    where: {
+      postid: id
+    }
+  })
+
+  const destroyedlike = await Like.destroy({
+    where: {
+      postid:id
+    }
+  })
+  const destroyedcomment = await Comment.destroy({
+    where: {
+      postid: id
+    }
+  })
   const dpost = await Post.destroy({
     where: {
       id,
