@@ -345,6 +345,7 @@ const processPost = async (req, res) => {
 }; 
 
 const getProfilePagePic = async (req, res) => {
+   const { id } = req.session.user;
   if (!req.session.user) {
     res.json("User is Not Logged In");
   } else {
@@ -352,7 +353,7 @@ const getProfilePagePic = async (req, res) => {
     const user = await User.findByPk(id);
     const photo = user.photo;
     const displayname = user.displayname;
-    res.json({ photo, displayname });
+    res.json({ photo, displayname, id });
   }
 };
 
