@@ -13,8 +13,8 @@ function TopGamesContainer() {
     getGame();
   }, []);
   return (
-    <div>
-      <ul>
+    <div className="TopGamesContainer">
+      
         <h2>Current Top 5 Games </h2>
         {games
           ? games.map((g) => {
@@ -29,7 +29,7 @@ function TopGamesContainer() {
               );
             })
           : "No Games Added"}
-      </ul>
+      
     </div>
   );
 }
