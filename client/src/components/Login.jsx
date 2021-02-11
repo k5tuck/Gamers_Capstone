@@ -41,7 +41,7 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
           onChange={(e) => {
             setUsername(e.target.value);
           }}
-        />
+        required autoFocus/>
         <br />
         <input
           type="password"
@@ -50,7 +50,7 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
           onChange={(e) => {
             setPassword(e.target.value);
           }}
-        />
+        required autoFocus/>
         <br />
         <input type="submit" value="Login" />
       </form>

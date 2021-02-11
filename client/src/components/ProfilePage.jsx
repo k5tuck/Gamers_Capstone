@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import FollowButton from "./subcomponents/FollowButton";
+import FollowerPage from "./subcomponents/FollowerPage";
+import Modal from "react-modal";
 
 import { Link, useParams } from "react-router-dom";
 import PersonalTopGamesContainer from "./subcomponents/PersonalTopGameContainer";
@@ -13,6 +15,7 @@ function ProfilePage({ createFollow, removeFollow }) {
   const { id } = useParams();
   console.log(id);
 
+   const [followermodalIsOpen, setFollowerModalIsOpen] = useState(false);
   const [sessionid, setSessionId] = useState(null);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
@@ -94,12 +97,27 @@ function ProfilePage({ createFollow, removeFollow }) {
         <ProfilePagePic />
         <div className="memberactionscontainer">
           <div className="memberactionsfollowers">
-            <Link
-              style={{ textDecoration: "none" }}
-              to={`/members/followers/${id}`}
-            >
-              <button>Followers</button>
-            </Link>
+          <button
+          style={{ textDecoration: "none" }}
+          onClick={(e) => {
+            e.preventDefault();
+            setFollowerModalIsOpen(true);
+          }}
+        >
+          Followers
+        </button>
+        <Modal
+          isOpen={followermodalIsOpen}
+          // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
+          onRequestClose={() => {
+            setFollowerModalIsOpen(false);
+          }}
+        >
+          <FollowerPage followers={followers} />
+        </Modal>
+        {/* </Link> */}
+
+
             <p>{followers ? followers.length : "No Followers"}</p>
           </div>
 
