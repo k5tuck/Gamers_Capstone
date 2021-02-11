@@ -293,3 +293,7 @@ button:hover {
 #profilefollowermodal {
   background: #a6b1dd;
 }
+
+.contact {
+  list-style-type: none;
+}
