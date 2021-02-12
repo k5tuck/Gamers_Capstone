@@ -3,7 +3,7 @@ import { Link, Router } from "react-router-dom";
 
 function Contact() {
   return (
-    <>
+    <div>
       <nav>
         <Link to="/member/home">
           <button>
@@ -67,7 +67,10 @@ function Contact() {
           </li>
         </ul>
       </div>
-    </>
+      <footer>
+        <p class="">&copy; 2021 Gamers Paradise</p>
+      </footer>
+    </div>
   );
 }
 

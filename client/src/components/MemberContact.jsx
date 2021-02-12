@@ -25,6 +25,9 @@ function MemberContact() {
                 <li><Link to="https://github.com/shoel-uddin">Github</Link></li>
                 <li><Link to="https://www.linkedin.com/in/shoel-uddin/">LinkedIn</Link></li>
             </ul>
+            <footer>
+                <p class="">&copy; 2021 Gamers Paradise</p>
+            </footer>
         </div>
     )
 }

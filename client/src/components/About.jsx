@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function About() {
   return (
-    <>
+    <div>
       <nav>
         <Link to="/member/home">
           <button>
@@ -41,7 +41,10 @@ function About() {
           We hope you enjoy!
         </p>
       </div>
-    </>
+      <footer>
+        <p class="">&copy; 2021 Gamers Paradise</p>
+      </footer>
+    </div>
   );
 }
 

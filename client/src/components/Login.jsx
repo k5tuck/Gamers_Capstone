@@ -60,6 +60,9 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
           If you need to Sign Up Please Click :<Link to="/signup">HERE</Link>
         </p>
       </div>
+      <footer>
+        <p class="">&copy; 2021 Gamers Paradise</p>
+      </footer>
     </div>
   );
 }

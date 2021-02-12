@@ -62,12 +62,12 @@ function SignUpPage(props) {
   }, []);
 
   return (
-    <main className="">
+    <main className="signuppagecontainer">
       <form onSubmit={processNewUser}>
         <h1 className="">Sign Up Here</h1>
         <label className="">
           {" "}
-          Username
+          Username :
           <input
             type="text"
             value={username}
@@ -81,9 +81,9 @@ function SignUpPage(props) {
             autoFocus
           />
         </label>
-
+            <br/>
         <label className="">
-          Password
+          Password :
           <input
             type="password"
             value={password}
@@ -96,10 +96,10 @@ function SignUpPage(props) {
             required
           />
         </label>
-
+            <br/>
         <label className="">
           {" "}
-          Display Name
+          Display Name :
           <input
             type="text"
             value={displayname}
@@ -112,9 +112,9 @@ function SignUpPage(props) {
             required
           />
         </label>
-
+            <br/>
         <label className="">
-          Email Address
+          Email Address :
           <input
             type="text"
             value={email}
@@ -127,9 +127,9 @@ function SignUpPage(props) {
             required
           />
         </label>
-
+            <br/>
         <label className="">
-          Name
+          Name :
           <input
             type="text"
             value={name}
@@ -145,7 +145,7 @@ function SignUpPage(props) {
         <br />
         <label className="">
           {" "}
-          Your profile Pic
+          Your profile Pic :
           <input
             type="file"
             name="photo"
@@ -191,7 +191,10 @@ function SignUpPage(props) {
       <Link to="/login">
         <button className="">Log In</button>
       </Link>
-      <p class="">&copy; 2021</p>
+      <footer>
+        <p class="">&copy; 2021 Gamers Paradise</p>
+      </footer>
+      
     </main>
   );
 }
