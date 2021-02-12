@@ -22,6 +22,9 @@ module.exports = {
           key: "username",
         },
       },
+      displayname: {
+        type: Sequelize.STRING,
+      },
       userphoto: {
         type: Sequelize.STRING,
       },
