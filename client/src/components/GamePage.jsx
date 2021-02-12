@@ -77,12 +77,14 @@ function GamePage() {
         <p>Genre: {genre}</p>
         <p>Platforms: {platform}</p>
       </div>
+      <div className="middle">
       <PostContainer
         posts={gameposts}
         sessionid={sessionid}
         addLike={addLike}
         deleteLike={deleteLike}
       />
+      </div>
     </div>
   );
 }

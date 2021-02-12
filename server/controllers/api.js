@@ -197,7 +197,7 @@ const getMainPhoto = async (req, res) => {
     console.log(user);
     const photo = user.photo;
     console.log(photo);
-    res.json({ photo, displayname });
+    res.json({ photo, displayname: user.displayname });
   }
 };
 
@@ -426,6 +426,7 @@ const pullMainContent = async (req, res) => {
       include: [
         // {
         //   model: User,
+        //   attributes: ["displayname"],
         // },
         {
           model: Like,

@@ -8,7 +8,7 @@ function FollowerPage({ followers }) {
       {followers.map((follower) => {
         return (
           <li className="followers">
-            <Link className="links" to={`/profile/${follower.follower}`}>
+            <Link className="followerlinks" to={`/profile/${follower.follower}`}>
               <div className="userpostpiccontainer">
                 <span className="postpiccontainer">
                   <img className="postpicimage" src={follower.photo} alt="" />

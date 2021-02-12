@@ -9,9 +9,10 @@ import LikeItem from "./LikeItem";
 
 Modal.setAppElement("#root");
 const PostContainer = (props) => {
-  const { posts, sessionid, addLike, deleteLike, isLoggedIn } = props;
+  const { posts, sessionid, addLike, deleteLike, isLoggedIn, displayName } = props;
   console.log("Here are the posts", posts);
   console.log(sessionid);
+  
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsOpenComment, setModalIsOpenComment] = useState(false);
   const [modalIsOpenEditComment, setModalIsOpenEditComment] = useState(false);
@@ -108,6 +109,7 @@ const PostContainer = (props) => {
                         />
                       </span>
                       <h4>{post.username}</h4>
+                      
                     </div>
                   </Link>
 
@@ -215,6 +217,7 @@ const PostContainer = (props) => {
                         <i class="far fa-edit"> </i>
                       </button>
                       <Modal
+                      className="editpostmodal"
                         isOpen={modalIsOpen}
                         // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
                         onRequestClose={() => {
