@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebSocket 101</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div id="mario-chat">
+      <h2>My Test Chat</h2>
+      <div id="chat-window">
+        <div id="output"></div>
+        <div id="feedback"></div>
+      </div>
+      <input type="text" id="handle" placeholder="Handle" />
+      <input type="text" id="message" placeholder="Message" />
+      <button id="send">Send</button>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      // Make Connection
+      var socket = io.connect("http://localhost:4001");
+
+      // Handles for Querying DOM
+      var message = document.getElementById("message"),
+        handle = document.getElementById("handle"),
+        btn = document.getElementById("send"),
+        output = document.getElementById("output"),
+        feedback = document.getElementById("feedback");
+
+      // Emit events - aka. Send Messages
+      btn.addEventListener("click", function () {
+        socket.emit("chat", {
+          message: message.value,
+          handle: handle.value,
+        });
+        message.value = "";
+      });
+
+      // Sending Broadcast - ie. "Kevin is typing..."
+      message.addEventListener("keypress", () => {
+        socket.emit("typing", handle.value);
+      });
+
+      // Listen for events (messages) and Display on Screen
+      socket.on("chat", function (data) {
+        feedback.innerHTML = "";
+        output.innerHTML +=
+          "<p><strong>" + data.handle + ": </strong>" + data.message + "</p>";
+      });
+
+      socket.on("typing", (data) => {
+        feedback.innerHTML =
+          "<p><em>" + data + " is typing a message...</em></p>";
+      });
+    </script>
+  </body>
+</html>

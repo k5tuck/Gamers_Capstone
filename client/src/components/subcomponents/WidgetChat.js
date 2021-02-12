@@ -14,7 +14,7 @@ const user = {
 // const STREAM_API = process.env.REACT_APP_STREAM_API_SECRET
 // client = stream.connect('deknak4gnvw2', 'q6s865rwff2cz6t5382pfgza6365phtyv24ar9jjrr6msr3hmaa7qad3yg5up6ku', '111031');
 function WidgetChat() {
-  const [messages, setMessages] = useState(null);
+  const [messages, setMessages] = useState([]);
 
   // Create client variable from StreamChat using the api
   const client = new StreamChat("deknak4gnvw2");
@@ -30,16 +30,6 @@ function WidgetChat() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, name]);
 
-  // Method - We make use of chat-widget "handleNewUserMessage" prop to update
-  // the chat and send the message to the channel
-  const handleNewUserMessage = useCallback(
-    async (message) =>
-      await channel.current.sendMessage({
-        text: message,
-      }),
-    []
-  );
-
   // Method - Set the channel, in this case we are setting a messaging
   // default chat provided by StreamChat
   const setChannel = useCallback(async () => {
@@ -52,22 +42,32 @@ function WidgetChat() {
     });
 
     const channelWatch = await channel.current.watch();
-    setMessages(channelWatch.messages);
+    setMessages(...messages, channelWatch.messages);
 
-    return async () => {
-      await channelWatch.stopWatching();
-    };
+    // return async () => {
+    //   await channelWatch.stopWatching();
+    // };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Method - We make use of chat-widget "handleNewUserMessage" prop to update
+  // the chat and send the message to the channel
+  const handleNewUserMessage = useCallback(
+    async (message) =>
+      await channel.current.sendMessage({
+        text: message,
+      }),
+    []
+  );
 
   // Effect - Set the user and channel on first render
   useEffect(() => {
     setUser();
     setChannel();
-  }, [setUser, setChannel, setMessages]);
+  }, [setUser, setChannel]);
 
   // Effect - Map through the messages and add them to the widget using 'addUserMessage'
-  useEffect(() => messages?.map((message) => addUserMessage(message.text)), [
+  useEffect(() => messages.map((message) => addUserMessage(message.text)), [
     messages,
   ]);
 
