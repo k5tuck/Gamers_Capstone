@@ -145,9 +145,6 @@ function ProfilePage({ createFollow, removeFollow }) {
       <div className="rightside">
         <PersonalTopGamesContainer />
       </div>
-      <footer>
-        <p class="">&copy; 2021 Gamers Paradise</p>
-      </footer>
     </div>
   );
 }
