@@ -251,69 +251,80 @@ const PostContainer = (props) => {
                     ""
                   )}
                 </div>
+
                 <div className="commentcontainer">
                   {post.Comments
                     ? post.Comments.map((comment, idx) => {
                         return (
                           <div>
+                            <hr />
                             <div className="comment">
-                            <div className="userpostpiccontainer">
-                              <span className="postpiccontainer">
-                                <img
-                                  className="postpicimage"
-                                  src={comment.User.photo}
-                                  alt=""
-                                />
-                                
-                              </span>
-                              <h4>{comment.User.displayname}</h4>
-                            </div>
-                            <p className="commentcontent">{comment.content}</p>
-                            </div>
-                            {sessionid === comment.User.id ? (
-                              <div>
-                                <button
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    editComment(comment.id);
-                                    setModalIsOpenEditComment(true);
-                                  }}
-                                >
-                                  Edit Comment
-                                </button>
-                                <br />
-                                <button
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    deleteComment(comment.id);
-                                    window.location.reload();
-                                  }}
-                                >
-                                  Delete Comment
-                                </button>
+                              <div className="userpostpiccontainercomment">
+                                <span className="postpiccontainercomment">
+                                  <img
+                                    className="postpicimage"
+                                    src={comment.User.photo}
+                                    alt=""
+                                  />
+                                </span>
+                                <h4>{comment.User.displayname}: </h4>
                               </div>
-                            ) : (
-                              ""
-                            )}
-                            <Modal
-                              isOpen={modalIsOpenEditComment}
-                              // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
-                              onRequestClose={() => {
-                                setModalIsOpenEditComment(false);
-                              }}
-                            >
-                              <EditComment
-                                id={editCommentID}
-                                content={editCommentContent}
-                                setEditCommentContent={setEditCommentContent}
-                                // callComment={editComment}
-                                closeModal={closeCommentEditModal}
-                              />
-                            </Modal>
+                              <div className="commentandbuttons">
+                                <p className="commentcontent">
+                                  {comment.content}
+                                </p>
+
+                                {sessionid === comment.User.id ? (
+                                  <div className="commentbuttoncontainer">
+                                    <button
+                                      className="commentbuttons"
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        editComment(comment.id);
+                                        setModalIsOpenEditComment(true);
+                                      }}
+                                    >
+                                      {/* <i class="far fa-comment-dots"></i> */}
+                                      <i class="far fa-edit"> </i>
+                                    </button>
+                                    <br />
+                                    <button
+                                      className="commentbuttons"
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        deleteComment(comment.id);
+                                        window.location.reload();
+                                      }}
+                                    >
+                                      <i class="far fa-trash-alt"> </i>
+                                    </button>
+                                  </div>
+                                ) : (
+                                  ""
+                                )}
+                              </div>
+                              {/* <hr /> */}
+                              <Modal
+                                isOpen={modalIsOpenEditComment}
+                                // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
+                                onRequestClose={() => {
+                                  setModalIsOpenEditComment(false);
+                                }}
+                              >
+                                <EditComment
+                                  id={editCommentID}
+                                  content={editCommentContent}
+                                  setEditCommentContent={setEditCommentContent}
+                                  // callComment={editComment}
+                                  closeModal={closeCommentEditModal}
+                                />
+                              </Modal>
+                            </div>
                           </div>
                         );
                       })
                     : "No Comments"}
+                  {/* <hr /> */}
                 </div>
               </div>
             );
