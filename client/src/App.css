@@ -98,8 +98,30 @@ html {
   color: inherit;
   text-decoration: none;
 }
-.links:hover {
+.linksgamescontainer {
+  color: inherit;
+  text-decoration: none;
+  background: #c5d6ec;
+  margin-top: 2rem;
+  border: white .1rem solid;
+  border-radius: 1rem;
+  padding-bottom: .5rem;
+}
+.linksgamescontainer:hover {
   color: #a6b1dd;
+  
+}
+.links:hover {
+  color: white;
+  
+}
+.linkstopgames {
+  color: inherit;
+  text-decoration: none;
+}
+.linkstopgames:hover {
+  color: white;
+  transform: scale(1.3)
 }
 
 .userpostpiccontainer {
@@ -184,9 +206,10 @@ html {
   justify-content: center;
   align-items: center;
   border: solid white 0.1rem;
-
+  background-color: #c5d6ec;
+  border-radius: 1rem;
   margin: 1rem;
-  width: 30rem;
+  width:28rem;
 }
 .post-top-row {
   display: flex;
@@ -234,11 +257,13 @@ html {
   margin: 0rem 20rem;
 }
 .gameimgcontainer {
-  width: 20rem;
-  height: 20rem;
+  width: 25rem;
+  height: 25rem;
   display: flex;
   justify-content: center;
   float: center;
+  border: solid white 0.1rem;
+  border-radius: 1rem;
 }
 .gameimg {
   width: 100%;
@@ -281,10 +306,6 @@ button:hover {
 .searchlink {
   text-decoration: none;
 }
-.post {
-  background-color: #c5d6ec;
-  border-radius: 1rem;
-}
 
 .TopGamesContainer {
   background-color: #c5d6ec;
@@ -292,9 +313,46 @@ button:hover {
   flex-direction: column;
   align-items: center;
   border: solid white 0.1rem;
-  border-radius: 15%;
-  padding: 0.4rem;
-  margin-top: 1rem;
+  border-radius: 1rem;
+  padding:  .5rem 1.5rem;
+  margin-top: .6rem;
+  
+}
+.postbuttons {
+  display:flex;
+  justify-content: space-between;
+  width: 27rem;
+  height: 2.2rem;
+}
+.addcommentbutton {
+  margin-left: 2.4rem;
+}
+.likebutton {
+  padding: 0rem;
+  width: 2.5rem;
+  float: left;
+}
+
+.comment {
+  display:flex;
+  justify-content: flex-start;
+  
+}
+.commentcontent {
+  align-self: center;
+}
+
+.editpostbutton {
+  padding: 0rem;
+  width: 2.5rem;
+  height: 2.2rem;
+  font-size: 1rem;
+}
+.editdelpostbtns {
+  float:right;
+}
+.like-color {
+  color: red
 }
 .ReactModal__Overlay--after-open {
   width: 55vw;

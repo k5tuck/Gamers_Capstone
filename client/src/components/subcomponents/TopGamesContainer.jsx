@@ -15,12 +15,12 @@ function TopGamesContainer() {
   return (
     <div className="TopGamesContainer">
       
-        <h2>Current Top 5 Games </h2>
+        <h2>Current Top 10 Games </h2>
         {games
           ? games.map((g) => {
               return (
                 <Link
-                  className="links"
+                  className="linkstopgames"
                   
                   to={"/member/game/" + g.gameid}
                 >

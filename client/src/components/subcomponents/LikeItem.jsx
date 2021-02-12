@@ -7,12 +7,12 @@ function LikeItem({ deleteLike, addLike, post, likes, liked }) {
       onClick={(e) => {
         liked ? deleteLike(post.id) : addLike(post.id);
       }}
-      className=""
+      className="likebutton"
     >
       {liked ? (
         <i className="fas fa-heart like-color"></i>
       ) : (
-        <i class="fas fa-thumbs-down"></i>
+        <i class="far fa-heart"></i>
       )}{" "}
       <span>{post.Likes ? likes : 0}</span>
     </button>

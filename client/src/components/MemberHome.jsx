@@ -5,6 +5,7 @@ import PostContainer from "./subcomponents/PostContainer";
 import TopGamesContainer from "./subcomponents/TopGamesContainer";
 import axios from "axios";
 import WidgetChat from "./subcomponents/WidgetChat";
+import { Link } from 'react-router-dom';
 
 function MemberHome({ isLoggedIn }) {
   // function MemberHome({ editPost, deletePost }) {
@@ -91,6 +92,24 @@ function MemberHome({ isLoggedIn }) {
       </div>
       <div className="rightside">
         <TopGamesContainer />
+        <div className="linksgamescontainer">
+          <br/>
+          <button><Link to={{pathname: "https://store.steampowered.com"}} target="_blank">
+          <i class="fab fa-steam"> STEAM</i>
+          </Link></button>
+          <br/>
+          <br/>
+          <br/>
+          <button><Link to={{pathname: "https://www.twitch.tv/"}} target="_blank">
+          <i class="fab fa-twitch"> TWITCH</i>
+          </Link></button>
+          <br/>
+          <br/>
+          <br/>
+          <button><Link to={{pathname: "https://www.youtube.com/gaming"}} target="_blank">
+          <i class="fab fa-youtube"> YOUTUBE</i>
+          </Link></button>
+        </div>
         <WidgetChat sessionid={sessionid} />
       </div>
 
