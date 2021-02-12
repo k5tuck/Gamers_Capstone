@@ -98,36 +98,32 @@ const PostContainer = (props) => {
             return (
               <div key={post.userid} className="post">
                 <div className="post-top-row">
-                  <Link 
-                  className="links"
-                  
-                  to={`/profile/${post.userid}`}>
-                  <div className="userpostpiccontainer">
-                    <span className="postpiccontainer">
-                      <img
-                        className="postpicimage"
-                        src={post.userphoto}
-                        alt=""
-                      />
-                    </span>
-                    <h4>{post.username}</h4>
-                  </div>
-                </Link>
-               
-                {post.Game == null ? (
-                  ""
-                ) : (
-                  <Link 
-                  className="links"
-                  
-                  to={`/member/game/${post.gameid}`}>
-                    <p>{post.Game.title}</p>
+                  <Link className="links" to={`/profile/${post.userid}`}>
+                    <div className="userpostpiccontainer">
+                      <span className="postpiccontainer">
+                        <img
+                          className="postpicimage"
+                          src={post.userphoto}
+                          alt=""
+                        />
+                      </span>
+                      <h4>{post.username}</h4>
+                    </div>
                   </Link>
-                )}
+
+                  {post.Game == null ? (
+                    ""
+                  ) : (
+                    <Link className="links" to={`/member/game/${post.gameid}`}>
+                      <p>{post.Game.title}</p>
+                    </Link>
+                  )}
                 </div>
-                <h3 className="posttitle" >{post.title ? post.title : "There Are No Posts"}</h3>
+                <h3 className="posttitle">
+                  {post.title ? post.title : "There Are No Posts"}
+                </h3>
                 {/* {isLoggedIn ? ( */}
-              
+
                 {/* ) : (
               <Redirect to="/" />
             )} */}
@@ -157,111 +153,123 @@ const PostContainer = (props) => {
                   ""
                 )}
                 <div className="postcontent">
-                <p  className="postcontentp">{post.content}</p>
+                  <p className="postcontentp">{post.content}</p>
                 </div>
-                <LikeItem
-                  className="likebutton"
-                  key={post.id}
-                  post={post}
-                  addLike={addLike}
-                  deleteLike={deleteLike}
-                  liked={
-                    post.Likes ? (checkLike(post.Likes) ? true : false) : false
+                <div className="postbuttons">
+                  <LikeItem
+                    key={post.id}
+                    post={post}
+                    addLike={addLike}
+                    deleteLike={deleteLike}
+                    liked={
+                      post.Likes
+                        ? checkLike(post.Likes)
+                          ? true
+                          : false
+                        : false
 
-                    // ? post.Likes.find((like) => like.userid === sessionid)
-                  }
-                  likes={post.Likes ? post.Likes.length : 0}
-                />
-
-                {/* {sessionid === post.User.id ? "" : ""} */}
-                {sessionid === post.userid ? (
-                  <div className="editdelpostbtns">
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        editPost(post.id);
-                        setModalIsOpen(true);
-                        // Need to push 'editPostData' to EditPost.jsx
-                        // Display EditPost.jsx
-
-                        // Does Not Work
-                        // <Link to="/editpost">
-                        //   <EditPost post={editPostData} />
-                        // </Link>;
-                      }}
-                    >
-                      Edit Post
-                    </button>
-                    <Modal
-                      isOpen={modalIsOpen}
-                      // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
-                      onRequestClose={() => {
-                        setModalIsOpen(false);
-                      }}
-                    >
-                      <EditPost
-                        title={title}
-                        post={editPostData}
-                        setTitle={setTitle}
-                        content={content}
-                        setContent={setContent}
-                        media={media}
-                        setMedia={setMedia}
-                        gameid={gameid}
-                        setGameId={setGameId}
-                        tagname={tagname}
-                        setTagname={setTagname}
-                        closeModal={closeModal}
-                      />
-                    </Modal>
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        deletePost(post.id);
-                        window.location.reload();
-                      }}
-                    >
-                      Delete Post
-                    </button>
-                  </div>
-                ) : (
-                  ""
-                )}
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    editPost(post.id);
-                    setModalIsOpenComment(true);
-                  }}
-                >
-                  Add Comment
-                </button>
-                <Modal
-                  isOpen={modalIsOpenComment}
-                  // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
-                  onRequestClose={() => {
-                    setModalIsOpenComment(false);
-                  }}
-                >
-                  <AddComment
-                    post={editPostData}
-                    closeModal={closeCommentModal}
+                      // ? post.Likes.find((like) => like.userid === sessionid)
+                    }
+                    likes={post.Likes ? post.Likes.length : 0}
                   />
-                </Modal>
-                <div>
+                  <button
+                    className="addcommentbutton"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      editPost(post.id);
+                      setModalIsOpenComment(true);
+                    }}
+                  >
+                    Add Comment
+                  </button>
+                  <Modal
+                    isOpen={modalIsOpenComment}
+                    // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
+                    onRequestClose={() => {
+                      setModalIsOpenComment(false);
+                    }}
+                  >
+                    <AddComment
+                      post={editPostData}
+                      closeModal={closeCommentModal}
+                    />
+                  </Modal>
+                  {/* {sessionid === post.User.id ? "" : ""} */}
+                  {sessionid === post.userid ? (
+                    <div className="editdelpostbtns">
+                      <button
+                        className="editpostbutton"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          editPost(post.id);
+                          setModalIsOpen(true);
+                          // Need to push 'editPostData' to EditPost.jsx
+                          // Display EditPost.jsx
+
+                          // Does Not Work
+                          // <Link to="/editpost">
+                          //   <EditPost post={editPostData} />
+                          // </Link>;
+                        }}
+                      >
+                        <i class="far fa-edit"> </i>
+                      </button>
+                      <Modal
+                        isOpen={modalIsOpen}
+                        // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
+                        onRequestClose={() => {
+                          setModalIsOpen(false);
+                        }}
+                      >
+                        <EditPost
+                          title={title}
+                          post={editPostData}
+                          setTitle={setTitle}
+                          content={content}
+                          setContent={setContent}
+                          media={media}
+                          setMedia={setMedia}
+                          gameid={gameid}
+                          setGameId={setGameId}
+                          tagname={tagname}
+                          setTagname={setTagname}
+                          closeModal={closeModal}
+                        />
+                      </Modal>
+                      <button
+                        className="editpostbutton"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          deletePost(post.id);
+                          window.location.reload();
+                        }}
+                      >
+                        <i class="far fa-trash-alt"> </i>
+                      </button>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className="commentcontainer">
                   {post.Comments
                     ? post.Comments.map((comment, idx) => {
                         return (
                           <div>
-                            {/* <span className="postpiccontainer">
-                              <img
-                                className="postpicimage"
-                                // src={comment.User.photo}
-                                alt=""
-                              />
-                            </span> */}
-                            <h4>{comment.User.displayname}</h4>
-                            <p>{comment.content}</p>
+                            <div className="comment">
+                            <div className="userpostpiccontainer">
+                              <span className="postpiccontainer">
+                                <img
+                                  className="postpicimage"
+                                  src={comment.User.photo}
+                                  alt=""
+                                />
+                                
+                              </span>
+                              <h4>{comment.User.displayname}</h4>
+                            </div>
+                            <p className="commentcontent">{comment.content}</p>
+                            </div>
                             {sessionid === comment.User.id ? (
                               <div>
                                 <button

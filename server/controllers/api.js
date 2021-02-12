@@ -697,7 +697,7 @@ const getAllGames = async (req, res) => {
 };
 
 const grabMainTopFive = async (req, res) => {
-  const [grabMainTopFive] = await Game_Junction.top(5);
+  const [grabMainTopFive] = await Game_Junction.top(10);
   res.json(grabMainTopFive);
 };
 
