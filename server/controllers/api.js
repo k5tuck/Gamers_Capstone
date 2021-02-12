@@ -2,7 +2,7 @@ const { layout } = require("../utils");
 const bcrypt = require("bcryptjs");
 const Sequelize = require("sequelize");
 const UPLOAD_URL = "/uploads/media/";
-const UPLOAD_URL_DEFAULT = "/images/";
+const UPLOAD_URL_DEFAULT = "/images/GPIcon.png";
 
 const { Op, json } = require("sequelize");
 const {
@@ -335,17 +335,16 @@ const processPost = async (req, res) => {
     userphoto: user.photo,
   });
 
-   const game =  await Game_Junction.create({
-      gameid,
-      userid: id,
-    });
- 
+  const game = await Game_Junction.create({
+    gameid,
+    userid: id,
+  });
 
-  res.json({post , game});
-}; 
+  res.json({ post, game });
+};
 
 const getProfilePagePic = async (req, res) => {
-   const { id } = req.session.user;
+  const { id } = req.session.user;
   if (!req.session.user) {
     res.json("User is Not Logged In");
   } else {
@@ -539,20 +538,20 @@ const processDeletePost = async (req, res) => {
 
   const destroyedtag = await TagToPost.destroy({
     where: {
-      postid: id
-    }
-  })
+      postid: id,
+    },
+  });
 
   const destroyedlike = await Like.destroy({
     where: {
-      postid:id
-    }
-  })
+      postid: id,
+    },
+  });
   const destroyedcomment = await Comment.destroy({
     where: {
-      postid: id
-    }
-  })
+      postid: id,
+    },
+  });
   const dpost = await Post.destroy({
     where: {
       id,
