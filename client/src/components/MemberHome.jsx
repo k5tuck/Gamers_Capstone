@@ -112,9 +112,6 @@ function MemberHome({ isLoggedIn }) {
         </div>
         <WidgetChat sessionid={sessionid} />
       </div>
-      <footer>
-        <p class="">&copy; 2021 Gamers Paradise</p>
-      </footer>
     </div>
   );
 }
