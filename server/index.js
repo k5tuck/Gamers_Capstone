@@ -16,7 +16,7 @@ const { requireLogin, logout } = require("./auth");
 const UPLOAD_URL = "/uploads/media/";
 const multer = require("multer");
 const upload = multer({ dest: "public" + UPLOAD_URL });
-var stream = require('getstream');
+var stream = require("getstream");
 const Sequelize = require("sequelize");
 
 const { layout } = require("./utils");
@@ -76,4 +76,30 @@ app.get("*", (req, res) => {
 
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}`);
+});
+
+// ------------------- Socket IO Server ---------------------
+const socket = require("socket.io");
+
+// Socket Setup - Pass in Server for Socket to work with
+const io = socket(server);
+
+// Listen for Event called Connection - Each client
+// has their own socket (connection) between the serve and client
+
+io.on("connection", function (socket) {
+  console.log("Made Socket Connection", socket.id);
+
+  // Listen to Message From Client > take in data > Send to All Clients
+  socket.on("chat", (data) => {
+    io.sockets.emit("chat", data);
+  });
+
+  socket.on("typing", (data) => {
+    socket.broadcast.emit("typing", data);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("Socket Connection Terminated");
+  });
 });
