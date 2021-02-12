@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function HomeInitial() {
   return (
-    <>
+    <div className="">
       {/* <nav> This is my nav bar</nav> */}
       <h1>Welcome to GamersParadise</h1>
       <body>
@@ -13,9 +13,10 @@ function HomeInitial() {
           professional players alike sharing video game any video game content
           (news, stories, release dates leaks)
         </article>
-        <p>This is where the top 4 will show ~~~~</p>
+        
       </body>
-      <footer>
+      <br/>
+      <div>
         <Link to="/signup">SignUp</Link>
         <br />
         <br />
@@ -24,8 +25,11 @@ function HomeInitial() {
         {/* <Link to="/about"> About Us</Link>
                 <br/>
                 <Link to="/Contact"> Contact Us </Link> */}
+      </div>
+      <footer>
+        <p class="">&copy; 2021 Gamers Paradise</p>
       </footer>
-    </>
+    </div>
   );
 }
 
