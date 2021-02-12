@@ -103,17 +103,15 @@ html {
   text-decoration: none;
   background: #c5d6ec;
   margin-top: 2rem;
-  border: white .1rem solid;
+  border: white 0.1rem solid;
   border-radius: 1rem;
-  padding-bottom: .5rem;
+  padding-bottom: 0.5rem;
 }
 .linksgamescontainer:hover {
   color: #a6b1dd;
-  
 }
 .links:hover {
   color: white;
-  
 }
 .linkstopgames {
   color: inherit;
@@ -121,7 +119,7 @@ html {
 }
 .linkstopgames:hover {
   color: white;
-  transform: scale(1.3)
+  transform: scale(1.3);
 }
 
 .userpostpiccontainer {
@@ -134,6 +132,20 @@ html {
   height: 55px;
   width: 120px;
   margin-right: 12rem; /*seperates the post username and the game title */
+  /* margin-bottom: 4rem; */
+  /* padding-top: 2rem; */
+}
+.userpostpiccontainercomment {
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
+  /* border: solid #000000 0.1rem; */
+  /* border-radius: 50%; */
+  height: 5rem;
+  width: 5rem;
+  margin-right: 0.3rem;
+  margin-left: 0.3rem; /*seperates the post username and the game title */
   /* margin-bottom: 4rem; */
   /* padding-top: 2rem; */
 }
@@ -153,16 +165,26 @@ html {
   border-radius: 100%;
   margin-right: 8px;
 }
+
+.postpiccontainercomment {
+  width: 2rem;
+  height: 2rem;
+  overflow: hidden;
+  margin: 0;
+  border-radius: 100%;
+  margin-right: 8px;
+}
+
 .postpicimage {
   width: 100%;
   height: auto;
 }
 .profilepiccircle {
-  display:flex;
+  display: flex;
   flex-direction: column;
-  align-items:center;
+  align-items: center;
 }
-.profilepiccontainer { 
+.profilepiccontainer {
   width: 10rem;
   height: 10rem;
   margin-bottom: 3.2rem;
@@ -180,7 +202,7 @@ html {
 .editprofilebutton {
   display: flex;
   flex-direction: column;
-  align-items:center;
+  align-items: center;
   justify-content: center;
   background: #c5d6ec;
   padding: 1rem;
@@ -209,7 +231,7 @@ html {
   background-color: #c5d6ec;
   border-radius: 1rem;
   margin: 1rem;
-  width:28rem;
+  width: 28rem;
 }
 .post-top-row {
   display: flex;
@@ -218,15 +240,11 @@ html {
 .postimgcontainer {
   width: 22rem;
   height: 13rem;
-  
-  
-
 }
 .postimg {
   width: 100%;
   height: 100%;
-  border-radius: .5rem;
-
+  border-radius: 0.5rem;
 }
 .editdelpostbtns {
 }
@@ -237,17 +255,16 @@ html {
 .postcontent {
   margin-top: 2rem;
   background: #a6b1dd;
-  padding: .1rem .5rem;
+  padding: 0.1rem 0.5rem;
   border-radius: 1rem;
-  border: white .1rem solid;
+  border: white 0.1rem solid;
   margin-bottom: 1rem;
   width: 18rem;
   height: 5rem;
   max-height: 5rem;
-  overflow:scroll;
+  overflow: hidden;
 }
 .postcontentp {
-  
 }
 .gamepagecontainer {
   display: flex;
@@ -314,12 +331,11 @@ button:hover {
   align-items: center;
   border: solid white 0.1rem;
   border-radius: 1rem;
-  padding:  .5rem 1.5rem;
-  margin-top: .6rem;
-  
+  padding: 0.5rem 1.5rem;
+  margin-top: 0.6rem;
 }
 .postbuttons {
-  display:flex;
+  display: flex;
   justify-content: space-between;
   width: 27rem;
   height: 2.2rem;
@@ -332,14 +348,60 @@ button:hover {
   width: 2.5rem;
   float: left;
 }
-
+hr {
+  color: white;
+  border-color: white;
+  background-color: white;
+  height: 1px;
+  width: 27rem;
+}
 .comment {
-  display:flex;
+  display: flex;
+  max-width: 27rem;
   justify-content: flex-start;
-  
 }
 .commentcontent {
-  align-self: center;
+  background: #a6b1dd;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.5rem;
+  /* padding-bottom: 0.5rem; */
+  border-radius: 1rem;
+  border: white 0.1rem solid;
+  width: auto;
+  height: auto;
+  max-height: 2.9rem;
+  overflow: hidden;
+  margin-right: 0.1rem;
+  /* margin-top: 2rem; */
+  /* padding: 1.5rem 0.3rem 0rem 0.3rem; */
+  /* padding: auto; */
+  /* align-self: center; */
+  /* margin-bottom: 1rem; */
+  /* margin-right: 3rem; */
+  /* width: auto;
+  height: auto; */
+}
+/* .commentbuttoncontainer {
+  padding-left: 1rem;
+} */
+
+.commentandbuttons {
+  display: flex;
+  justify-content: space-between;
+  width: 50rem;
+  max-width: 55rem;
+}
+
+.commentbuttons {
+  padding: 0rem;
+  width: 2.5rem;
+  height: 2.2rem;
+  font-size: 1rem;
+  margin-left: 1rem;
 }
 
 .editpostbutton {
@@ -349,10 +411,10 @@ button:hover {
   font-size: 1rem;
 }
 .editdelpostbtns {
-  float:right;
+  float: right;
 }
 .like-color {
-  color: red
+  color: red;
 }
 .ReactModal__Overlay--after-open {
   width: 55vw;
@@ -385,4 +447,3 @@ button:hover {
 .contact {
   list-style-type: none;
 }
-
