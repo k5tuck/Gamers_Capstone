@@ -103,9 +103,6 @@ function SearchPage() {
         deleteLike={deleteLike}
         setResults={setResults}
       />
-      <footer>
-        <p class="">&copy; 2021 Gamers Paradise</p>
-      </footer>
     </div>
   );
 }
