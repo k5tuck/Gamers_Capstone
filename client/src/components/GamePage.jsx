@@ -83,9 +83,6 @@ function GamePage() {
         addLike={addLike}
         deleteLike={deleteLike}
       />
-      <footer>
-        <p class="">&copy; 2021 Gamers Paradise</p>
-      </footer>
     </div>
   );
 }
