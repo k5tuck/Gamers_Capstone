@@ -4,7 +4,7 @@ import PostContainer from "./PostContainer";
 function SearchResults({ addLike, deleteLike, results, setResults, id }) {
   console.log(results);
   return (
-    <div className="searchresults">
+    <div>
       <PostContainer
         addLike={addLike}
         deleteLike={deleteLike}

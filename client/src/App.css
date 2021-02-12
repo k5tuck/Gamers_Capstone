@@ -187,6 +187,7 @@ html {
 .profilepiccontainer {
   width: 10rem;
   height: 10rem;
+  /* padding-top: 1rem; */
   margin-bottom: 3.2rem;
   border-radius: 100%;
   overflow: hidden;
@@ -446,4 +447,10 @@ hr {
 
 .contact {
   list-style-type: none;
+}
+
+.searchresults {
+  /* margin: 0rem 43rem; */
+  margin: 1.5rem 43rem 0rem 43rem;
+  border: white solid 0.1rem;
 }

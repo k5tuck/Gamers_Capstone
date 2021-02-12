@@ -333,6 +333,7 @@ const processPost = async (req, res) => {
     content,
     gameid,
     userphoto: user.photo,
+    displayname: user.displayname,
   });
 
   const game = await Game_Junction.create({
@@ -384,12 +385,22 @@ const updateProfile = async (req, res) => {
       id,
     },
   });
+
   let name = displayname ? (user.displayname = displayname) : user.displayname;
   user.displayname = name;
   let mediaPic = file ? UPLOAD_URL + file.filename : user.photo;
   user.photo = mediaPic;
-
   await user.save();
+
+  // let userphoto = mediaPic;
+  const usersPosts = await Post.update(
+    { displayname: name, userphoto: mediaPic },
+    {
+      where: {
+        userid: id,
+      },
+    }
+  );
 
   res.status(200).json({ displayname: user.displayname, photo: user.photo });
 };

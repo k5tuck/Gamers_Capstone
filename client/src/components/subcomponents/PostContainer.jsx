@@ -107,7 +107,7 @@ const PostContainer = (props) => {
                           alt=""
                         />
                       </span>
-                      <h4>{post.username}</h4>
+                      <h4>{post.displayname}</h4>
                     </div>
                   </Link>
 

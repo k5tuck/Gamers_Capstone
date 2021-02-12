@@ -87,22 +87,26 @@ function SearchPage() {
 
   return (
     <div className="searchpage">
-      <SearchForm
-        SearchGame={SearchGame}
-        SearchTag={SearchTag}
-        SearchPost={SearchPost}
-        search={search}
-        setSearch={setSearch}
-        searchType={searchType}
-        setSearchType={setSearchType}
-      />
-      <SearchResults
-        id={sessionid}
-        results={results}
-        addLike={addLike}
-        deleteLike={deleteLike}
-        setResults={setResults}
-      />
+      <div className="middle searchresults">
+        <SearchForm
+          SearchGame={SearchGame}
+          SearchTag={SearchTag}
+          SearchPost={SearchPost}
+          search={search}
+          setSearch={setSearch}
+          searchType={searchType}
+          setSearchType={setSearchType}
+        />
+      </div>
+      <div className="middle searchresults">
+        <SearchResults
+          id={sessionid}
+          results={results}
+          addLike={addLike}
+          deleteLike={deleteLike}
+          setResults={setResults}
+        />
+      </div>
     </div>
   );
 }
