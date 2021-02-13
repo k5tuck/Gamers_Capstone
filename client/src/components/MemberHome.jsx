@@ -11,7 +11,7 @@ function MemberHome({ isLoggedIn }) {
   // function MemberHome({ editPost, deletePost }) {
   const [posts, setPosts] = useState([]);
   const [sessionid, setSessionId] = useState(null);
-
+  const [displayName, setDisplayName] = useState('')
   async function addLike(pid) {
     const resp = await axios.put(`/api/like/${pid}`, { like: true });
     console.log(resp.data);
@@ -59,6 +59,7 @@ function MemberHome({ isLoggedIn }) {
     console.log(respPosts);
     setPosts(...posts, respPosts.data.posts);
     setSessionId(respPosts.data.sessionid);
+    setDisplayName(respPosts.data.displayname)
   }
 
   useEffect(() => {
@@ -85,6 +86,7 @@ function MemberHome({ isLoggedIn }) {
             addLike={addLike}
             deleteLike={deleteLike}
             posts={posts}
+            displayName={displayName}
             sessionid={sessionid}
             isLoggedIn={isLoggedIn}
           />

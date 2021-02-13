@@ -17,8 +17,10 @@ function AddComment(props) {
   }
 
   return (
-    <div className="">
-      <h1>Comment on: {post.title}</h1>
+    <div className="commentpost">
+      <h4>Comment on:</h4>
+      <h2>{post.title}</h2>
+
       <div className="postimgcontainer">
         {post.media ? <img className="postimg" src={post.media} alt={post.title} /> : ""}
       </div>
@@ -31,7 +33,7 @@ function AddComment(props) {
         }}
       >
         <label>
-          Comment:
+          
           <textarea
             name="content"
             value={content}
@@ -41,7 +43,10 @@ function AddComment(props) {
           ></textarea>
         </label>
         <br />
-        <input type="submit" value="submit" />
+        <br/>
+        <div className="submitbuttoncomment">
+          <input type="submit" value="submit" />
+        </div>
       </form>
     </div>
   );

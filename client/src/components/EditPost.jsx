@@ -54,8 +54,8 @@ function EditPost({
   }, []);
 
   return (
-    <div>
-      <form onSubmit={editPost} enctype="multipart/form-data">
+    <div >
+      <form className="editpostmodal" onSubmit={editPost} enctype="multipart/form-data">
         <label>
           {" "}
           Title
