@@ -45,11 +45,21 @@ html {
 .profilecontainer {
   display: flex;
   justify-content: space-evenly;
+  padding-top: 8rem;
 }
 .newsfeedcontainer {
   display: flex;
   justify-content: space-evenly;
+  padding-top: 8rem;  
 }
+
+.searchpage {
+  display: flex;
+  flex-direction:column;
+  justify-content: space-evenly;
+  padding-top: 8rem; 
+}
+
 .profileleftpanel {
   background: #a6b1dd;
   padding: 1rem;
@@ -280,6 +290,7 @@ html {
   justify-content: center;
   align-items: center;
   margin: 0rem 20rem;
+  padding-top: 8rem;
 }
 .gameimgcontainer {
   width: auto;
@@ -479,9 +490,60 @@ hr {
   height: 57vh;
 }
 
+.searchform {
+  width:30.2rem;
+}
+.tagssearch {
+  display:flex;
+  justify-content: space-around;
+}
+
 .searchresults {
   /* margin: 0rem 43rem; */
   margin: 1.5rem 43rem 0rem 43rem;
   border: white solid 0.1rem;
 }
 
+.navbarcontainer {
+  background: #a6b1dd;
+  padding-top:1rem;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  overflow:hidden;
+  height: 5rem;
+  padding-bottom: 1rem;
+  margin-bottom:3rem;
+  justify-content: space-evenly;
+  
+}
+
+.navlogocontainer {
+  width: 5rem;
+  height: 5rem;
+  
+  margin-left: 1%;
+  display:flex;
+  align-self: center;
+  
+}
+.navlogo {
+  width: 100%;
+  height: auto;
+  border-radius:50%;
+}
+.navheader {
+  display:flex;
+  align-self: center;
+  margin-right: 1%;
+  
+}
+.navlinks {
+  margin-left: 11%;
+  display:flex;
+  align-self: center;
+  width: 55rem
+}
