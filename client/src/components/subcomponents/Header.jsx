@@ -13,11 +13,15 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
   }
 
   return (
-    <div>
-      <h1>Gamers Capstone</h1>
-      <nav>
+    <div className="navbarcontainer">
+      <div className="navlogocontainer">
+      <img src="../../images/GPIcon.png" alt="logo" className="navlogo"/>
+      </div>
+      <nav className="navlinks">
         {/* {isLoggedIn ? ( */}
-        <Link to="/member/home">
+        <Link to="/member/home"
+        style={{margin: "3%"}}
+        >
           <button>
             <li>Home</li>
           </button>
@@ -26,22 +30,32 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
           <Redirect to="/" />
         )} */}
 
-        <Link to="/about">
+        <Link to="/about"
+        style={{margin: "3%"}}
+        >
           <button>
             <li>About</li>
           </button>
         </Link>
 
-        <Link to="/contact">
-          <button>
+        <Link to="/contact"
+        style={{margin: "3%"}}
+        >
+          <button 
+          >
             <li>Contact</li>
           </button>
         </Link>
 
-        <button>
+        <button 
+        style={{margin: "3%"}}>
           <li onClick={onSubmitLogout}>Logout</li>
         </button>
       </nav>
+      <h1 className="navheader">
+       Gamers
+       <br/>
+       Paradise</h1>
     </div>
   );
 }

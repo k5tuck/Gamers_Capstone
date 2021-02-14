@@ -49,7 +49,9 @@ function SearchForm({
             }}
           />
         </label>
+        <br/>
         <br />
+        <div className="tagssearch">
         <label>
           Post
           <input
@@ -61,7 +63,7 @@ function SearchForm({
             }}
           />
         </label>
-        <br />
+        
         <label>
           Game
           <input
@@ -73,7 +75,7 @@ function SearchForm({
             }}
           />
         </label>
-        <br />
+        
         <label>
           Tags
           <input
@@ -85,7 +87,9 @@ function SearchForm({
             }}
           />
         </label>
+        </div>
         <br />
+        <br/>
         <input type="submit" />
       </form>
     </div>
