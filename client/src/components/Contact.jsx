@@ -3,8 +3,8 @@ import { Link, Router } from "react-router-dom";
 
 function Contact() {
   return (
-    <div >
-    <div className="navbarcontainer">
+    <div>
+      <div className="navbarcontainer">
         <div className="navlogocontainer">
           <img src="../../images/GPIcon.png" alt="logo" className="navlogo" />
         </div>
@@ -40,45 +40,79 @@ function Contact() {
       <div className="contactpage">
         <h1>Contact Us.</h1>
         <h3>Joshua Lopez</h3>
-        
-          <li>
-            <Link to="https://github.com/JoshuaNow"><button>Github</button></Link>
-          </li>
-          <li>
-            <Link to="https://www.linkedin.com/in/joshua-lopez-dev/">
+
+        <li>
+          <Link
+            to={{ pathname: "https://github.com/JoshuaNow" }}
+            target="_blank"
+          >
+            <button>Github</button>
+          </Link>
+        </li>
+        <li>
+          <Link
+            to={{ pathname: "https://www.linkedin.com/in/joshua-lopez-dev/" }}
+            target="_blank"
+          >
             <button>LinkedIn</button>
-            </Link>
-          </li>
-        
+          </Link>
+        </li>
+
         <h3>Ian Storms</h3>
-       
-          <li>
-            <Link to="https://github.com/Stormy110"><button>Github</button></Link>
-          </li>
-          <li>
-            <Link to="https://www.linkedin.com/in/ianstorms/"><button>LinkedIn</button></Link>
-          </li>
-        
+
+        <li>
+          <Link
+            to={{ pathname: "https://github.com/Stormy110" }}
+            target="_blank"
+          >
+            <button>Github</button>
+          </Link>
+        </li>
+        <li>
+          <Link
+            to={{ pathname: "https://www.linkedin.com/in/ianstorms/" }}
+            target="_blank"
+          >
+            <button>LinkedIn</button>
+          </Link>
+        </li>
+
         <h3>Kevin Tucker</h3>
-        
-          <li>
-            <Link to="https://github.com/k5tuck"><button>Github</button></Link>
-          </li>
-          <li>
-            <Link to="https://www.linkedin.com/in/ktuck18/"><button>LinkedIn</button></Link>
-          </li>
-       
+
+        <li>
+          <Link to={{ pathname: "https://github.com/k5tuck" }} target="_blank">
+            <button>Github</button>
+          </Link>
+        </li>
+        <li>
+          <Link
+            to={{ pathname: "https://www.linkedin.com/in/ktuck18/" }}
+            target="_blank"
+          >
+            <button>LinkedIn</button>
+          </Link>
+        </li>
+
         <h3>Shoel Uddin</h3>
-        
-          <li>
-            <Link to="https://github.com/shoel-uddin"><button>Github</button></Link>
-          </li>
-          <li>
-            <Link to="https://www.linkedin.com/in/shoel-uddin/"><button>LinkedIn</button></Link>
-          </li>
-          <br/>
-          <br/>
-        
+
+        <li>
+          <Link
+            to={{ pathname: "https://github.com/shoel-uddin" }}
+            target="_blank"
+          >
+            <button>Github</button>
+          </Link>
+        </li>
+        <li>
+          <Link
+            to={{ pathname: "https://www.linkedin.com/in/shoel-uddin/" }}
+            target="_blank"
+          >
+            <button>LinkedIn</button>
+          </Link>
+        </li>
+        <br />
+        <br />
       </div>
       <footer>
         <p class="">&copy; 2021 Gamers Paradise</p>
