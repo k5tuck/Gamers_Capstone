@@ -22,7 +22,11 @@ function AddComment(props) {
       <h2>{post.title}</h2>
 
       <div className="postimgcontainer">
-        {post.media ? <img className="postimg" src={post.media} alt={post.title} /> : ""}
+        {post.media ? (
+          <img className="postimg" src={post.media} alt={post.title} />
+        ) : (
+          ""
+        )}
       </div>
       <p>{post.content}</p>
 
@@ -33,7 +37,6 @@ function AddComment(props) {
         }}
       >
         <label>
-          
           <textarea
             name="content"
             value={content}
@@ -43,7 +46,7 @@ function AddComment(props) {
           ></textarea>
         </label>
         <br />
-        <br/>
+        <br />
         <div className="submitbuttoncomment">
           <input type="submit" value="submit" />
         </div>

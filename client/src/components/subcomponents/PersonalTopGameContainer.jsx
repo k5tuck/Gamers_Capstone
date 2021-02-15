@@ -18,24 +18,22 @@ function PersonalTopGamesContainer() {
   }, []);
   return (
     <div className="TopGamesContainer">
-      
-        <h2>{displayname}'s
-        <br/> Top 5 Games </h2>
-        {games
-          ? games.map((g) => {
-              return (
-                <Link
-                className="links"
-                  
-                  to={"/member/game/" + g.gameid}
-                >
-                  <li style={{ listStyleType: "none" }}>{g.title}</li>
-                  <br />
-                </Link>
-              );
-            })
-          : "No Games Added"}
-      
+      <h2>
+        {displayname}'s
+        <br /> Top 5 Games{" "}
+      </h2>
+      {games
+        ? games.map((g) => {
+            return (
+              <Link className="links" to={"/member/game/" + g.gameid}>
+                <li key={g.id} style={{ listStyleType: "none" }}>
+                  {g.title}
+                </li>
+                <br />
+              </Link>
+            );
+          })
+        : "No Games Added"}
     </div>
   );
 }

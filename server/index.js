@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+const path = require("path");
 const http = require("http");
 const express = require("express");
 const helmet = require("helmet");
@@ -10,24 +11,14 @@ const FileStore = require("session-file-store")(session);
 const app = express();
 const server = http.createServer(app);
 const bcrypt = require("bcryptjs");
-const { Op } = require("sequelize");
-const { User, Comment, Post, Game } = require("./models");
-const { requireLogin, logout } = require("./auth");
 const UPLOAD_URL = "/uploads/media/";
 const multer = require("multer");
-const upload = multer({ dest: "public" + UPLOAD_URL });
 var stream = require("getstream");
-const Sequelize = require("sequelize");
 
 const { layout } = require("./utils");
 
 // Routes
-const {
-  homeRouter,
-  userRouter,
-  memberRouter,
-  apiRouter,
-} = require("./routers");
+const { apiRouter } = require("./routers");
 
 // Controllers
 const { errorController } = require("./controllers");
@@ -60,18 +51,13 @@ app.use(
   })
 );
 
-app.engine("html", es6Renderer);
-app.set("views", "templates");
-app.set("view engine", "html");
-
-app.use("/", homeRouter); //Has all home items
-app.use("/user", userRouter); // Has SignUp, LogIn, and logOut
 app.use("/api", apiRouter);
-app.use("/members", memberRouter);
-
-//catch all if website doesn't
-app.get("*", (req, res) => {
-  res.status(404).send("<h1>Page not found</h1>");
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "/public/index.html"), function (err) {
+    if (err) {
+      res.status(500).send(err);
+    }
+  });
 });
 
 server.listen(port, hostname, () => {
