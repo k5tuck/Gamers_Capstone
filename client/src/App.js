@@ -61,7 +61,7 @@ function App() {
             <Route path="/member/game/:id">
               <GamePage />
             </Route>
-            <Route path="/profile/:id">
+            <Route path="/profile/:id" exact>
               <ProfilePage
                 createFollow={createFollow}
                 removeFollow={removeFollow}

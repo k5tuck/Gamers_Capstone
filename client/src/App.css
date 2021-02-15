@@ -517,6 +517,7 @@ hr {
   padding-bottom: 1rem;
   margin-bottom: 3rem;
   justify-content: space-evenly;
+  border: 0.1rem solid white;
 }
 
 .navlogocontainer {
@@ -542,6 +543,7 @@ hr {
   display: flex;
   align-self: center;
   width: 55rem;
+  list-style-type:none;
 
 }
 .homeinitial {
