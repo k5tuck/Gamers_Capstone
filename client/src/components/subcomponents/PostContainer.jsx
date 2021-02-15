@@ -260,6 +260,8 @@ const PostContainer = (props) => {
                           <div key={idx}>
                             <hr />
                             <div className="comment">
+                              <Link 
+                              className="links" to={`/profile/${comment.userid}`}>
                               <div className="userpostpiccontainercomment">
                                 <span className="postpiccontainercomment">
                                   <img
@@ -270,6 +272,7 @@ const PostContainer = (props) => {
                                 </span>
                                 <h4>{comment.User.displayname}: </h4>
                               </div>
+                              </Link>
                               <div className="commentandbuttons">
                                 <p className="commentcontent">
                                   {comment.content}

@@ -22,11 +22,30 @@ function AddComment(props) {
       <h2>{post.title}</h2>
 
       <div className="postimgcontainer">
-        {post.media ? (
-          <img className="postimg" src={post.media} alt={post.title} />
-        ) : (
-          ""
-        )}
+          {post.media ? (
+                  post.media.includes("/uploads/media/") ? (
+                    post.mediatype.includes("video") ? (
+                      <div className="postimgcontainer">
+                        {/* <video autoPlay loop className="postimg"> */}
+                        <video controls className="postimg">
+                          <source src={post.media} type={post.mediatype} />
+                        </video>
+                      </div>
+                    ) : (
+                      <div className="postimgcontainer">
+                        <img
+                          className="postimg"
+                          src={post.media}
+                          alt={post.title}
+                        />
+                      </div>
+                    )
+                  ) : (
+                    ""
+                  )
+                ) : (
+                  ""
+                )}
       </div>
       <p>{post.content}</p>
 

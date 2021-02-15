@@ -237,7 +237,7 @@ const getTag = async (req, res) => {
             },
             {
               model: Comment,
-              attributes: ["content", "createdAt", "id"],
+              attributes: ["content", "createdAt", "id", "userid"],
               include: User,
             },
           ],
@@ -453,8 +453,8 @@ const pullMainContent = async (req, res) => {
         },
         {
           model: Comment,
-          attributes: ["content", "createdAt", "id"],
-          // order: [["createdAt", "desc"]],
+          attributes: ["content", "createdAt", "id", "userid"],
+          order: [["createdAt", "desc"]],
           include: User,
         },
       ],
@@ -498,7 +498,8 @@ const getGamePosts = async (req, res) => {
       },
       {
         model: Comment,
-        attributes: ["content", "createdAt", "id"],
+        attributes: ["content", "createdAt", "id", "userid"],
+        order: [["createdAt", "desc"]],
         include: User,
       },
     ],
@@ -536,7 +537,8 @@ const getProfilePosts = async (req, res) => {
         },
         {
           model: Comment,
-          attributes: ["content", "createdAt", "id"],
+          attributes: ["content", "createdAt", "id", "userid"],
+          order: [["createdAt", "desc"]],
           include: User,
         },
       ],
@@ -782,7 +784,7 @@ const searchPost = async (req, res) => {
           },
           {
             model: Comment,
-            attributes: ["content", "createdAt", "id"],
+            attributes: ["content", "createdAt", "id", "userid"],
             include: User,
           },
         ],
@@ -827,7 +829,7 @@ const searchGame = async (req, res) => {
           },
           {
             model: Comment,
-            attributes: ["content", "createdAt", "id"],
+            attributes: ["content", "createdAt", "id", "userid"],
             include: User,
           },
         ],
