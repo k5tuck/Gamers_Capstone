@@ -42,7 +42,6 @@ function EditPost({
     console.log(uploadImage);
     closeModal();
     window.location.reload();
-    
   };
 
   const getGames = async () => {
@@ -54,8 +53,12 @@ function EditPost({
   }, []);
 
   return (
-    <div >
-      <form className="editpostmodal" onSubmit={editPost} enctype="multipart/form-data">
+    <div>
+      <form
+        className="editpostmodal"
+        onSubmit={editPost}
+        enctype="multipart/form-data"
+      >
         <label>
           {" "}
           Title

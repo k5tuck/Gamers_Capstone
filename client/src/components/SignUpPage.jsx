@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, Router, useHistory } from "react-router-dom";
+import { Link, Redirect, Router, useHistory } from "react-router-dom";
 import axios from "axios";
 import { DropDownList, MultiSelect } from "@progress/kendo-react-dropdowns";
 import { filterBy } from "@progress/kendo-data-query";
@@ -53,6 +53,7 @@ function SignUpPage(props) {
     console.log(imgresp);
 
     history.push("/login");
+    // <Redirect to="/login" />;
   };
   useEffect(() => {
     axios.get("/api/games").then((response) => {
@@ -81,7 +82,7 @@ function SignUpPage(props) {
             autoFocus
           />
         </label>
-            <br/>
+        <br />
         <label className="">
           Password :
           <input
@@ -96,7 +97,7 @@ function SignUpPage(props) {
             required
           />
         </label>
-            <br/>
+        <br />
         <label className="">
           {" "}
           Display Name :
@@ -112,7 +113,7 @@ function SignUpPage(props) {
             required
           />
         </label>
-            <br/>
+        <br />
         <label className="">
           Email Address :
           <input
@@ -127,7 +128,7 @@ function SignUpPage(props) {
             required
           />
         </label>
-            <br/>
+        <br />
         <label className="">
           Name :
           <input
@@ -194,7 +195,6 @@ function SignUpPage(props) {
       <footer>
         <p class="">&copy; 2021 Gamers Paradise</p>
       </footer>
-      
     </main>
   );
 }

@@ -454,6 +454,7 @@ const pullMainContent = async (req, res) => {
         {
           model: Comment,
           attributes: ["content", "createdAt", "id"],
+          order: [["createdAt", "desc"]],
           include: User,
         },
       ],
