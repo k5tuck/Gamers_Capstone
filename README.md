@@ -41,14 +41,14 @@
 
 <h2 align="center"> Database Design </h2>
 
-![Database Model Relationships](.server/public/images/modeldiagramcapstone.png)
+![Database Model Relationships](./server/public/images/modeldiagramcapstone.png)
 
 <br>
 <h2 align="center"> Diagrams  </h2>
 
-![Newsfeed sketch](./public/images/Newsfeed.png)
+![Newsfeed sketch](./server/public/images/Newsfeed.png)
 
-![Profile sketch](./public/images/Profile.png)
+![Profile sketch](./server/public/images/Profile.png)
 
 <br>
 <h2 align="center"> Demo of App </h2>
