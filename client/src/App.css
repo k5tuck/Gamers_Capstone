@@ -50,14 +50,14 @@ html {
 .newsfeedcontainer {
   display: flex;
   justify-content: space-evenly;
-  padding-top: 8rem;  
+  padding-top: 8rem;
 }
 
 .searchpage {
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   justify-content: space-evenly;
-  padding-top: 8rem; 
+  padding-top: 8rem;
 }
 
 .profileleftpanel {
@@ -370,7 +370,7 @@ button:hover {
   justify-content: space-between;
   width: 27rem;
   height: 2.2rem;
-  margin-bottom:0.2rem;
+  margin-bottom: 0.2rem;
 }
 .addcommentbutton {
   margin-left: 2.4rem;
@@ -480,9 +480,8 @@ hr {
   list-style-type: none;
 }
 
-
 .editpostmodal {
-  display:flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   /* padding: 3rem 1rem 0rem 1rem; */
@@ -491,10 +490,10 @@ hr {
 }
 
 .searchform {
-  width:30.2rem;
+  width: 30.2rem;
 }
 .tagssearch {
-  display:flex;
+  display: flex;
   justify-content: space-around;
 }
 
@@ -506,44 +505,101 @@ hr {
 
 .navbarcontainer {
   background: #a6b1dd;
-  padding-top:1rem;
+  padding-top: 1rem;
   display: flex;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   width: 100%;
-  overflow:hidden;
+  overflow: hidden;
   height: 5rem;
   padding-bottom: 1rem;
-  margin-bottom:3rem;
+  margin-bottom: 3rem;
   justify-content: space-evenly;
-  
 }
 
 .navlogocontainer {
   width: 5rem;
   height: 5rem;
-  
+
   margin-left: 1%;
-  display:flex;
+  display: flex;
   align-self: center;
-  
 }
 .navlogo {
   width: 100%;
   height: auto;
-  border-radius:50%;
+  border-radius: 50%;
 }
 .navheader {
-  display:flex;
+  display: flex;
   align-self: center;
   margin-right: 1%;
-  
 }
 .navlinks {
   margin-left: 11%;
-  display:flex;
+  display: flex;
   align-self: center;
-  width: 55rem
+  width: 55rem;
+}
+.homeinitial {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: white 0.1rem solid;
+  border-radius: 1rem;
+  margin: 15% 30% 10% 30%;
+  background: #a6b1dd;
+  padding: 1rem;
+}
+/* .homeintialcontainer {
+  background: url("https://t4.ftcdn.net/jpg/02/37/63/15/360_F_237631594_7J3KUT2ExcgclvZ66521wBIZ16FJGxWE.jpg") center;
+  padding: 15% 15%;
+  background-size: cover ;
+} */
+
+/* .homeinitialheader {
+  color: white;
+  font-size: 3rem;
+} */
+
+.signuppagecontainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 0.1rem solid white;
+  border-radius: 1rem;
+  margin: 10% 20%;
+  background: #a6b1dd;
+}
+
+.aboutcontainer {
+}
+.aboutparagraph {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 0.1rem solid white;
+  border-radius: 1rem;
+  margin: 15% 20% 15% 20%;
+  background: #a6b1dd;
+}
+.aboutp {
+  background: #c5d6ec;
+  padding: 1rem;
+  border: 0.1rem solid white;
+  border-radius: 1rem;
+  margin: 0% 15% 5% 15%;
+  font-size: 17px;
+}
+.contactpage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 0.1rem solid white;
+  border-radius: 1rem;
+  margin: 15% 30% 15% 30%;
+  background: #a6b1dd;
+  list-style-type: none;
 }
