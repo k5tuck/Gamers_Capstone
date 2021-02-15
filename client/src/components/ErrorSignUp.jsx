@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link, Router, useHistory} from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
-import { DropDownList, MultiSelect } from "@progress/kendo-react-dropdowns";
-import { filterBy } from '@progress/kendo-data-query';
+import { MultiSelect } from "@progress/kendo-react-dropdowns";
+// import { filterBy } from "@progress/kendo-data-query";
 
 function ErrorSignUp(props) {
   const [username, setUsername] = useState("");
@@ -12,11 +12,9 @@ function ErrorSignUp(props) {
   const [name, setName] = useState("");
   const [games, setGames] = useState([]);
   const [gameList, setGameList] = useState([]);
-  const [photo, setPhoto] = useState("");
+  // const [photo, setPhoto] = useState("");
 
   let history = useHistory();
-  
-
 
   const processNewUser = async (e) => {
     e.preventDefault();
@@ -26,17 +24,16 @@ function ErrorSignUp(props) {
       displayname,
       email,
       name,
-      games
+      games,
     };
-    const resp = await axios.post("/api/signup", newUser);
-    console.log(resp);
-    history.push('/login')
-    
+    await axios.post("/api/signup", newUser);
+    // console.log(resp);
+    history.push("/login");
   };
   useEffect(() => {
     axios.get("/api/games").then((response) => {
       setGameList(response.data.getallgames);
-      console.log(gameList);
+      // console.log(gameList);
     });
   }, []);
 
@@ -44,94 +41,106 @@ function ErrorSignUp(props) {
     <main className="">
       <form onSubmit={processNewUser}>
         <h1 className="">Sign Up Error, Please Try Again!</h1>
-        <label className=""> Username
-        <input
-          type="text"
-          value={username}
-          className=""
-          name="username"
-          placeholder="Username"
-          onChange={(e) => {
-            setUsername(e.target.value);
-          }}
-          required
-          autoFocus
-        />
+        <label className="">
+          {" "}
+          Username
+          <input
+            type="text"
+            value={username}
+            className=""
+            name="username"
+            placeholder="Username"
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
+            required
+            autoFocus
+          />
         </label>
 
-        <label className="">Password
-        <input
-          type="password"
-          value={password}
-          className=""
-          name="password"
-          placeholder="Password"
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-          required
-        />
+        <label className="">
+          Password
+          <input
+            type="password"
+            value={password}
+            className=""
+            name="password"
+            placeholder="Password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            required
+          />
         </label>
 
-        <label className=""> Display Name
-        <input
-          type="text"
-          value={displayname}
-          className=""
-          name="displayname"
-          placeholder="Display Name"
-          onChange={(e) => {
-            setDisplayName(e.target.value);
-          }}
-          required
-        />
+        <label className="">
+          {" "}
+          Display Name
+          <input
+            type="text"
+            value={displayname}
+            className=""
+            name="displayname"
+            placeholder="Display Name"
+            onChange={(e) => {
+              setDisplayName(e.target.value);
+            }}
+            required
+          />
         </label>
 
-        <label className="">Email Address
-        <input
-          type="text"
-          value={email}
-          className=""
-          name="email"
-          placeholder="Email address"
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-          required
-        />
+        <label className="">
+          Email Address
+          <input
+            type="text"
+            value={email}
+            className=""
+            name="email"
+            placeholder="Email address"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            required
+          />
         </label>
 
-        <label className="">Name
-        <input
-          type="text"
-          value={name}
-          className=""
-          name="name"
-          placeholder="Your name"
-          onChange={(e) => {
-            setName(e.target.value);
-          }}
-          required
-        />
+        <label className="">
+          Name
+          <input
+            type="text"
+            value={name}
+            className=""
+            name="name"
+            placeholder="Your name"
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
+            required
+          />
         </label>
-        <br/>
-        <br/>
+        <br />
+        <br />
 
-        <label className="">5 Favorite Games
-        <MultiSelect 
+        <label className="">
+          5 Favorite Games
+          <MultiSelect
             data={gameList.slice()}
-            onChange={e => {setGames(e.target.value)}}
+            onChange={(e) => {
+              setGames(e.target.value);
+            }}
             value={games}
-            dataItemKey='id'
-            textField='title'
+            dataItemKey="id"
+            textField="title"
             filterable={true}
-            defaultItem={{ 'title': 'Select game...', 'id': null }}
-            />
+            defaultItem={{ title: "Select game...", id: null }}
+          />
         </label>
-       
+
         <input className="" type="submit" value="Signup" />
       </form>
-      <Link to="/login"><button className="">Log In</button></Link>
+      <Link to="/login">
+        <button className="">Log In</button>
+      </Link>
       <p class="">&copy; 2021</p>
     </main>
   );

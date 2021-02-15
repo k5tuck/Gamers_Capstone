@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
@@ -16,7 +16,7 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
       password,
     };
     const resp = await axios.post("/api/login", user);
-    console.log(resp.data);
+    // console.log(resp.data);
     if (resp.data.status === true) {
       setIsLoggedIn(true);
       setSessionId(resp.data.sessionid);

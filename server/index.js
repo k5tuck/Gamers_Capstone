@@ -52,6 +52,7 @@ app.use(
 );
 
 app.use("/api", apiRouter);
+
 app.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname, "/public/index.html"), function (err) {
     if (err) {

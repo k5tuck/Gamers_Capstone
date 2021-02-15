@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from "axios";
 
 function EditComment({ content, closeModal, id, setEditCommentContent }) {
   async function processComment(commentid) {
-    console.log(commentid);
-    console.log(content);
-    let response = await axios.put(`/api/comments/${commentid}`, {
+    // console.log(commentid);
+    // console.log(content);
+    await axios.put(`/api/comments/${commentid}`, {
       content,
     });
     closeModal();

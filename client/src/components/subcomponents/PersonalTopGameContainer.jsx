@@ -9,7 +9,7 @@ function PersonalTopGamesContainer() {
 
   async function getGame() {
     const resp = await axios.get(`/api/pertopfive/${id}`);
-    console.log(resp.data);
+    // console.log(resp.data);
     setGames(resp.data.grabPersonalTopFive);
     setDisplayName(resp.data.displayname);
   }

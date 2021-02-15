@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React from "react";
 
 function LikeItem({ deleteLike, addLike, post, likes, liked }) {
   return (
@@ -12,7 +11,7 @@ function LikeItem({ deleteLike, addLike, post, likes, liked }) {
       {liked ? (
         <i className="fas fa-heart like-color"></i>
       ) : (
-        <i class="far fa-heart"></i>
+        <i className="far fa-heart"></i>
       )}{" "}
       <span>{post.Likes ? likes : 0}</span>
     </button>
