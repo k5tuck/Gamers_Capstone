@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 function EditPost({
@@ -16,7 +15,7 @@ function EditPost({
   setTagname,
   closeModal,
 }) {
-  const history = useHistory();
+  // const history = useHistory();
   // const [title, setTitle] = useState(post.title);
   // const [gameid, setGameId] = useState(post.gameid);
   // const [media, setMedia] = useState(post.media);
@@ -33,13 +32,13 @@ function EditPost({
       content,
       tagname,
     };
-    const resp = await axios.put(`/api/editpost/${post.id}`, editedPostInfo);
-    const uploadImage = await axios.put(`/api/postimage/${post.id}`, data, {
+    await axios.put(`/api/editpost/${post.id}`, editedPostInfo);
+    await axios.put(`/api/postimage/${post.id}`, data, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
-    console.log(uploadImage);
+    // console.log(uploadImage);
     closeModal();
     window.location.reload();
   };

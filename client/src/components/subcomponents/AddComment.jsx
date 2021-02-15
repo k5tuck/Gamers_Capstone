@@ -9,8 +9,8 @@ function AddComment(props) {
       content,
       id: postid,
     };
-    console.log(postid);
-    let response = await axios.post("/api/comments/" + postid, comment);
+    // console.log(postid);
+    await axios.post("/api/comments/" + postid, comment);
 
     closeModal();
     window.location.reload();

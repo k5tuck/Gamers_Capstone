@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import FollowingPage from "./FollowingPage";
 import FollowerPage from "./FollowerPage";
 import Modal from "react-modal";
@@ -15,19 +15,26 @@ const MemberActionContainer = ({ isLoggedIn }) => {
 
   const getFollowers = async () => {
     const resp = await axios.get("/api/follow");
-    console.log(resp.data);
+    // console.log(resp.data);
     setFollower(resp.data.followers);
     setFollowing(resp.data.following);
     setid(resp.data.id);
   };
 
+  function closeFollowerModal(params) {
+    setFollowerModalIsOpen(false);
+  }
+  function closeFollowingModal(params) {
+    setFollowingModalIsOpen(false);
+  }
+
   useEffect(() => {
     getFollowers();
   }, []);
 
-  let followersPath = "/members/followers/" + id;
-  let followingPath = "/members/following/" + id;
-  let profilePath = "/member/profile/" + id;
+  // let followersPath = "/members/followers/" + id;
+  // let followingPath = "/members/following/" + id;
+  // let profilePath = "/member/profile/" + id;
   // let followers = 35;
   // let followees = 77;
 
@@ -51,7 +58,10 @@ const MemberActionContainer = ({ isLoggedIn }) => {
             setFollowerModalIsOpen(false);
           }}
         >
-          <FollowerPage followers={followers} />
+          <FollowerPage
+            closeFollowerModal={closeFollowerModal}
+            followers={followers}
+          />
         </Modal>
         {/* </Link> */}
         <p>{followers ? followers.length : ""}</p>
@@ -72,7 +82,10 @@ const MemberActionContainer = ({ isLoggedIn }) => {
             setFollowingModalIsOpen(false);
           }}
         >
-          <FollowingPage following={following} />
+          <FollowingPage
+            closeFollowingModal={closeFollowingModal}
+            following={following}
+          />
         </Modal>
         {/* </Link> */}
         <p>{following ? following.length : ""}</p>

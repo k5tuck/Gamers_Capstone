@@ -22,9 +22,9 @@ const processPostImage = async (req, res) => {
   const { id } = req.params;
   const { file } = req;
 
-  console.log("=========================================================");
-  console.log(file);
-  console.log("=========================================================");
+  // console.log("=========================================================");
+  // console.log(file);
+  // console.log("=========================================================");
 
   const post = await Post.findOne({
     where: {
@@ -80,7 +80,7 @@ const processEditPost = async (req, res) => {
 };
 
 const processNewUser = async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const { password, name, email, displayname, games } = req.body;
   let { username } = req.body;
 
@@ -90,7 +90,7 @@ const processNewUser = async (req, res) => {
     const hash = bcrypt.hashSync(password, 10); // auto salt!
     try {
       const dbUsername = username.toLowerCase();
-      console.log("-------------------------");
+      // console.log("-------------------------");
 
       const newUser = await User.create({
         username: dbUsername,
@@ -99,8 +99,8 @@ const processNewUser = async (req, res) => {
         email,
         displayname,
       });
-      console.log(JSON.stringify(newUser, null, 4));
-      console.log("-------------------------");
+      // console.log(JSON.stringify(newUser, null, 4));
+      // console.log("-------------------------");
 
       let pArr = games.map((g) => {
         return Game_Junction.create({
@@ -112,9 +112,9 @@ const processNewUser = async (req, res) => {
 
       res.json({ message: "User Successfully Created", id: newUser.id });
     } catch (e) {
-      console.log(e);
+      // console.log(e);
       if (e == "SequelizeUniqueConstraintError") {
-        console.log("Username is Taken. Try Again!");
+        // console.log("Username is Taken. Try Again!");
         res.json("Username is Taken. Try Again!");
       }
     }
@@ -124,7 +124,7 @@ const processNewUser = async (req, res) => {
 const addImageToNewUser = async (req, res) => {
   const { id } = req.params;
   const { file } = req;
-  console.log(file);
+  // console.log(file);
   let mediaPic = file ? UPLOAD_URL + file.filename : UPLOAD_URL_DEFAULT;
   const user = await User.findOne({
     where: {
@@ -182,7 +182,7 @@ const processLogin = async (req, res) => {
 };
 
 const processLogout = (req, res) => {
-  console.log("Logging Out");
+  // console.log("Logging Out");
   req.session.destroy(() => {
     res.json("Session Destroyed");
   });
@@ -194,9 +194,9 @@ const getMainPhoto = async (req, res) => {
   } else {
     const { id, displayname } = req.session.user;
     const user = await User.findByPk(id);
-    console.log(user);
+    // console.log(user);
     const photo = user.photo;
-    console.log(photo);
+    // console.log(photo);
     res.json({ photo, displayname: user.displayname });
   }
 };
@@ -205,7 +205,7 @@ const getTag = async (req, res) => {
   const { search } = req.body;
 
   const sessionid = req.session.user.id;
-  console.log(search);
+  // console.log(search);
 
   const tag = await Tag.findAll({
     where: Sequelize.where(Sequelize.fn("concat", Sequelize.col("tagname")), {
@@ -262,9 +262,9 @@ const makeTag = async (req, res) => {
     },
   });
 
-  console.log("====================================");
-  console.log(tagNameExist);
-  console.log("====================================");
+  // console.log("====================================");
+  // console.log(tagNameExist);
+  // console.log("====================================");
 
   // Need Conditional Check Here
 
@@ -408,9 +408,9 @@ const updateProfile = async (req, res) => {
 const updateProfilePic = async (req, res) => {
   const { id } = req.params;
   const { file } = req;
-  console.log("====================================");
-  console.log(file);
-  console.log("====================================");
+  // console.log("====================================");
+  // console.log(file);
+  // console.log("====================================");
 
   const user = await User.findOne({
     where: {
@@ -430,7 +430,7 @@ const pullMainContent = async (req, res) => {
     res.json("User is Not Logged In");
   } else {
     const { displayname, username, id } = req.session.user;
-    console.log(req.session.user);
+    // console.log(req.session.user);
 
     const posts = await Post.findAll({
       order: [["createdAt", "desc"]],
@@ -454,7 +454,7 @@ const pullMainContent = async (req, res) => {
         {
           model: Comment,
           attributes: ["content", "createdAt", "id"],
-          order: [["createdAt", "desc"]],
+          // order: [["createdAt", "desc"]],
           include: User,
         },
       ],
@@ -504,7 +504,7 @@ const getGamePosts = async (req, res) => {
     ],
   });
 
-  console.log(posts);
+  // console.log(posts);
   res.json({
     posts,
     sessionid,
@@ -754,7 +754,7 @@ const searchPost = async (req, res) => {
           [Op.iLike]: "%" + search + "%",
         }),
       });
-      console.log(searchedposts);
+      // console.log(searchedposts);
 
       const postids = [];
       for (let p of searchedposts) {
@@ -790,7 +790,7 @@ const searchPost = async (req, res) => {
       res.json({ posts, id });
     }
   } catch (err) {
-    console.log(`SEARCH ERROR : ${err}`);
+    // console.log(`SEARCH ERROR : ${err}`);
     res.json(`SEARCH ERROR`);
   }
 };
@@ -833,11 +833,11 @@ const searchGame = async (req, res) => {
         ],
       });
 
-      console.log(posts);
+      // console.log(posts);
       res.json({ posts, id });
     }
   } catch (err) {
-    console.log(`SEARCH ERROR : ${err}`);
+    // console.log(`SEARCH ERROR : ${err}`);
     res.json(`SEARCH ERROR`);
   }
 };
@@ -845,7 +845,7 @@ const searchGame = async (req, res) => {
 const game = async (req, res) => {
   const { id } = req.params;
   const game = await Game.findByPk(id);
-  console.log(game);
+  // console.log(game);
 
   res.json(game);
 };

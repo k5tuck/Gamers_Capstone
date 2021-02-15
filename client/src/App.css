@@ -542,6 +542,7 @@ hr {
   display: flex;
   align-self: center;
   width: 55rem;
+
 }
 .homeinitial {
   display: flex;
@@ -602,4 +603,13 @@ hr {
   margin: 15% 30% 15% 30%;
   background: #a6b1dd;
   list-style-type: none;
+
+  list-style: none;
+}
+
+.addpostcontainer {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 8rem;
+
 }

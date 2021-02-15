@@ -4,12 +4,12 @@ import Footer from "./subcomponents/Footer";
 import Header from "./subcomponents/Header";
 
 async function createFollow(id) {
-  const resp = await axios.post(`/api/follower/${id}`);
-  console.log(resp);
+  await axios.post(`/api/follower/${id}`);
+  // console.log(resp);
 }
 async function removeFollow(id) {
-  const resp = await axios.post(`/api/removefollower/${id}`);
-  console.log(resp.data);
+  await axios.post(`/api/removefollower/${id}`);
+  // console.log(resp.data);
 }
 
 export default function Layout({ children, isLoggedIn, setIsLoggedIn }) {

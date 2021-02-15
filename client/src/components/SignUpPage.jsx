@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link, Redirect, Router, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
-import { DropDownList, MultiSelect } from "@progress/kendo-react-dropdowns";
-import { filterBy } from "@progress/kendo-data-query";
+import { MultiSelect } from "@progress/kendo-react-dropdowns";
+// import { filterBy } from "@progress/kendo-data-query";
 
 function SignUpPage(props) {
   const [username, setUsername] = useState("");
@@ -43,14 +43,14 @@ function SignUpPage(props) {
     const data = new FormData();
     data.append("file", photo);
 
-    const imgresp = await axios.put(`/api/signup/${newuserid}`, data, {
+    await axios.put(`/api/signup/${newuserid}`, data, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
 
-    console.log(resp);
-    console.log(imgresp);
+    // console.log(resp);
+    // console.log(imgresp);
 
     history.push("/login");
     // <Redirect to="/login" />;
@@ -58,7 +58,7 @@ function SignUpPage(props) {
   useEffect(() => {
     axios.get("/api/games").then((response) => {
       setGameList(response.data.getallgames);
-      console.log(gameList);
+      // console.log(gameList);
     });
   }, []);
 

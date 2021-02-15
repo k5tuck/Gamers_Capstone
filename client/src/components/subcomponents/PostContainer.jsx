@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import axios from "axios";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import EditPost from "../EditPost";
 import AddComment from "./AddComment";
 import EditComment from "../EditComment";
@@ -9,10 +9,10 @@ import LikeItem from "./LikeItem";
 
 Modal.setAppElement("#root");
 const PostContainer = (props) => {
-  const { posts, sessionid, addLike, deleteLike, isLoggedIn, displayName } = props;
-  console.log("Here are the posts", posts);
-  console.log(sessionid);
-  
+  const { posts, sessionid, addLike, deleteLike } = props;
+  // console.log("Here are the posts", posts);
+  // console.log(sessionid);
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsOpenComment, setModalIsOpenComment] = useState(false);
   const [modalIsOpenEditComment, setModalIsOpenEditComment] = useState(false);
@@ -40,9 +40,9 @@ const PostContainer = (props) => {
 
   function checkLike(arr) {
     let value = arr.find((like) => like.userid === sessionid);
-    console.log("====================================");
-    console.log(value);
-    console.log("====================================");
+    // console.log("====================================");
+    // console.log(value);
+    // console.log("====================================");
     return value;
   }
 
@@ -58,10 +58,10 @@ const PostContainer = (props) => {
 
   async function editPost(postid) {
     const resp = await axios.get(`/api/repost/${postid}`);
-    console.log("======================");
-    console.log(resp.data.post);
-    console.log("======================");
-    console.log(modalIsOpen);
+    // console.log("======================");
+    // console.log(resp.data.post);
+    // console.log("======================");
+    // console.log(modalIsOpen);
     setEditPostData(resp.data.post);
     setTitle(resp.data.post.title);
     setMedia(resp.data.post.media);
@@ -73,19 +73,19 @@ const PostContainer = (props) => {
 
   const editComment = async (commentid) => {
     const resp = await axios.get(`/api/comments/${commentid}`);
-    console.log(modalIsOpenComment);
+    // console.log(modalIsOpenComment);
     setEditCommentContent(resp.data.content);
     setEditCommentID(resp.data.id);
   };
 
   async function deletePost(postid) {
     const resp = await axios.delete(`/api/delpost/${postid}`);
-    console.log(resp.data);
+    // console.log(resp.data);
   }
 
   async function deleteComment(commentid) {
     const resp = await axios.delete(`/api/comments/${commentid}`);
-    console.log(resp.data);
+    // console.log(resp.data);
   }
 
   useEffect(() => {
@@ -97,7 +97,7 @@ const PostContainer = (props) => {
       {posts
         ? posts.map((post) => {
             return (
-              <div key={post.userid} className="post">
+              <div key={post.id} className="post">
                 <div className="post-top-row">
                   <Link className="links" to={`/profile/${post.userid}`}>
                     <div className="userpostpiccontainer">
@@ -158,7 +158,6 @@ const PostContainer = (props) => {
                 </div>
                 <div className="postbuttons">
                   <LikeItem
-                    key={post.id}
                     post={post}
                     addLike={addLike}
                     deleteLike={deleteLike}
@@ -213,10 +212,10 @@ const PostContainer = (props) => {
                           // </Link>;
                         }}
                       >
-                        <i class="far fa-edit"> </i>
+                        <i className="far fa-edit"> </i>
                       </button>
                       <Modal
-                      className="editpostmodal"
+                        className="editpostmodal"
                         isOpen={modalIsOpen}
                         // shouldCloseOnOverlayClick={false} // Click on Overlay will not Close the Modal
                         onRequestClose={() => {
@@ -246,7 +245,7 @@ const PostContainer = (props) => {
                           window.location.reload();
                         }}
                       >
-                        <i class="far fa-trash-alt"> </i>
+                        <i className="far fa-trash-alt"> </i>
                       </button>
                     </div>
                   ) : (
@@ -258,7 +257,7 @@ const PostContainer = (props) => {
                   {post.Comments
                     ? post.Comments.map((comment, idx) => {
                         return (
-                          <div>
+                          <div key={idx}>
                             <hr />
                             <div className="comment">
                               <div className="userpostpiccontainercomment">
@@ -286,8 +285,8 @@ const PostContainer = (props) => {
                                         setModalIsOpenEditComment(true);
                                       }}
                                     >
-                                      {/* <i class="far fa-comment-dots"></i> */}
-                                      <i class="far fa-edit"> </i>
+                                      {/* <i className="far fa-comment-dots"></i> */}
+                                      <i className="far fa-edit"> </i>
                                     </button>
                                     <br />
                                     <button
@@ -298,7 +297,7 @@ const PostContainer = (props) => {
                                         window.location.reload();
                                       }}
                                     >
-                                      <i class="far fa-trash-alt"> </i>
+                                      <i className="far fa-trash-alt"> </i>
                                     </button>
                                   </div>
                                 ) : (
