@@ -2,7 +2,7 @@ import React from "react";
 import PostContainer from "./PostContainer";
 
 function SearchResults({ addLike, deleteLike, results, setResults, id }) {
-  console.log(results);
+  // console.log(results);
   return (
     <div>
       <PostContainer

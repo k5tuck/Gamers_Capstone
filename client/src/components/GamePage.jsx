@@ -13,7 +13,7 @@ function GamePage() {
 
   const getGame = async () => {
     const resp = await axios.get(`/api/game/${id}`);
-    console.log(resp.data);
+    // console.log(resp.data);
     setGame(resp.data);
     setGenre(resp.data.genre.replace(/[',}{"]+/g, " | "));
     setPlatform(resp.data.platform.replace(/['},{"]+/g, " | "));
@@ -24,10 +24,10 @@ function GamePage() {
 
   async function addLike(pid) {
     const resp = await axios.put(`/api/like/${pid}`, { like: true });
-    console.log(resp.data);
+    // console.log(resp.data);
     const newPosts = gameposts.map((p) => {
       if (p.id === pid) {
-        console.log(p.id);
+        // console.log(p.id);
         return {
           ...p,
           Likes: [...p.Likes, resp.data],
@@ -40,11 +40,11 @@ function GamePage() {
   }
 
   async function deleteLike(pid) {
-    const resp = await axios.delete(`/api/like/${pid}`);
-    console.log(resp.data);
+    await axios.delete(`/api/like/${pid}`);
+    // console.log(resp.data);
     const newPosts = gameposts.map((p) => {
       if (p.id === pid) {
-        console.log(p.id);
+        // console.log(p.id);
         return {
           ...p,
           // Little Off
@@ -78,12 +78,12 @@ function GamePage() {
         <p>Platforms: {platform}</p>
       </div>
       <div className="middle">
-      <PostContainer
-        posts={gameposts}
-        sessionid={sessionid}
-        addLike={addLike}
-        deleteLike={deleteLike}
-      />
+        <PostContainer
+          posts={gameposts}
+          sessionid={sessionid}
+          addLike={addLike}
+          deleteLike={deleteLike}
+        />
       </div>
     </div>
   );
