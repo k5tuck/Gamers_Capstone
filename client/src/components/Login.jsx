@@ -27,8 +27,8 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
   };
 
   return (
-    <div>
-      <h1 align="center">Welcome Please Sign In To Your Gamer's Account</h1>
+    <div className="signuppagecontainer">
+      <h1 align="center">Please Sign In To Your Gamer Account</h1>
       <br />
 
       <form onSubmit={processLogin}>
@@ -45,9 +45,11 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
           autoFocus
         />
         <br />
+        <br/>
         <input
           type="password"
           name="password"
+          placeholder="password"
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
@@ -55,16 +57,18 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
           required
         />
         <br />
+        <br/>
         <input type="submit" value="Login" />
       </form>
       <br />
+      <br/>
       <div align="center">
-        <p>
-          If you need to Sign Up Please Click :<Link to="/signup">HERE</Link>
-        </p>
+      
+   <Link to="/signup">Sign Up</Link>
+        
       </div>
       <footer>
-        <p class="">&copy; 2021 Gamers Paradise</p>
+        <p class="">&copy; 2021 Gamer's Paradise</p>
       </footer>
     </div>
   );

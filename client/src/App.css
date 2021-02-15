@@ -542,6 +542,68 @@ hr {
   display: flex;
   align-self: center;
   width: 55rem;
+
+}
+.homeinitial {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: white 0.1rem solid;
+  border-radius: 1rem;
+  margin: 15% 30% 10% 30%;
+  background: #a6b1dd;
+  padding: 1rem;
+}
+/* .homeintialcontainer {
+  background: url("https://t4.ftcdn.net/jpg/02/37/63/15/360_F_237631594_7J3KUT2ExcgclvZ66521wBIZ16FJGxWE.jpg") center;
+  padding: 15% 15%;
+  background-size: cover ;
+} */
+
+/* .homeinitialheader {
+  color: white;
+  font-size: 3rem;
+} */
+
+.signuppagecontainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 0.1rem solid white;
+  border-radius: 1rem;
+  margin: 10% 20%;
+  background: #a6b1dd;
+}
+
+.aboutcontainer {
+}
+.aboutparagraph {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 0.1rem solid white;
+  border-radius: 1rem;
+  margin: 15% 20% 15% 20%;
+  background: #a6b1dd;
+}
+.aboutp {
+  background: #c5d6ec;
+  padding: 1rem;
+  border: 0.1rem solid white;
+  border-radius: 1rem;
+  margin: 0% 15% 5% 15%;
+  font-size: 17px;
+}
+.contactpage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 0.1rem solid white;
+  border-radius: 1rem;
+  margin: 15% 30% 15% 30%;
+  background: #a6b1dd;
+  list-style-type: none;
+
   list-style: none;
 }
 
@@ -549,4 +611,5 @@ hr {
   display: flex;
   justify-content: space-evenly;
   padding-top: 8rem;
+
 }

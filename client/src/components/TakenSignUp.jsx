@@ -5,7 +5,7 @@ import takenImage from '../images/giphy.gif'
 
 function TakenSignUp() {
     return (
-        <div>
+        <div className="signuppagecontainer">
             <h1>
                 Sorry this username is taken please choose another one.
                 <img src={takenImage} alt="image"/>

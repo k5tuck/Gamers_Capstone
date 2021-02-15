@@ -83,6 +83,7 @@ function SignUpPage(props) {
           />
         </label>
         <br />
+        <br/>
         <label className="">
           Password :
           <input
@@ -98,6 +99,7 @@ function SignUpPage(props) {
           />
         </label>
         <br />
+        <br/>
         <label className="">
           {" "}
           Display Name :
@@ -114,6 +116,7 @@ function SignUpPage(props) {
           />
         </label>
         <br />
+        <br/>
         <label className="">
           Email Address :
           <input
@@ -129,6 +132,7 @@ function SignUpPage(props) {
           />
         </label>
         <br />
+        <br/>
         <label className="">
           Name :
           <input
@@ -144,6 +148,7 @@ function SignUpPage(props) {
           />
         </label>
         <br />
+        <br/>
         <label className="">
           {" "}
           Your profile Pic :
@@ -156,6 +161,7 @@ function SignUpPage(props) {
           />
         </label>
         <br />
+        <br/>
 
         <label className="">
           Please Choose Your 5 Favorite Games
@@ -186,14 +192,18 @@ function SignUpPage(props) {
           Add Game
         </button> */}
         </label>
-
+        <br/>
+        <br/>
+        <br/>
         <input className="" type="submit" value="Signup" />
       </form>
+      <br/>
+      <br/>
       <Link to="/login">
-        <button className="">Log In</button>
+        Log In
       </Link>
       <footer>
-        <p class="">&copy; 2021 Gamers Paradise</p>
+        <p class="">&copy; 2021 Gamer's Paradise</p>
       </footer>
     </main>
   );
