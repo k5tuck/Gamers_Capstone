@@ -36,6 +36,16 @@
 
 
 <h2 align="center"> Problems Faced </h2> 
+- Converting our backend templates into React components
+- Converting our routes from backend to React Routes
+- Fixing the authorization verification for protected routes
+- Uploading videos and images with multer middleware
+- Fixing issues with modals and the controller functions used for them
+- Keeping track of the global top games based on user interaction with sequelize
+- Updating our post and comment information in our server and requesting the information on our frontend
+- Fixing our search issues based on our sequelize models and sequelize functions
+- Adding links to our display names in our posts and comments
+
 
 
 
