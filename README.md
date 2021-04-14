@@ -24,14 +24,14 @@
 <h2 align="center"> Tech/Tools Used </h2>
 
 - HTML
-- CSS - Flexbox, Grid
+- CSS - Flexbox
 - Npm
 - Express.js
 - AWS
 - JavaScript
 - Node.js
 - Postgres/SQL
-- SequelizeJS
+- Sequelize.js
 - React
 
 
